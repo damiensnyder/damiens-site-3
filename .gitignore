@@ -1,5 +1,6 @@
 *.pyc
 */migrations/*
-*/static/*
+*/static/*/*/*
+!*/static/*.css
 *.DS_Store
 *.sqlite3
