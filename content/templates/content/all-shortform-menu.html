@@ -6,6 +6,24 @@
 {% endblock %}
 
 {% block main %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'content/codehilite.css' %}">
+  <link rel="stylesheet" href="{% static 'content/post-body.css' %}">
+  <style>
+    p {
+      align-self: stretch;
+      display: flex;
+      flex-flow: column;
+    }
+
+    img {
+      align-self: center;
+      width: fit-content;
+      min-width: 20%;
+      max-width: 100%;
+      max-height: 90vh;
+    }
+  </style>
   {% for post in posts %}
     {% include 'content/shortform-item.html' with content=post %}
   {% endfor %}
