@@ -1,0 +1,10 @@
+{% extends 'content/base.html' %}
+
+{% block tab_name %}content{% endblock %}
+{% block page_heading %}<h1>content</h1>{% endblock %}
+
+{% block main %}
+  {% for post in posts %}
+    {% include "content/menu-item.html" with post=post %}
+  {% endfor %}
+{% endblock %}

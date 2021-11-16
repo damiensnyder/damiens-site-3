@@ -1,0 +1,26 @@
+<style>
+  .quick-links {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    margin: 0.3rem 0;
+
+    font-weight: 600;
+    color: var(--text-tertiary);
+  }
+
+  .quick-links a {
+    margin: 0 1.5rem;
+    color: var(--accent-secondary);
+  }
+</style>
+
+{% load static %}
+
+<hr />
+<div class="quick-links">
+  <a href="{% static 'resume.pdf' %}">résumé</a>
+  <a href="/about">about</a>
+  <a href="/contact">contact</a>
+</div>
+<hr />

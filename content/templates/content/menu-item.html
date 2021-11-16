@@ -1,0 +1,17 @@
+{% load static %}
+
+<div class="menu-item-outer">
+  <a href="{% url 'content' post.primary_tag.id post.id %}">
+    <img class="thumbnail" src="{% static post.thumbnail %}" />
+  </a>
+  <div class="menu-item-text">
+    <span class="post-title">
+      <a href="{% url 'content' post.primary_tag.id post.id %}">
+        {{ post.title }}
+      </a>
+    </span>
+    <span class="post-metadata">
+      {{ post.timestamp|date:"Y.m.d" }} &bull; {{ post.description }}
+    </span>
+  </div>
+</div>

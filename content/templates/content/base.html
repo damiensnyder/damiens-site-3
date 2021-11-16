@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <link rel="icon" href="{% static 'content/favicon.png' %}" />
+    <link rel="stylesheet" href="{% static 'content/base.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{% block tab_name %}{% endblock %}</title>
+  </head>
+  <body>
+    <header>
+      {% block nav_bar %}<a href="{% url 'front-page' %}">home</a>{% endblock %}
+    </header>
+
+    {% block page_heading %}{% endblock %}
+
+    <main>
+      {% block main %}{% endblock %}
+    </main>
+  </body>
+</html>

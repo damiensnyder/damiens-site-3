@@ -1,0 +1,41 @@
+{% extends 'content/base.html' %}
+
+{% block tab_name %}damien snyder{% endblock %}
+{% block nav_bar %}{% endblock %}
+{% block page_heading %}<h1>damien snyder</h1>{% endblock %}
+
+{% block main %}
+  <style>
+    .tag-outer {
+      display: flex;
+      flex-flow: row;
+      justify-content: space-between;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .tag-info {
+      position: absolute;
+      right: 0;
+      top: 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 400;
+      text-align: right;
+      color: var(--text-tertiary);
+      background-color: var(--bg-primary);
+      border-radius: 4px;
+      font-style: oblique;
+      white-space: nowrap;
+    }
+  </style>
+
+  {% include "content/quick-links.html" %}
+  {% for tag in tags %}
+    <div class="tag-outer">
+      {% include "content/menu-item.html" with post=tag.featured_post %}
+      <a class="tag-info" href="{% url 'tag-or-content' tag.id %}">
+        more {{ tag.name }} →
+      </a>
+    </div>
+  {% endfor %}
+{% endblock %}
