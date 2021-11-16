@@ -8,31 +8,32 @@ from content.models import Tag, Content
 def front_page(request):
     non_shortform = Content.objects.filter(is_shortform=False)\
                                    .order_by('-timestamp')
-    tags = [
-        {
-            'id': "content",
-            'name': "recent content",
-            'featured_post': non_shortform[0]
-        }
-    ]
-    tags.append(
-        {
-            'id': "blog",
-            'name': "blog posts",
-            'featured_post': non_shortform\
-                .filter(primary_tag="blog")\
-                .exclude(id=tags[0]['featured_post'].id)[0]
-        }
-    )
-    tags.append(
-        {
-            'id': "videos",
-            'name': "videos",
-            'featured_post': non_shortform\
-                .filter(primary_tag="videos")\
-                .exclude(id=tags[0]['featured_post'].id)[0]
-        }
-    )
+    tags = [{
+        'id': "content",
+        'name': "recent content",
+        'featured_post': non_shortform[0]
+    }]
+    tags.append({
+        'id': "blog",
+        'name': "blog posts",
+        'featured_post': non_shortform\
+            .filter(primary_tag="blog")\
+            .exclude(id=tags[0]['featured_post'].id)[0]
+    })
+    tags.append({
+        'id': "songs",
+        'name': "songs",
+        'featured_post': non_shortform\
+            .filter(primary_tag="songs")\
+            .exclude(id=tags[0]['featured_post'].id)[0]
+    })
+    tags.append({
+        'id': "videos",
+        'name': "videos",
+        'featured_post': non_shortform\
+            .filter(primary_tag="videos")\
+            .exclude(id=tags[0]['featured_post'].id)[0]
+    })
     return render(request, 'content/front-page.html', {
         'tags': tags
     })
