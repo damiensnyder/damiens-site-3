@@ -1,0 +1,104 @@
+.timestamp,
+.caption {
+  align-self: center;
+  margin: -0.25rem 0 0.5rem 0;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.timestamp-shortform {
+  margin: 0 0 0.25rem 0rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.shortform-title {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.shortform-title > a {
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.shortform-title > a:hover {
+  text-decoration: none;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin: 1rem 0 0.2rem 0;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+p {
+  margin: 0.5rem 0;
+}
+
+img {
+  width: 100%;
+}
+
+blockquote {
+  align-self: stretch;
+  margin: 0.25rem 0;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--text-tertiary);
+}
+
+code,
+pre {
+  font-family: var(--font-mono);
+  background-color: var(--bg-secondary);
+}
+
+pre {
+  align-self: stretch;
+  margin: 0.25rem 0;
+  padding: 0.5rem;
+  text-align: left;
+  line-height: 1.2;
+}
+
+.videowrapper {
+  margin: 1rem 0;
+  position: relative;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+  height: 0;
+  width: 100%
+}
+
+.videowrapper iframe {
+  overflow: visible;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 99%;
+  height: 99%;
+}
+
+.soundcloud-embed-wrapper {
+  margin: 0 0 1rem 0;
+  position: relative;
+  padding-bottom: 25%;
+  overflow: hidden;
+  height: 0;
+  width: 100%
+}
+
+.soundcloud-embed-wrapper iframe {
+  overflow: visible;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 99%;
+  height: 99%;
+}

@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.front_page, name='front-page'),
     path('content/', views.all_content_menu, name='all-content-menu'),
+    path('shortform/', views.all_shortform_menu, name='all-shortform-menu'),
     path('<id>/', views.tag_or_content, name='tag-or-content'),
-    path('<tag>/<id>/', views.content, name='content'),
+    path('<tag>/<id>/', views.content, name='content')
 ]

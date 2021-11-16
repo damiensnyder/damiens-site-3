@@ -1,0 +1,12 @@
+{% extends 'content/base.html' %}
+
+{% block tab_name %}shortform{% endblock %}
+{% block page_heading %}
+  <h1 style="margin-bottom: -0.3rem;">shortform</h1>
+{% endblock %}
+
+{% block main %}
+  {% for post in posts %}
+    {% include 'content/shortform-item.html' with content=post %}
+  {% endfor %}
+{% endblock %}

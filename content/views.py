@@ -2,35 +2,34 @@ from django.http.response import Http404
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from content.models import Tag, Content
+from content.models import Tag, Content, Shortform
 
 
 def front_page(request):
-    non_shortform = Content.objects.filter(is_shortform=False)\
-                                   .order_by('-timestamp')
+    posts = Content.objects.order_by('-timestamp')
     tags = [{
         'id': "content",
         'name': "recent content",
-        'featured_post': non_shortform[0]
+        'featured_post': posts[0]
     }]
     tags.append({
         'id': "blog",
         'name': "blog posts",
-        'featured_post': non_shortform\
+        'featured_post': posts\
             .filter(primary_tag="blog")\
             .exclude(id=tags[0]['featured_post'].id)[0]
     })
     tags.append({
         'id': "songs",
         'name': "songs",
-        'featured_post': non_shortform\
+        'featured_post': posts\
             .filter(primary_tag="songs")\
             .exclude(id=tags[0]['featured_post'].id)[0]
     })
     tags.append({
         'id': "videos",
         'name': "videos",
-        'featured_post': non_shortform\
+        'featured_post': posts\
             .filter(primary_tag="videos")\
             .exclude(id=tags[0]['featured_post'].id)[0]
     })
@@ -42,6 +41,13 @@ def front_page(request):
 def all_content_menu(request):
     posts = Content.objects.all().order_by('-timestamp')
     return render(request, 'content/all-content-menu.html', {
+        'posts': posts
+    })
+
+
+def all_shortform_menu(request):
+    posts = Shortform.objects.all().order_by('-timestamp')
+    return render(request, 'content/all-shortform-menu.html', {
         'posts': posts
     })
 
