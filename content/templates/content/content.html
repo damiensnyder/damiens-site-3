@@ -3,7 +3,7 @@
 {% block tab_name %}{{content.title}}{% endblock %}
 {% block nav_bar %}
   <a href="{% url 'front-page' %}">home</a> /
-  <a href="{% url 'tag-or-content' "content" %}">content</a> /
+  <a href="{% url 'all-content-menu' %}">content</a> /
   <a href="{% url 'tag-or-content' content.primary_tag.id %}">{{ content.primary_tag.name }}</a>
 {% endblock %}
 {% block page_heading %}

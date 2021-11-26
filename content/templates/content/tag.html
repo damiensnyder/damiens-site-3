@@ -3,6 +3,6 @@
 {% block tab_name %}{{ tag.name }}{% endblock %}
 {% block nav_bar %}
   <a href="{% url 'front-page' %}">home</a> /
-  <a href="{% url 'tag-or-content' "content" %}">content</a>
+  <a href="{% url 'all-content-menu' %}">content</a>
 {% endblock %}
 {% block page_heading %}<h1>{{ tag.name }}</h1>{% endblock %}
