@@ -33,6 +33,15 @@ def front_page(request):
             .filter(primary_tag="videos")\
             .exclude(id=tags[0]['featured_post'].id)[0]
     })
+    last_note = Shortform.objects.order_by('-timestamp')\
+        .filter(primary_tag="notes")\
+        .exclude(id=tags[0]['featured_post'].id)[0]
+    last_note.description = last_note.body
+    tags.append({
+        'id': "shortform",
+        'name': "shortform",
+        'featured_post': last_note
+    })
     return render(request, 'content/front-page.html', {
         'tags': tags
     })
@@ -57,6 +66,13 @@ def tag_or_content(request, id):
         tag = Tag.objects.get(pk=id)
         posts = Content.objects.filter(tags=tag.id)\
                                .order_by('-timestamp')
+        if len(posts) == 0:
+            posts = Shortform.objects.filter(primary_tag=tag.id)\
+                                .order_by('-timestamp')
+            return render(request, 'content/shortform-tag.html', {
+                'tag': tag,
+                'posts': posts
+            })
         return render(request, 'content/tag.html', {
             'tag': tag,
             'posts': posts
@@ -74,4 +90,12 @@ def content(request, tag, id):
             'content': post
         })
     except Content.DoesNotExist:
-        raise Http404(f"No content found with tag \"{tag}\"")
+        try:
+            post = Shortform.objects.get(pk=id)
+            if (tag is not None) and (post.primary_tag.id != tag):
+                raise Http404(f"No post found with tag \"{tag}\" and id \"{id}\"")
+            return render(request, 'content/shortform.html', {
+                'content': post
+            })
+        except Shortform.DoesNotExist:
+            raise Http404(f"No content found with id \"{id}\"")
