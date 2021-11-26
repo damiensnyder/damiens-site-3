@@ -44,6 +44,12 @@ p {
 
 img {
   width: 100%;
+  max-height: 80vh;
+  object-fit: scale-down;
+}
+
+iframe {
+  border: 1px solid var(--text-primary);
 }
 
 blockquote {
