@@ -1,8 +1,8 @@
-{% extends 'content/all-content-menu.html' %}
+{% extends 'content/all-shortform-menu.html' %}
 
 {% block tab_name %}{{ tag.name }}{% endblock %}
 {% block nav_bar %}
   <a href="{% url 'front-page' %}">home</a> /
-  <a href="{% url 'all-content-menu' %}">content</a>
+  <a href="{% url 'all-shortform-menu' %}">shortform</a>
 {% endblock %}
 {% block page_heading %}<h1>{{ tag.name }}</h1>{% endblock %}

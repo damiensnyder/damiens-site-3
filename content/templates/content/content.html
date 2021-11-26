@@ -1,9 +1,9 @@
 {% extends 'content/base.html' %}
 
-{% block tab_name %}damien snyder{% endblock %}
+{% block tab_name %}{{content.title}}{% endblock %}
 {% block nav_bar %}
   <a href="{% url 'front-page' %}">home</a> /
-  <a href="{% url 'tag-or-content' "content" %}">content</a> /
+  <a href="{% url 'all-content-menu' %}">content</a> /
   <a href="{% url 'tag-or-content' content.primary_tag.id %}">{{ content.primary_tag.name }}</a>
 {% endblock %}
 {% block page_heading %}
@@ -13,91 +13,7 @@
 {% block main %}
   {% load static %}
   <link rel="stylesheet" href="{% static 'content/codehilite.css' %}">
-
-  <style>
-    .timestamp,
-    .caption {
-      align-self: center;
-      color: var(--text-tertiary);
-      font-style: italic;
-      margin: -0.25rem 0 0.5rem 0;
-    }
-    
-    h2 {
-      font-size: 1.4rem;
-      margin: 1rem 0 0.2rem 0;
-    }
-
-    h3 {
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-    
-    p {
-      margin: 0.5rem 0;
-    }
-
-    img {
-      width: 100%;
-    }
-
-    blockquote {
-      align-self: stretch;
-      margin: 0.25rem 0;
-      padding-left: 0.75rem;
-      border-left: 2px solid var(--text-tertiary);
-    }
-
-    code,
-    pre {
-      font-family: var(--font-mono);
-      background-color: var(--bg-secondary);
-    }
-
-    pre {
-      align-self: stretch;
-      margin: 0.25rem 0;
-      padding: 0.5rem;
-      text-align: left;
-      line-height: 1.2;
-    }
-
-    .videowrapper {
-      margin: 1rem 0;
-      position: relative;
-      padding-bottom: 56.25%;
-      overflow: hidden;
-      height: 0;
-      width: 100%
-    }
-
-    .videowrapper iframe {
-      overflow: visible;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 99%;
-      height: 99%;
-    }
-
-    .soundcloud-embed-wrapper {
-      margin: 0 0 1rem 0;
-      position: relative;
-      padding-bottom: 25%;
-      overflow: hidden;
-      height: 0;
-      width: 100%
-    }
-
-    .soundcloud-embed-wrapper iframe {
-      overflow: visible;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 99%;
-      height: 99%;
-    }
-  </style>
+  <link rel="stylesheet" href="{% static 'content/post-body.css' %}">
 
   <span class="timestamp">posted {{ content.timestamp|date:"Y.m.d" }}</span>
   {% autoescape off %}

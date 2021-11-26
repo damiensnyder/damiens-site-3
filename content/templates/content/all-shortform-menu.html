@@ -1,0 +1,16 @@
+{% extends 'content/base.html' %}
+
+{% block tab_name %}shortform{% endblock %}
+{% block page_heading %}
+  <h1 style="margin-bottom: -0.3rem;">shortform</h1>
+{% endblock %}
+
+{% block main %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'content/codehilite.css' %}">
+  <link rel="stylesheet" href="{% static 'content/post-body.css' %}">
+  
+  {% for post in posts %}
+    {% include 'content/shortform-item.html' with content=post %}
+  {% endfor %}
+{% endblock %}

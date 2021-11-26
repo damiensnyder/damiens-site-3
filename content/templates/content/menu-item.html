@@ -2,7 +2,11 @@
 
 <div class="menu-item-outer">
   <a href="{% url 'content' post.primary_tag.id post.id %}">
-    <img class="thumbnail" src="{% static post.thumbnail %}" />
+    {% if post.thumbnail %}
+      <img class="thumbnail" src="{% static post.thumbnail %}" />
+    {% else %}
+      <img class="thumbnail" src="{% static 'content/logo.svg' %}" />
+    {% endif %}
   </a>
   <div class="menu-item-text">
     <span class="post-title">
