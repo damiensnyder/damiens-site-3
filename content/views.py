@@ -10,44 +10,40 @@ def front_page(request):
         .exclude(primary_tag="meta")
     if not is_friend(request):
         posts = posts.exclude(tags="hidden")
-    tags = [{
+    tags_list = [{
         'id': "content",
         'name': "recent content",
         'featured_post': posts[0]
     }]
-    tags.append({
-        'id': "blog",
-        'name': "blog posts",
-        'featured_post': posts\
-            .filter(primary_tag="blog")\
-            .exclude(id=tags[0]['featured_post'].id)[0]
-    })
-    tags.append({
-        'id': "songs",
-        'name': "songs",
-        'featured_post': posts\
-            .filter(primary_tag="songs")\
-            .exclude(id=tags[0]['featured_post'].id)[0]
-    })
-    tags.append({
-        'id': "videos",
-        'name': "videos",
-        'featured_post': posts\
-            .filter(primary_tag="videos")\
-            .exclude(id=tags[0]['featured_post'].id)[0]
-    })
-    last_note = Shortform.objects.order_by('-timestamp')\
-        .filter(primary_tag="notes")\
-        .exclude(id=tags[0]['featured_post'].id)[0]
-    last_note.description = last_note.body
-    tags.append({
-        'id': "shortform",
-        'name': "shortform",
-        'featured_post': last_note
-    })
+    add_most_recent_item(posts, tags_list, "blog", "blog posts")
+    add_most_recent_item(posts, tags_list, "songs", "songs")
+    add_most_recent_item(posts, tags_list, "videos", "videos")
+    add_most_recent_item(posts, tags_list, "code", "code")
+    notes = Shortform.objects.order_by('-timestamp')\
+        .filter(primary_tag="notes")
+    if notes.exists():
+        last_note = notes[0]
+        last_note.description = last_note.body
+        tags_list.append({
+            'id': "shortform",
+            'name': "shortform",
+            'featured_post': last_note
+        })
     return render(request, 'content/front-page.html', {
-        'tags': tags
+        'tags': tags_list
     })
+
+
+def add_most_recent_item(posts, tags_list, tag_id, tag_name):
+    filtered_posts = posts\
+        .filter(primary_tag=tag_id)\
+        .exclude(id=tags_list[0]['featured_post'].id)
+    if filtered_posts.exists():
+        tags_list.append({
+            'id': tag_id,
+            'name': tag_name,
+            'featured_post': filtered_posts[0]
+        })
 
 
 def all_content_menu(request):
