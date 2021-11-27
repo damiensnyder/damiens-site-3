@@ -1,0 +1,18 @@
+{% extends 'content/content.html' %}
+
+{% block tab_name %}this post is hidden{% endblock %}
+{% block nav_bar %}
+  <a href="{% url 'front-page' %}">home</a> /
+  <a href="{% url 'all-content-menu' %}">content</a> /
+  <a href="{% url 'tag-or-content' content.primary_tag.id %}">{{ content.primary_tag.name }}</a>
+{% endblock %}
+{% block page_heading %}
+  <h1>this post is hidden</h1>
+{% endblock %}
+
+{% block main %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'content/post-body.css' %}">
+
+  <p>nice try, bucko, but you're not allowed to look at this page. now scram, before i call your parents on ya</p>
+{% endblock %}
