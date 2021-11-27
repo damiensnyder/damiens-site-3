@@ -100,7 +100,7 @@ def content(request, tag, id):
             raise Http404(f"No post found with tag \"{tag}\" and id \"{id}\"")
 
         if post.tags.filter(id="hidden").exists() and not is_friend(request):
-            return render(request, 'content/illegal_hidden_access.html', {
+            return render(request, 'content/illegal-hidden-access.html', {
                 'content': post
             })
 
@@ -113,7 +113,7 @@ def content(request, tag, id):
             if (tag is not None) and (post.primary_tag.id != tag):
                 raise Http404(f"No post found with tag \"{tag}\" and id \"{id}\"")
             if post.tags.filter(id="hidden").exists() and not is_friend(request):
-                return render(request, 'content/illegal_hidden_access.html', {
+                return render(request, 'content/illegal-hidden-access.html', {
                     'content': post
                 })
             return render(request, 'content/shortform.html', {
