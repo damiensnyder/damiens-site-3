@@ -7,7 +7,7 @@ import re
 SOUNDCLOUD_EMBED_URL = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/{}&color=%23ff7700&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"
 
 
-class YoutubeProcessor(Treeprocessor):
+class CaptionProcessor(Treeprocessor):
     CAPTION_RE = re.compile(r'^caption: ')
 
     def run(self, root):
@@ -19,7 +19,7 @@ class YoutubeProcessor(Treeprocessor):
 class CaptionExtension(Extension):
     def extendMarkdown(self, md):
         md.treeprocessors.register(
-            YoutubeProcessor(md),
+            CaptionProcessor(md),
             'caption_processor',
             50
         )
