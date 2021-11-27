@@ -179,3 +179,29 @@ header,
 header > a {
   color: var(--text-tertiary);
 }
+
+flex {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-numbers {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.75rem;
+}
+
+.page-numbers > span {
+  margin: 0 0.25rem;
+  font-weight: 700;
+}
+
+.page-numbers > span > a,
+.page-num-ellipsis {
+  font-weight: 300;
+  color: var(--text-tertiary);
+}

@@ -46,45 +46,49 @@ def add_most_recent_item(posts, tags_list, tag_id, tag_name):
         })
 
 
-def all_content_menu(request):
+def all_content_menu(request, page_num=1):
     posts = Content.objects.all().order_by('-timestamp')\
         .exclude(primary_tag="meta")
     if not is_friend(request):
         posts = posts.exclude(tags="hidden")
-    return render(request, 'content/all-content-menu.html', {
-        'posts': posts
-    })
+    context = paginate(posts, page_num)
+    context['tag'] = {
+        'id': "content",
+        'name': "content"
+    }
+    return render(request, 'content/all-content-menu.html', context)
 
 
-def all_shortform_menu(request):
+def all_shortform_menu(request, page_num=1):
     posts = Shortform.objects.all().order_by('-timestamp')
     if not is_friend(request):
         posts = posts.exclude(tags="hidden")
-    return render(request, 'content/all-shortform-menu.html', {
-        'posts': posts
-    })
+    context = paginate(posts, page_num)
+    context['tag'] = {
+        'id': "shortform",
+        'name': "shortform"
+    }
+    return render(request, 'content/all-shortform-menu.html', context)
 
 
-def tag_or_content(request, id):
+def tag_or_content(request, id, page_num=1):
     try:
         tag = Tag.objects.get(pk=id)
         posts = Content.objects.filter(tags=tag.id)\
-                               .order_by('-timestamp')
+            .order_by('-timestamp')
         if not is_friend(request):
             posts = posts.exclude(tags="hidden")
         if not posts.exists():
             posts = Shortform.objects.filter(primary_tag=tag.id)\
-                                .order_by('-timestamp')
+                .order_by('-timestamp')
             if not is_friend(request):
                 posts = posts.exclude(tags="hidden")
-            return render(request, 'content/shortform-tag.html', {
-                'tag': tag,
-                'posts': posts
-            })
-        return render(request, 'content/tag.html', {
-            'tag': tag,
-            'posts': posts
-        })
+            context = paginate(posts, page_num)
+            context['tag'] = tag
+            return render(request, 'content/shortform-tag.html', context) 
+        context = paginate(posts, page_num)
+        context['tag'] = tag
+        return render(request, 'content/tag.html', context)
     except Tag.DoesNotExist:
         return content(request, None, id)
 
@@ -121,3 +125,17 @@ def content(request, tag, id):
 
 def is_friend(request):
     return request.user.groups.filter(name="friends").exists()
+
+
+def paginate(posts, page_num):
+    num_posts = len(posts)
+    num_pages = int((num_posts + 0) / 1)
+    if page_num > num_pages:
+        page_num = num_pages
+    if page_num < 1:
+        page_num = 1
+    return {
+        'posts': posts[1 * (page_num - 1):1 * page_num],
+        'page_num': page_num,
+        'num_pages': num_pages
+    }
