@@ -15,7 +15,8 @@
       </a>
     </span>
     <span class="post-metadata">
-      {{ post.timestamp|date:"Y.m.d" }} &bull; {{ post.description }}
+      {{ post.timestamp|date:"Y.m.d" }}
+      {% if post.description is not None %} &bull; {{ post.description }}{% endif %}
     </span>
   </div>
 </div>
