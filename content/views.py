@@ -31,7 +31,9 @@ def front_page(request):
         })
     return render(request, 'content/front-page.html', {
         'tags': tags_list,
-        'page_name': "damien snyder" if random() < 0.95 else "damien spider"
+        'tag': {
+            'name': "damien snyder" if random() < 0.95 else "damien spider"
+        }
     })
 
 

@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="{% static 'content/base.css' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>{% block tab_name %}{% endblock %}</title>
+    <title>{% block tab_name %}{{ tag.name }}{% endblock %}</title>
   </head>
   <body>
     <header>
       {% block nav_bar %}<a href="{% url 'front-page' %}">home</a>{% endblock %}
     </header>
 
-    {% block page_heading %}{% endblock %}
+    {% block page_heading %}<h1>{{ tag.name }}</h1>{% endblock %}
 
     <main>
       {% block main %}{% endblock %}
