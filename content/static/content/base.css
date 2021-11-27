@@ -1,11 +1,12 @@
 /* SITE-WIDE STYLES */
 
 :root {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, Helvetica,
-    "Helvetica Neue", Arial, sans-serif;
   font-size: 24px;
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, Helvetica,
+    "Helvetica Neue", Arial, sans-serif;
   --font-mono: Menlo, monospace;
-  --font-serif: "Source Serif Pro", Georgia, serif;
+  --font-serif: Spectral, "Source Serif Pro", Georgia, serif;
+  font-family: var(--font-serif);
 
   --bg-primary: #111;
   --bg-secondary: #333;
@@ -177,5 +178,4 @@ header {
 header,
 header > a {
   color: var(--text-tertiary);
-  font-family: var(--font-mono);
 }
