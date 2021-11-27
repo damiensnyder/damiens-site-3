@@ -205,3 +205,15 @@ flex {
   font-weight: 300;
   color: var(--text-tertiary);
 }
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-primary: #f7f7f7;
+    --bg-secondary: #bbb;
+    --text-primary: #000;
+    --text-secondary: #333;
+    --text-tertiary: #666;
+    --accent-primary: #48c; /* #c52 for orange */
+    --accent-secondary: #159; /* #951 for orange */
+  }
+}
