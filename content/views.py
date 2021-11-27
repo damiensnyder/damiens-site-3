@@ -129,13 +129,13 @@ def is_friend(request):
 
 def paginate(posts, page_num):
     num_posts = len(posts)
-    num_pages = int((num_posts + 0) / 1)
+    num_pages = int((num_posts + 19) / 20)
     if page_num > num_pages:
         page_num = num_pages
     if page_num < 1:
         page_num = 1
     return {
-        'posts': posts[1 * (page_num - 1):1 * page_num],
+        'posts': posts[20 * (page_num - 1):20 * page_num],
         'page_num': page_num,
         'num_pages': num_pages
     }
