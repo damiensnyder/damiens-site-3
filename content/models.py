@@ -67,6 +67,7 @@ class Content(models.Model):
                 'codehilite',
                 'footnotes',
                 'smarty',
+                'tables',
                 damiens_md.CaptionExtension()
             ],
             extension_configs={
