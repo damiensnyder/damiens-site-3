@@ -20,7 +20,7 @@
 <hr />
 <div class="quick-links">
   <a href="{% static 'resume.pdf' %}">résumé</a>
-  <a href="/about">about</a>
-  <a href="/contact">contact</a>
+  <a href="{% url 'tag-or-content' 'about' %}">about</a>
+  <a href="{% url 'tag-or-content' 'contact' %}">contact</a>
 </div>
 <hr />
