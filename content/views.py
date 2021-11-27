@@ -1,6 +1,6 @@
 from django.http.response import Http404
 from django.shortcuts import render
-from django.http import HttpResponse
+from random import random
 
 from content.models import Tag, Content, Shortform
 
@@ -30,7 +30,8 @@ def front_page(request):
             'featured_post': last_note
         })
     return render(request, 'content/front-page.html', {
-        'tags': tags_list
+        'tags': tags_list,
+        'page_name': "damien snyder" if random() < 0.95 else "damien spider"
     })
 
 
