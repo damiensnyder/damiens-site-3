@@ -1,6 +1,6 @@
 from markdown.treeprocessors import Treeprocessor
 from markdown.extensions import Extension
-from customblocks.utils import E, Markdown
+from customblocks.utils import E
 import re
 
 
