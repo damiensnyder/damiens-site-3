@@ -42,6 +42,11 @@ td {
   padding: 0 0.3rem;
 }
 
+main > h1:hover {
+  margin-bottom: 0.4rem;
+  animation: none;
+}
+
 h2 {
   font-size: 1.4rem;
   margin: 1rem 0 0.2rem 0;
@@ -50,6 +55,7 @@ h2 {
 h3 {
   font-size: 1.2rem;
   font-weight: 600;
+  margin-bottom: 0.2rem;
 }
 
 p {
