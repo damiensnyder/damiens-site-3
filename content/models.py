@@ -68,6 +68,7 @@ class Content(models.Model):
                 'footnotes',
                 'smarty',
                 'tables',
+                'fenced_code',
                 damiens_md.CaptionExtension()
             ],
             extension_configs={
