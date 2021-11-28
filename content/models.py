@@ -4,6 +4,8 @@ import markdown
 import markdown.extensions.codehilite
 import markdown.extensions.footnotes
 import markdown.extensions.smarty
+import markdown.extensions.tables
+import markdown.extensions.fenced_code
 import markdown_katex
 import customblocks
 from . import damiens_md
