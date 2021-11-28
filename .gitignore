@@ -4,4 +4,4 @@
 !*/static/*.css
 *.DS_Store
 *.sqlite3
-damienssite3/secrets.json
+secrets.json
