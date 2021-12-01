@@ -3,4 +3,6 @@
 #     sh scripts/start.sh
 # to run it
 python3 manage.py collectstatic
-python3 manage.py runserver
+yes
+/etc/init.d/nginx restart
+uwsgi --socket damiens-site-3.sock --module damienssite3.wsgi --chmod-socket=666 --daemonize=/var/log/uwsgi/damiens-site-3.log
