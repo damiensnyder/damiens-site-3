@@ -1,8 +1,10 @@
 *.pyc
 */migrations/*
 */static/*/*/*
+*/static/fonts/
 !*/static/*.css
 *.DS_Store
 *.sqlite3
 target/*
 secrets.json
+*.pdf
