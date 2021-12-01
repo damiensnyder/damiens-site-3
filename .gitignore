@@ -8,3 +8,4 @@
 target/*
 secrets.json
 *.pdf
+*.code-workspace
