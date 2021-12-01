@@ -65,7 +65,7 @@ def all_content_menu(request, page_num=1):
 def all_shortform_menu(request, page_num=1):
     posts = Shortform.objects.all().order_by('-timestamp')
     if not is_friend(request):
-        posts = posts.exclude(tags="hidden")
+        posts = posts.exclude(primary_tag="hidden")
     context = paginate(posts, page_num)
     context['tag'] = {
         'id': "shortform",
@@ -85,7 +85,7 @@ def tag_or_content(request, id, page_num=1):
             posts = Shortform.objects.filter(primary_tag=tag.id)\
                 .order_by('-timestamp')
             if not is_friend(request):
-                posts = posts.exclude(tags="hidden")
+                posts = posts.exclude(primary_tag="hidden")
             context = paginate(posts, page_num)
             context['tag'] = tag
             return render(request, 'content/shortform-tag.html', context) 
