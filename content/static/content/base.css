@@ -17,6 +17,18 @@
   --accent-secondary: #a51;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-primary: #f7f7f7;
+    --bg-secondary: #bbb;
+    --text-primary: #000;
+    --text-secondary: #333;
+    --text-tertiary: #666;
+    --accent-primary: #48c; /* #c52 for orange */
+    --accent-secondary: #159; /* #951 for orange */
+  }
+}
+
 body {
   min-height: 100vh;
   margin: 0;
@@ -127,6 +139,11 @@ th {
   main {
     width: 95%;
   }
+
+  h1 {
+    font-size: 1.6rem;
+    margin: 0.5rem 0;
+  }
 }
 
 
@@ -206,14 +223,13 @@ flex {
   color: var(--text-tertiary);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg-primary: #f7f7f7;
-    --bg-secondary: #bbb;
-    --text-primary: #000;
-    --text-secondary: #333;
-    --text-tertiary: #666;
-    --accent-primary: #48c; /* #c52 for orange */
-    --accent-secondary: #159; /* #951 for orange */
+@media (max-width: 400px) {
+  .thumbnail {
+    visibility: hidden;
+    position: fixed;
+  }
+
+  .menu-item-text {
+    margin: 0.25rem;
   }
 }
