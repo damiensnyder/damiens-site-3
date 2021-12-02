@@ -51,6 +51,9 @@ main {
 
 hr {
   width: 100%;
+  border: none;
+  height: 0.05rem;
+  background-color: var(--text-secondary);
 }
 
 p {
@@ -183,8 +186,7 @@ th {
   max-width: 100%;
   font-size: 0.85rem;
   font-weight: 400;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  height: 1.3rem;
 }
 
 header {
