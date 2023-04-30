@@ -1,6 +1,6 @@
 *.pyc
 */migrations/*
-*/static/*/*/*
+*/static/*/*
 */static/fonts/
 !*/static/*.css
 *.DS_Store
