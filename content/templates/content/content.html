@@ -12,8 +12,8 @@
 
 {% block main %}
   {% load static %}
-  <link rel="stylesheet" href="{% static 'content/codehilite.css' %}">
-  <link rel="stylesheet" href="{% static 'content/post-body.css' %}">
+  <link rel="stylesheet" href="{% static 'codehilite.css' %}">
+  <link rel="stylesheet" href="{% static 'post-body.css' %}">
 
   <span class="timestamp">posted {{ content.timestamp|date:"Y.m.d" }}</span>
   {% autoescape off %}

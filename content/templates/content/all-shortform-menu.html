@@ -6,8 +6,8 @@
 
 {% block main %}
   {% load static %}
-  <link rel="stylesheet" href="{% static 'content/codehilite.css' %}">
-  <link rel="stylesheet" href="{% static 'content/post-body.css' %}">
+  <link rel="stylesheet" href="{% static 'codehilite.css' %}">
+  <link rel="stylesheet" href="{% static 'post-body.css' %}">
   
   {% for post in posts %}
     {% include 'content/shortform-item.html' with content=post %}
