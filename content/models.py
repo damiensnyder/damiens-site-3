@@ -58,9 +58,9 @@ class Content(models.Model):
 
     def save(self, *args, **kwargs):
         if (self.thumbnail is None) or (self.thumbnail == ""):
-            self.thumbnail = "content/logo.svg"
+            self.thumbnail = "logo.svg"
         elif "/" not in self.thumbnail:
-            self.thumbnail = f"content/thumbs/{self.thumbnail}"
+            self.thumbnail = f"thumbs/{self.thumbnail}"
         self.markup = markdown.markdown(
             self.body,
             extensions=[
