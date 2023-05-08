@@ -15,6 +15,9 @@ class Tag(models.Model):
     id = models.CharField(max_length=200, primary_key=True)
     name = models.CharField(max_length=200)
 
+    def __str__(self) -> str:
+        return self.id
+
 
 class Shortform(models.Model):
     id = models.CharField(max_length=200, primary_key=True)
@@ -23,6 +26,9 @@ class Shortform(models.Model):
     primary_tag = models.ForeignKey(Tag, null=True, on_delete=models.SET_NULL)
     body = models.TextField(max_length=100000, default="")
     markup = models.TextField(max_length=100000, blank=True)
+
+    def __str__(self) -> str:
+        return self.id
 
     def save(self, *args, **kwargs):
         self.markup = markdown.markdown(
@@ -55,6 +61,9 @@ class Content(models.Model):
     primary_tag = models.ForeignKey(Tag, null=True, on_delete=models.SET_NULL)
     body = models.TextField(max_length=100000, default="")
     markup = models.TextField(max_length=100000, blank=True)
+
+    def __str__(self) -> str:
+        return self.id
 
     def save(self, *args, **kwargs):
         if (self.thumbnail is None) or (self.thumbnail == ""):
