@@ -69,7 +69,7 @@ class Content(models.Model):
         return self.url
 
     def save(self, *args, **kwargs):
-        if (self.thumbnail is None) or (self.thumbnail == ""):
+        if (self.thumbnail is None) or (self.thumbnail == "") or (self.thumbnail == "logo.svg"):
             self.thumbnail = "logo.svg"
         elif "/" not in self.thumbnail:
             self.thumbnail = f"thumbs/{self.thumbnail}"

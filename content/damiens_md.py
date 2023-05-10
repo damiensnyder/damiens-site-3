@@ -16,6 +16,7 @@ class CaptionProcessor(Treeprocessor):
                 block.set('class', 'caption')
                 block.text = block.text[9:]
 
+
 class CaptionExtension(Extension):
     def extendMarkdown(self, md):
         md.treeprocessors.register(
@@ -35,6 +36,6 @@ def soundcloud_embed(ctx, embed_code):
 def audio_embed(ctx, **sources):
     return E('audio',
         controls=True,
-        *[E('source', src=f"/static/songs/{url}", type=f"audio/{type}")
+        *[E('source', src=f"/static/{url if ('/' in url) else 'songs/' + url}", type=f"audio/{type}")
           for type, url in sources.items()]
     )
