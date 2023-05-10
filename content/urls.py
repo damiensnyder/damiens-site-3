@@ -9,7 +9,7 @@ urlpatterns = [
     path('content/<int:page_num>/', views.all_content_menu, name='content-paginated'),
     path('shortform/', views.all_shortform_menu, name='all-shortform-menu'),
     path('shortform/<int:page_num>/', views.all_shortform_menu, name='shortform-paginated'),
-    path('<id>/', views.tag_or_content, name='tag-or-content'),
-    path('<id>/<int:page_num>/', views.tag_or_content, name='tag-paginated'),
-    path('<tag>/<id>/', views.content, name='content')
+    path('<name>/', views.tag_or_content, name='tag-or-content'),
+    path('<name>/<int:page_num>/', views.tag_or_content, name='tag-paginated'),
+    path('<tag>/<name>/', views.content, name='content')
 ]

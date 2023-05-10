@@ -9,11 +9,11 @@ from content.models import Tag, Content, Shortform
 
 def front_page(request):
     posts = Content.objects.order_by('-timestamp')\
-        .exclude(primary_tag="meta")
+        .exclude(primary_tag=Tag.objects.get(url="meta"))
     if not is_friend(request):
-        posts = posts.exclude(tags="hidden")
+        posts = posts.exclude(tags=Tag.objects.get(url="hidden"))
     tags_list = [{
-        'id': "content",
+        'url': "content",
         'name': "recent content",
         'featured_post': posts[0]
     }]
@@ -22,12 +22,12 @@ def front_page(request):
     add_most_recent_item(posts, tags_list, "videos", "videos")
     add_most_recent_item(posts, tags_list, "code", "code")
     notes = Shortform.objects.order_by('-timestamp')\
-        .filter(primary_tag="notes")
+        .filter(primary_tag=Tag.objects.all().get(url="notes"))
     if notes.exists():
         last_note = notes[0]
         last_note.description = last_note.body
         tags_list.append({
-            'id': "shortform",
+            'url': "shortform",
             'name': "shortform",
             'featured_post': last_note
         })
@@ -39,13 +39,13 @@ def front_page(request):
     })
 
 
-def add_most_recent_item(posts, tags_list, tag_id, tag_name):
+def add_most_recent_item(posts, tags_list, tag_url, tag_name):
     filtered_posts = posts\
-        .filter(primary_tag=tag_id)\
+        .filter(primary_tag=Tag.objects.get(url=tag_url))\
         .exclude(id=tags_list[0]['featured_post'].id)
     if filtered_posts.exists():
         tags_list.append({
-            'id': tag_id,
+            'url': tag_url,
             'name': tag_name,
             'featured_post': filtered_posts[0]
         })
@@ -53,12 +53,12 @@ def add_most_recent_item(posts, tags_list, tag_id, tag_name):
 
 def all_content_menu(request, page_num=1):
     posts = Content.objects.all().order_by('-timestamp')\
-        .exclude(primary_tag="meta")
+        .exclude(primary_tag=Tag.objects.get(url="meta"))
     if not is_friend(request):
-        posts = posts.exclude(tags="hidden")
+        posts = posts.exclude(tags=Tag.objects.get(url="hidden"))
     context = paginate(posts, page_num)
     context['tag'] = {
-        'id': "content",
+        'url': "content",
         'name': "content"
     }
     return render(request, 'content/all-content-menu.html', context)
@@ -67,27 +67,27 @@ def all_content_menu(request, page_num=1):
 def all_shortform_menu(request, page_num=1):
     posts = Shortform.objects.all().order_by('-timestamp')
     if not is_friend(request):
-        posts = posts.exclude(primary_tag="hidden")
+        posts = posts.exclude(primary_tag=Tag.objects.get(url="hidden"))
     context = paginate(posts, page_num)
     context['tag'] = {
-        'id': "shortform",
+        'url': "shortform",
         'name': "shortform"
     }
     return render(request, 'content/all-shortform-menu.html', context)
 
 
-def tag_or_content(request, id, page_num=1):
+def tag_or_content(request, name, page_num=1):
     try:
-        tag = Tag.objects.get(pk=id)
+        tag = Tag.objects.get(url=name)
         posts = Content.objects.filter(tags=tag.id)\
             .order_by('-timestamp')
         if not is_friend(request):
-            posts = posts.exclude(tags="hidden")
+            posts = posts.exclude(tags=Tag.objects.get(url="hidden"))
         if not posts.exists():
             posts = Shortform.objects.filter(primary_tag=tag.id)\
                 .order_by('-timestamp')
             if not is_friend(request):
-                posts = posts.exclude(primary_tag="hidden")
+                posts = posts.exclude(primary_tag=Tag.objects.get(url="hidden"))
             context = paginate(posts, page_num)
             context['tag'] = tag
             return render(request, 'content/shortform-tag.html', context) 
@@ -98,13 +98,13 @@ def tag_or_content(request, id, page_num=1):
         return content(request, None, id)
 
 
-def content(request, tag, id):
+def content(request, tag, name):
     try:
-        post = Content.objects.get(pk=id)
+        post = Content.objects.get(url=name)
         if (tag is not None) and (post.primary_tag.id != tag):
-            raise Http404(f"No post found with tag \"{tag}\" and id \"{id}\"")
+            raise Http404(f"No post found with tag \"{tag}\" and ID \"{name}\"")
 
-        if post.tags.filter(id="hidden").exists() and not is_friend(request):
+        if post.tags.filter(url="hidden").exists() and not is_friend(request):
             return render(request, 'content/illegal-hidden-access.html', {
                 'content': post
             })
@@ -114,9 +114,9 @@ def content(request, tag, id):
         })
     except Content.DoesNotExist:
         try:
-            post = Shortform.objects.get(pk=id)
+            post = Shortform.objects.get(url=name)
             if (tag is not None) and (post.primary_tag.id != tag):
-                raise Http404(f"No post found with tag \"{tag}\" and id \"{id}\"")
+                raise Http404(f"No post found with tag \"{tag}\" and ID \"{name}\"")
             if post.primary_tag == "hidden" and not is_friend(request):
                 return render(request, 'content/illegal-hidden-access.html', {
                     'content': post
@@ -125,7 +125,7 @@ def content(request, tag, id):
                 'content': post
             })
         except Shortform.DoesNotExist:
-            raise Http404(f"No content found with id \"{id}\"")
+            raise Http404(f"No content found with ID \"{name}\"")
 
 
 def is_friend(request):

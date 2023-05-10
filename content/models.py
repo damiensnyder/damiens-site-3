@@ -12,15 +12,17 @@ from . import damiens_md
 
 
 class Tag(models.Model):
-    id = models.CharField(max_length=200, primary_key=True)
+    id = models.AutoField(primary_key=True)
+    url = models.CharField(max_length=200, unique=True)
     name = models.CharField(max_length=200)
 
     def __str__(self) -> str:
-        return self.id
+        return self.url
 
 
 class Shortform(models.Model):
-    id = models.CharField(max_length=200, primary_key=True)
+    id = models.AutoField(primary_key=True)
+    url = models.CharField(max_length=200, unique=True)
     title = models.CharField(max_length=200, blank=True)
     timestamp = models.DateField(null=True)
     primary_tag = models.ForeignKey(Tag, null=True, on_delete=models.SET_NULL)
@@ -28,7 +30,7 @@ class Shortform(models.Model):
     markup = models.TextField(max_length=100000, blank=True)
 
     def __str__(self) -> str:
-        return self.id
+        return self.url
 
     def save(self, *args, **kwargs):
         self.markup = markdown.markdown(
@@ -52,7 +54,8 @@ class Shortform(models.Model):
 
 
 class Content(models.Model):
-    id = models.CharField(max_length=200, primary_key=True)
+    id = models.AutoField(primary_key=True)
+    url = models.CharField(max_length=200, unique=True)
     title = models.CharField(max_length=200)
     thumbnail = models.CharField(max_length=200, blank=True)
     timestamp = models.DateField(null=True)
@@ -63,7 +66,7 @@ class Content(models.Model):
     markup = models.TextField(max_length=100000, blank=True)
 
     def __str__(self) -> str:
-        return self.id
+        return self.url
 
     def save(self, *args, **kwargs):
         if (self.thumbnail is None) or (self.thumbnail == ""):

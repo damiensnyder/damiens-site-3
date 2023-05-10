@@ -3,5 +3,5 @@
 {% block nav_bar %}
   <a href="{% url 'front-page' %}">home</a> /
   <a href="{% url 'all-shortform-menu' %}">shortform</a> /
-  <a href="{% url 'tag-or-content' content.primary_tag.id %}">{{ content.primary_tag.name }}</a>
+  <a href="{a% url 'tag-or-content' content.primary_tag.id %}">{{ content.primary_tag.name }}</a>
 {% endblock %}

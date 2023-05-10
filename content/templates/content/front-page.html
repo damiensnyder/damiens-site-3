@@ -39,7 +39,7 @@
   {% for tag in tags %}
     <div class="tag-outer">
       {% include 'content/menu-item.html' with post=tag.featured_post %}
-      <a class="tag-info" href="{% url 'tag-or-content' tag.id %}">
+      <a class="tag-info" href="{a% url 'tag-or-content' tag.id %}">
         more {{ tag.name }} →
       </a>
     </div>
