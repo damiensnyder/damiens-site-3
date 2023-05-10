@@ -1,5 +1,5 @@
 <h2 class="shortform-title">
-  <a href="{% url 'content' content.primary_tag.id content.id %}">{{ content.title }}</a>
+  <a href="{% url 'content' content.primary_tag.url content.url %}">{{ content.title }}</a>
 </h2>
 <span class="timestamp-shortform">{{ content.timestamp|date:"Y.m.d" }}</span>
 

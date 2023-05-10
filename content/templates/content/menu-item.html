@@ -1,7 +1,7 @@
 {% load static %}
 
 <div class="menu-item-outer">
-  <a href="{% url 'content' post.primary_tag.id post.id %}">
+  <a href="{% url 'content' post.primary_tag.url post.url %}">
     {% if post.thumbnail %}
       <img class="thumbnail" src="{% static post.thumbnail %}" />
     {% else %}
@@ -10,7 +10,7 @@
   </a>
   <div class="menu-item-text">
     <span class="post-title">
-      <a href="{% url 'content' post.primary_tag.id post.id %}">
+      <a href="{% url 'content' post.primary_tag.url post.url %}">
         {{ post.title }}
       </a>
     </span>

@@ -76,15 +76,15 @@ def all_shortform_menu(request, page_num=1):
     return render(request, 'content/all-shortform-menu.html', context)
 
 
-def tag_or_content(request, name, page_num=1):
+def tag_or_content(request, url, page_num=1):
     try:
-        tag = Tag.objects.get(url=name)
-        posts = Content.objects.filter(tags=tag.id)\
+        tag = Tag.objects.get(url=url)
+        posts = Content.objects.filter(tags=tag)\
             .order_by('-timestamp')
         if not is_friend(request):
             posts = posts.exclude(tags=Tag.objects.get(url="hidden"))
         if not posts.exists():
-            posts = Shortform.objects.filter(primary_tag=tag.id)\
+            posts = Shortform.objects.filter(primary_tag=tag)\
                 .order_by('-timestamp')
             if not is_friend(request):
                 posts = posts.exclude(primary_tag=Tag.objects.get(url="hidden"))
@@ -95,14 +95,14 @@ def tag_or_content(request, name, page_num=1):
         context['tag'] = tag
         return render(request, 'content/tag.html', context)
     except Tag.DoesNotExist:
-        return content(request, None, id)
+        return content(request, None, url)
 
 
-def content(request, tag, name):
+def content(request, tag_url, post_url):
     try:
-        post = Content.objects.get(url=name)
-        if (tag is not None) and (post.primary_tag.id != tag):
-            raise Http404(f"No post found with tag \"{tag}\" and ID \"{name}\"")
+        post = Content.objects.get(url=post_url)
+        if (tag_url is not None) and (post.primary_tag.url != tag_url):
+            raise Http404(f"No post found with tag \"{tag_url}\" and ID \"{post_url}\"")
 
         if post.tags.filter(url="hidden").exists() and not is_friend(request):
             return render(request, 'content/illegal-hidden-access.html', {
@@ -114,9 +114,9 @@ def content(request, tag, name):
         })
     except Content.DoesNotExist:
         try:
-            post = Shortform.objects.get(url=name)
-            if (tag is not None) and (post.primary_tag.id != tag):
-                raise Http404(f"No post found with tag \"{tag}\" and ID \"{name}\"")
+            post = Shortform.objects.get(url=post_url)
+            if (tag_url is not None) and (post.primary_tag.url != tag_url):
+                raise Http404(f"No post found with tag \"{tag_url}\" and ID \"{post_url}\"")
             if post.primary_tag == "hidden" and not is_friend(request):
                 return render(request, 'content/illegal-hidden-access.html', {
                     'content': post
@@ -125,7 +125,7 @@ def content(request, tag, name):
                 'content': post
             })
         except Shortform.DoesNotExist:
-            raise Http404(f"No content found with ID \"{name}\"")
+            raise Http404(f"No content found with ID \"{post_url}\"")
 
 
 def is_friend(request):
@@ -144,7 +144,6 @@ def paginate(posts, page_num):
         'page_num': page_num,
         'num_pages': num_pages
     }
-
 
 
 def signup(request):

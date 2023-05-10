@@ -2,6 +2,6 @@
   {% if link_num == page_num %}
     {{ link_num }}
   {% else %}
-    <!-- <a href="{a% url 'tag-paginated' tag.id link_num %}">{{ link_num }}</a> --> {{ link_num }}
+    <a href="{% url 'tag-paginated' tag.url link_num %}">{{ link_num }}</a>
   {% endif %}
 </span>
