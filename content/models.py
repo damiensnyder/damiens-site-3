@@ -6,6 +6,8 @@ import markdown.extensions.footnotes
 import markdown.extensions.smarty
 import markdown.extensions.tables
 import markdown.extensions.fenced_code
+import markdown.extensions.sane_lists
+import markdown.extensions.admonition
 import markdown_katex
 import customblocks
 from . import damiens_md
@@ -39,13 +41,16 @@ class Shortform(models.Model):
                 'markdown_katex',
                 'customblocks',
                 'codehilite',
-                'smarty'
+                'smarty',
+                'sane_lists',
+                damiens_md.DelExtension()
             ],
             extension_configs={
                 'customblocks': {
                     'generators': {
                         'soundcloud': damiens_md.soundcloud_embed,
-                        'audio': damiens_md.audio_embed
+                        'audio': damiens_md.audio_embed,
+                        'summary': damiens_md.summary_details
                     }
                 },
             }
@@ -83,13 +88,16 @@ class Content(models.Model):
                 'smarty',
                 'tables',
                 'fenced_code',
-                damiens_md.CaptionExtension()
+                'sane_lists',
+                'admonition',
+                damiens_md.DelExtension()
             ],
             extension_configs={
                 'customblocks': {
                     'generators': {
                         'soundcloud': damiens_md.soundcloud_embed,
-                        'audio': damiens_md.audio_embed
+                        'audio': damiens_md.audio_embed,
+                        'summary': damiens_md.summary_details
                     }
                 },
             }
