@@ -10,6 +10,7 @@
 
   --bg-primary: #111;
   --bg-secondary: #333;
+  --bg-tertiary: #222;
   --text-primary: #ccc;
   --text-secondary: #aaa;
   --text-tertiary: #888;
@@ -21,6 +22,7 @@
   :root {
     --bg-primary: #f7f7f7;
     --bg-secondary: #bbb;
+    --bg-tertiary: #ddd;
     --text-primary: #000;
     --text-secondary: #333;
     --text-tertiary: #666;

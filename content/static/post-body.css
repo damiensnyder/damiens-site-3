@@ -128,3 +128,27 @@ pre {
   width: 99%;
   height: 99%;
 }
+
+summary {
+  padding: 0.25rem 0;
+  font-weight: 600;
+}
+
+details {
+  padding: 0 0.75rem;
+  background-color: var(--bg-tertiary);
+  border-radius: 0.75rem;
+}
+
+.admonition.aside {
+  background-color: var(--bg-tertiary);
+  margin: 0.25rem 0 0.75rem 0;
+  padding: 0.25rem 1rem;
+  border-radius: 0.75rem;
+}
+
+.admonition.aside .admonition-title {
+  text-align: center;
+  font-weight: 600;
+  font-style: italic;
+}
