@@ -5,6 +5,9 @@ from . import views
 urlpatterns = [
     path('', views.front_page, name='front-page'),
     path('signup/', views.signup, name='signup'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('profile/', views.profile, name='profile'),
     path('content/', views.all_content_menu, name='all-content-menu'),
     path('content/<int:page_num>/', views.all_content_menu, name='content-paginated'),
     path('shortform/', views.all_shortform_menu, name='all-shortform-menu'),

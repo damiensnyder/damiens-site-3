@@ -1,0 +1,9 @@
+{% extends 'content/base.html' %}
+
+{% block main %}
+<p>hi {{ user.username }}</p>
+
+<p>more functionality coming soon...</p>
+
+<p><a href="{% url 'logout' %}">log out</a></p>
+{% endblock %}

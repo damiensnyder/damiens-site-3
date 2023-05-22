@@ -35,7 +35,7 @@
     }
   </style>
 
-  {% include 'content/quick-links.html' %}
+  {% include 'content/quick-links.html' with logged_in=logged_in %}
   {% for tag in tags %}
     <div class="tag-outer">
       {% include 'content/menu-item.html' with post=tag.featured_post %}

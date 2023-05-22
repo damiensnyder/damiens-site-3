@@ -1,7 +1,7 @@
 from django.http.response import Http404
 from django.shortcuts import render
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
 from random import random
 from content.models import Tag, Content, Shortform
@@ -35,7 +35,8 @@ def front_page(request):
         'tags': tags_list,
         'tag': {
             'name': "damien snyder" if random() < 0.95 else "damien spider"
-        }
+        },
+        'logged_in': request.user.is_authenticated
     })
 
 
@@ -147,7 +148,9 @@ def paginate(posts, page_num):
 
 
 def signup(request):
-    if request.method == 'POST':
+    if request.user.is_authenticated:
+        return redirect('/profile')
+    elif request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
@@ -162,3 +165,39 @@ def signup(request):
         'form': form,
         'tag': {'name': "make an account"}
     })
+
+
+def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('/profile')
+    elif request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=raw_password)
+            if user is not None:
+                login(request, user)
+                return redirect('/profile')
+    form = AuthenticationForm()
+    return render(request, 'content/login.html', {
+        'form': form,
+        'tag': {'name': "log in"}
+    })
+
+
+def logout_view(request):
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    else:
+        logout(request)
+        return redirect('/')
+
+
+def profile(request):
+    if not request.user.is_authenticated:
+        return redirect('/login')
+    else:
+        return render(request, 'content/profile.html', {
+            'form': request.user
+        })

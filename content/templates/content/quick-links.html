@@ -29,8 +29,12 @@
 
 <hr />
 <div class="quick-links">
-  <a href="{% static 'resume.pdf' %}">résumé</a>
   <a href="{% url 'tag-or-content' 'about' %}">about</a>
   <a href="mailto:fanmail@damiensnyder.com">contact</a>
+  {% if logged_in %}
+    <a href="{% url 'profile' %}">profile</a>
+  {% else %}
+    <a href="{% url 'login' %}">log in</a>
+  {% endif %}
 </div>
 <hr />
