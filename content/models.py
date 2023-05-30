@@ -11,6 +11,7 @@ import markdown.extensions.admonition
 import markdown_katex
 import customblocks
 from . import damiens_md
+from accounts.models import User
 
 
 class Tag(models.Model):
@@ -103,3 +104,17 @@ class Content(models.Model):
             }
         )
         models.Model.save(self)
+
+
+class Message(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    from_content = models.ForeignKey(Content, on_delete=models.SET_NULL, null=True, blank=True)
+    from_shortform = models.ForeignKey(Shortform, on_delete=models.SET_NULL, null=True, blank=True)
+    timestamp = models.DateField()
+    body = models.TextField(max_length=10000)
+
+    def save(self, *args, **kwargs):
+        models.Model.save(self)
+
+    def __str__(self) -> str:
+        return f"{self.user} ({self.timestamp}): {self.body[:100]}"
