@@ -14,5 +14,6 @@ urlpatterns = [
     path('shortform/<int:page_num>/', views.all_shortform_menu, name='shortform-paginated'),
     path('<url>/', views.tag_or_content, name='tag-or-content'),
     path('<url>/<int:page_num>/', views.tag_or_content, name='tag-paginated'),
-    path('<tag_url>/<post_url>/', views.content, name='content')
+    path('<tag_url>/<post_url>/', views.content, name='content'),
+    path('<tag_url>/<post_url>/message/', views.send_message, name='send_message')
 ]

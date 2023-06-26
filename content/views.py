@@ -4,7 +4,10 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.shortcuts import render, redirect
 from random import random
-from content.models import Tag, Content, Shortform
+from content.models import Tag, Content, Shortform, Message
+from content.forms import MessageForm
+import datetime
+from accounts.models import User
 
 
 def front_page(request):
@@ -111,7 +114,8 @@ def content(request, tag_url, post_url):
             })
 
         return render(request, 'content/content.html', {
-            'content': post
+            'content': post,
+            'form': MessageForm()
         })
     except Content.DoesNotExist:
         try:
@@ -123,7 +127,8 @@ def content(request, tag_url, post_url):
                     'content': post
                 })
             return render(request, 'content/shortform.html', {
-                'content': post
+                'content': post,
+                'form': MessageForm()
             })
         except Shortform.DoesNotExist:
             raise Http404(f"No content found with ID \"{post_url}\"")
@@ -201,3 +206,33 @@ def profile(request):
         return render(request, 'content/profile.html', {
             'form': request.user
         })
+    
+
+def send_message(request, tag_url, post_url):
+    if request.method == "POST":
+        try:
+            post = Content.objects.get(url=post_url)
+            was_content = True
+        except Content.DoesNotExist:
+            try:
+                post = Shortform.objects.get(url=post_url)
+                was_content = False
+            except Shortform.DoesNotExist:
+                raise Http404(f"No post found with URL {post_url}")
+        print(request)
+        form = MessageForm(data=request.POST)
+        if form.is_valid():
+            user = None if form.cleaned_data.get('anonymous') else request.user
+            message = Message(
+                timestamp=datetime.datetime.now(),
+                body=form.cleaned_data.get('body'),
+                from_content=post if was_content else None,
+                from_shortform=None if was_content else post,
+                user=user
+            )
+            message.save()
+        # return content(request, tag_url, post_url)  [gets URL wrong]
+        return redirect(f"/{tag_url}/{post_url}/")
+    
+    if request.user.is_authenticated:
+        pass

@@ -25,7 +25,7 @@ secrets = json.load(open(os.path.join(BASE_DIR, 'secrets.json')))
 SECRET_KEY = secrets['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = secrets['ALLOWED_HOSTS']
 
@@ -34,6 +34,7 @@ ALLOWED_HOSTS = secrets['ALLOWED_HOSTS']
 
 INSTALLED_APPS = [
     'content.apps.ContentConfig',
+    'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -103,6 +104,8 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+AUTH_USER_MODEL = 'accounts.User'
 
 
 # Internationalization
