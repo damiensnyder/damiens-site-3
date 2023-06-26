@@ -222,7 +222,9 @@ def send_message(request, tag_url, post_url):
         print(request)
         form = MessageForm(data=request.POST)
         if form.is_valid():
-            user = None if form.cleaned_data.get('anonymous') else request.user
+            user = None
+            if (not form.cleaned_data.get('anonymous')) and request.user.is_authenticated:
+                user = request.user
             message = Message(
                 timestamp=datetime.datetime.now(),
                 body=form.cleaned_data.get('body'),
@@ -233,6 +235,3 @@ def send_message(request, tag_url, post_url):
             message.save()
         # return content(request, tag_url, post_url)  [gets URL wrong]
         return redirect(f"/{tag_url}/{post_url}/")
-    
-    if request.user.is_authenticated:
-        pass
