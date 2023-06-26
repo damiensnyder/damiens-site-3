@@ -231,8 +231,8 @@ def send_message(request, tag_url, post_url):
                 user=user
             )
             message.save()
-        return content(request, tag_url, post_url)
-        # return redirect(f"/{tag_url}/{post_url}/")
+        # return content(request, tag_url, post_url)  [gets URL wrong]
+        return redirect(f"/{tag_url}/{post_url}/")
     
     if request.user.is_authenticated:
         pass

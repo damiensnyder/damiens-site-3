@@ -1,6 +1,30 @@
 <h2 class="shortform-title">
   <a href="{% url 'content' content.primary_tag.url content.url %}">{{ content.title }}</a>
 </h2>
+
+<div class="post-info">
+  <span class="subtle">posted {{ content.timestamp|date:"Y.m.d" }}</span>
+  <span class="spacer subtle">&bull;</span>
+  <details>
+    <summary class="subtle">send feedback</summary>
+    <form action="{% url 'send_message' content.primary_tag.url content.url %}" method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="field">
+          <label>{{ field.label_tag }}</label>
+          {{ field }}
+          {% if field.help_text %}
+          {% endif %}
+        </div>
+        {% for error in field.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+        <div class="requirements">{{ field.help_text }}</div>
+      {% endfor %}
+      <button type="submit">Send</button>
+    </form>
+  </details>
+</div>
 <span class="timestamp-shortform">{{ content.timestamp|date:"Y.m.d" }}</span>
 
 {% autoescape off %}

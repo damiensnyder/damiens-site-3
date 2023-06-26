@@ -1,9 +1,14 @@
 .timestamp,
+.caption,
+.subtle {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.timestamp,
 .caption {
   align-self: center;
   margin: -0.25rem 0 0.5rem 0;
-  color: var(--text-tertiary);
-  font-style: italic;
 }
 
 .timestamp-shortform {
@@ -151,4 +156,64 @@ details {
   text-align: center;
   font-weight: 600;
   font-style: italic;
+}
+
+.post-info {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-info summary {
+  text-align: center;
+  font-weight: revert;
+  margin: 0 -0.75rem;
+}
+
+.post-info details {
+  background-color: transparent;
+}
+
+.spacer {
+  margin: 0.25rem 1rem;
+}
+
+form {
+  display: flex;
+  flex-flow: column;
+}
+
+input,
+button {
+  margin: 0.25rem;
+  padding: 0.2rem 0.25rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  border: 1px solid var(--text-secondary);
+  color: inherit;
+  background-color: var(--bg-secondary);
+}
+
+button {
+  cursor: pointer;
+}
+
+label {
+  margin: 0.25rem 0.2rem;
+  font-weight: 500;
+}
+
+.error {
+  color: var(--accent-secondary);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin: 0 0.45rem 0.2rem 0.45rem;
+}
+
+.field {
+  display: flex;
+  flex-flow: row;
+  justify-content: stretch;
 }
