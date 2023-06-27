@@ -146,8 +146,7 @@ def content(request, tag_url, post_url):
 
 def can_access(post, request):
     return post.group_needed is None or \
-        (request.user.is_authenticated and
-         (post.group_needed in request.user.groups))
+        (request.user.is_authenticated and request.user.groups.contains(post.group_needed))
 
 
 def paginate(posts, page_num):
