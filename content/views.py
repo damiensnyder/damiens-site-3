@@ -145,8 +145,6 @@ def content(request, tag_url, post_url):
 
 
 def can_access(post, request):
-    print(post.group_needed)
-    print(request.user)
     return post.group_needed is None or \
         (request.user.is_authenticated and
          (post.group_needed in request.user.groups))
@@ -233,7 +231,6 @@ def send_message(request, tag_url, post_url):
                 was_content = False
             except Shortform.DoesNotExist:
                 raise Http404(f"No post found with URL {post_url}")
-        print(request)
         form = MessageForm(data=request.POST)
         if form.is_valid():
             user = None
