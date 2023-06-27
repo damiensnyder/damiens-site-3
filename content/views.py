@@ -2,19 +2,22 @@ from django.http.response import Http404
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from random import random
 from content.models import Tag, Content, Shortform, Message
 from content.forms import MessageForm
 import datetime
 from accounts.models import User
+from django.db.models import Q
 
 
 def front_page(request):
-    posts = Content.objects.order_by('-timestamp')\
-        .exclude(primary_tag=Tag.objects.get(url="meta"))
-    if not is_friend(request):
-        posts = posts.exclude(tags=Tag.objects.get(url="hidden"))
+    posts = Content.objects.order_by('-timestamp')
+    if request.user.is_authenticated:
+        posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
+    else:
+        posts = posts.filter(group_needed=None)
     tags_list = [{
         'url': "content",
         'name': "recent content",
@@ -56,10 +59,11 @@ def add_most_recent_item(posts, tags_list, tag_url, tag_name):
 
 
 def all_content_menu(request, page_num=1):
-    posts = Content.objects.all().order_by('-timestamp')\
-        .exclude(primary_tag=Tag.objects.get(url="meta"))
-    if not is_friend(request):
-        posts = posts.exclude(tags=Tag.objects.get(url="hidden"))
+    posts = Content.objects.all().order_by('-timestamp')
+    if request.user.is_authenticated:
+        posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
+    else:
+        posts = posts.filter(group_needed=None)
     context = paginate(posts, page_num)
     context['tag'] = {
         'url': "content",
@@ -70,8 +74,10 @@ def all_content_menu(request, page_num=1):
 
 def all_shortform_menu(request, page_num=1):
     posts = Shortform.objects.all().order_by('-timestamp')
-    if not is_friend(request):
-        posts = posts.exclude(primary_tag=Tag.objects.get(url="hidden"))
+    if request.user.is_authenticated:
+        posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
+    else:
+        posts = posts.filter(group_needed=None)
     context = paginate(posts, page_num)
     context['tag'] = {
         'url': "shortform",
@@ -85,13 +91,17 @@ def tag_or_content(request, url, page_num=1):
         tag = Tag.objects.get(url=url)
         posts = Content.objects.filter(tags=tag)\
             .order_by('-timestamp')
-        if not is_friend(request):
-            posts = posts.exclude(tags=Tag.objects.get(url="hidden"))
+        if request.user.is_authenticated:
+            posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
+        else:
+            posts = posts.filter(group_needed=None)
         if not posts.exists():
             posts = Shortform.objects.filter(primary_tag=tag)\
                 .order_by('-timestamp')
-            if not is_friend(request):
-                posts = posts.exclude(primary_tag=Tag.objects.get(url="hidden"))
+            if request.user.is_authenticated:
+                posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
+            else:
+                posts = posts.filter(group_needed=None)
             context = paginate(posts, page_num)
             context['tag'] = tag
             return render(request, 'content/shortform-tag.html', context) 
@@ -108,7 +118,7 @@ def content(request, tag_url, post_url):
         if (tag_url is not None) and (post.primary_tag.url != tag_url):
             raise Http404(f"No post found with tag \"{tag_url}\" and ID \"{post_url}\"")
 
-        if post.tags.filter(url="hidden").exists() and not is_friend(request):
+        if not can_access(post, request):
             return render(request, 'content/illegal-hidden-access.html', {
                 'content': post
             })
@@ -122,7 +132,7 @@ def content(request, tag_url, post_url):
             post = Shortform.objects.get(url=post_url)
             if (tag_url is not None) and (post.primary_tag.url != tag_url):
                 raise Http404(f"No post found with tag \"{tag_url}\" and ID \"{post_url}\"")
-            if post.primary_tag == "hidden" and not is_friend(request):
+            if not can_access(post, request):
                 return render(request, 'content/illegal-hidden-access.html', {
                     'content': post
                 })
@@ -134,8 +144,12 @@ def content(request, tag_url, post_url):
             raise Http404(f"No content found with ID \"{post_url}\"")
 
 
-def is_friend(request):
-    return request.user.groups.filter(name="friends").exists()
+def can_access(post, request):
+    print(post.group_needed)
+    print(request.user)
+    return post.group_needed is None or \
+        (request.user.is_authenticated and
+         (post.group_needed in request.user.groups))
 
 
 def paginate(posts, page_num):

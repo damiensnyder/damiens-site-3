@@ -12,6 +12,7 @@ import markdown_katex
 import customblocks
 from . import damiens_md
 from accounts.models import User
+from django.contrib.auth.models import Group
 
 
 class Tag(models.Model):
@@ -31,6 +32,7 @@ class Shortform(models.Model):
     primary_tag = models.ForeignKey(Tag, null=True, on_delete=models.SET_NULL)
     body = models.TextField(max_length=100000, default="")
     markup = models.TextField(max_length=100000, blank=True)
+    group_needed = models.ForeignKey(Group, null=True, blank=True, on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return self.url
@@ -70,6 +72,7 @@ class Content(models.Model):
     primary_tag = models.ForeignKey(Tag, null=True, on_delete=models.SET_NULL)
     body = models.TextField(max_length=100000, default="")
     markup = models.TextField(max_length=100000, blank=True)
+    group_needed = models.ForeignKey(Group, null=True, blank=True, on_delete=models.PROTECT)
 
     def __str__(self) -> str:
         return self.url
