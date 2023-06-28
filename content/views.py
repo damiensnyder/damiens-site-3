@@ -15,10 +15,7 @@ from django.db.models import Q
 
 def front_page(request):
     posts = Content.objects.order_by('-timestamp')
-    if request.user.is_authenticated:
-        posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
-    else:
-        posts = posts.filter(group_needed=None)
+    posts = remove_hidden(posts, request)
     tags_list = [{
         'url': "content",
         'name': "recent content",
@@ -61,10 +58,7 @@ def add_most_recent_item(posts, tags_list, tag_url, tag_name):
 
 def all_content_menu(request, page_num=1):
     posts = Content.objects.all().order_by('-timestamp')
-    if request.user.is_authenticated:
-        posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
-    else:
-        posts = posts.filter(group_needed=None)
+    posts = remove_hidden(posts, request)
     context = paginate(posts, page_num)
     context['tag'] = {
         'url': "content",
@@ -75,10 +69,7 @@ def all_content_menu(request, page_num=1):
 
 def all_shortform_menu(request, page_num=1):
     posts = Shortform.objects.all().order_by('-timestamp')
-    if request.user.is_authenticated:
-        posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
-    else:
-        posts = posts.filter(group_needed=None)
+    posts = remove_hidden(posts, request)
     context = paginate(posts, page_num)
     context['tag'] = {
         'url': "shortform",
@@ -92,17 +83,11 @@ def tag_or_content(request, url, page_num=1):
         tag = Tag.objects.get(url=url)
         posts = Content.objects.filter(tags=tag)\
             .order_by('-timestamp')
-        if request.user.is_authenticated:
-            posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
-        else:
-            posts = posts.filter(group_needed=None)
+        posts = remove_hidden(posts, request)
         if not posts.exists():
             posts = Shortform.objects.filter(primary_tag=tag)\
                 .order_by('-timestamp')
-            if request.user.is_authenticated:
-                posts = posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
-            else:
-                posts = posts.filter(group_needed=None)
+            posts = remove_hidden(posts, request)
             context = paginate(posts, page_num)
             context['tag'] = tag
             return render(request, 'content/shortform-tag.html', context) 
@@ -111,6 +96,13 @@ def tag_or_content(request, url, page_num=1):
         return render(request, 'content/tag.html', context)
     except Tag.DoesNotExist:
         return content(request, None, url)
+
+
+def remove_hidden(posts, request):
+    if request.user.is_authenticated:
+        return posts.filter(Q(group_needed=None) | Q(group_needed__in=request.user.groups.all()))
+    else:
+        return posts.filter(group_needed=None)
 
 
 def content(request, tag_url, post_url):
@@ -216,7 +208,7 @@ def profile(request):
         return redirect('/login')
     else:
         return render(request, 'content/profile.html', {
-            'form': request.user
+            'user': request.user
         })
     
 
