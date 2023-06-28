@@ -1,7 +1,7 @@
 from django.http.response import Http404
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from random import random
@@ -9,6 +9,7 @@ from content.models import Tag, Content, Shortform, Message
 from content.forms import MessageForm
 import datetime
 from accounts.models import User
+from accounts.forms import CreateUser
 from django.db.models import Q
 
 
@@ -167,7 +168,7 @@ def signup(request):
     if request.user.is_authenticated:
         return redirect('/profile')
     elif request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CreateUser(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -176,7 +177,7 @@ def signup(request):
             login(request, user)
             return redirect('/')
     else:
-        form = UserCreationForm()
+        form = CreateUser()
     return render(request, 'content/signup.html', {
         'form': form,
         'tag': {'name': "make an account"}
