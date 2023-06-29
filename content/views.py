@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from random import random
 from content.models import Tag, Content, Shortform, Message
-from content.forms import MessageForm
+from content.forms import ChangeThemeForm, MessageForm
 import datetime
 from accounts.models import User
 from accounts.forms import CreateUser
@@ -40,7 +40,8 @@ def front_page(request):
         'tag': {
             'name': "damien snyder" if random() < 0.95 else "damien spider"
         },
-        'logged_in': request.user.is_authenticated
+        'logged_in': request.user.is_authenticated,
+        'theme': get_theme(request)
     })
 
 
@@ -64,6 +65,7 @@ def all_content_menu(request, page_num=1):
         'url': "content",
         'name': "content"
     }
+    context['theme'] = get_theme(request)
     return render(request, 'content/all-content-menu.html', context)
 
 
@@ -75,6 +77,7 @@ def all_shortform_menu(request, page_num=1):
         'url': "shortform",
         'name': "shortform"
     }
+    context['theme'] = get_theme(request)
     return render(request, 'content/all-shortform-menu.html', context)
 
 
@@ -90,9 +93,11 @@ def tag_or_content(request, url, page_num=1):
             posts = remove_hidden(posts, request)
             context = paginate(posts, page_num)
             context['tag'] = tag
+            context['theme'] = get_theme(request)
             return render(request, 'content/shortform-tag.html', context) 
         context = paginate(posts, page_num)
         context['tag'] = tag
+        context['theme'] = get_theme(request)
         return render(request, 'content/tag.html', context)
     except Tag.DoesNotExist:
         return content(request, None, url)
@@ -113,12 +118,14 @@ def content(request, tag_url, post_url):
 
         if not can_access(post, request):
             return render(request, 'content/illegal-hidden-access.html', {
-                'content': post
+                'content': post,
+                'theme': get_theme(request)
             })
 
         return render(request, 'content/content.html', {
             'content': post,
-            'form': MessageForm()
+            'form': MessageForm(),
+            'theme': get_theme(request)
         })
     except Content.DoesNotExist:
         try:
@@ -127,11 +134,13 @@ def content(request, tag_url, post_url):
                 raise Http404(f"No post found with tag \"{tag_url}\" and ID \"{post_url}\"")
             if not can_access(post, request):
                 return render(request, 'content/illegal-hidden-access.html', {
-                    'content': post
+                    'content': post,
+                    'theme': get_theme(request)
                 })
             return render(request, 'content/shortform.html', {
                 'content': post,
-                'form': MessageForm()
+                'form': MessageForm(),
+                'theme': get_theme(request)
             })
         except Shortform.DoesNotExist:
             raise Http404(f"No content found with ID \"{post_url}\"")
@@ -172,7 +181,8 @@ def signup(request):
         form = CreateUser()
     return render(request, 'content/signup.html', {
         'form': form,
-        'tag': {'name': "make an account"}
+        'tag': {'name': "make an account"},
+        'theme': get_theme(request)
     })
 
 
@@ -191,7 +201,8 @@ def login_view(request):
     form = AuthenticationForm()
     return render(request, 'content/login.html', {
         'form': form,
-        'tag': {'name': "log in"}
+        'tag': {'name': "log in"},
+        'theme': get_theme(request)
     })
 
 
@@ -208,7 +219,9 @@ def profile(request):
         return redirect('/login')
     else:
         return render(request, 'content/profile.html', {
-            'user': request.user
+            'user': request.user,
+            'form': ChangeThemeForm(),
+            'theme': get_theme(request)
         })
     
 
@@ -238,3 +251,28 @@ def send_message(request, tag_url, post_url):
             message.save()
         # return content(request, tag_url, post_url)  [gets URL wrong]
         return redirect(f"/{tag_url}/{post_url}/")
+
+
+def change_theme(request):
+    if request.method == "POST":
+        form = ChangeThemeForm(data=request.POST)
+        if form.is_valid():
+            if request.user.is_authenticated:
+                user = request.user
+            else:
+                return redirect(f"/login/")
+            user.theme = form.cleaned_data.get('theme')
+            user.save()
+            return redirect(f"/profile/")
+    print("you suyck!")
+    return redirect(f"/profile/")
+
+
+def upload_file(request):
+    pass
+
+
+def get_theme(request):
+    if request.user.is_authenticated:
+        return request.user.theme
+    return "auto"
