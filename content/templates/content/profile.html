@@ -1,6 +1,10 @@
 {% extends 'content/base.html' %}
 
 {% block main %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'post-body.css' %}">
+
 <p>hi {{ user.username }}</p>
 
 <p>
@@ -13,7 +17,24 @@
     may receive.
 </p>
 
-<p>more functionality coming soon...</p>
+<h2>Select theme</h2>
+
+<form action="{% url 'change_theme' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="field">
+        <label>{{ field.label_tag }}</label>
+        {{ field }}
+        {% if field.help_text %}
+        {% endif %}
+      </div>
+      {% for error in field.errors %}
+        <p class="error">{{ error }}</p>
+      {% endfor %}
+      <div class="requirements">{{ field.help_text }}</div>
+    {% endfor %}
+    <button type="submit">Select</button>
+  </form>
 
 <p><a href="{% url 'logout' %}">log out</a></p>
 {% endblock %}
