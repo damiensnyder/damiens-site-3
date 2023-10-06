@@ -8,6 +8,27 @@
     <link rel="stylesheet" href="{% static 'base.css' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    {% if content %}
+      <meta property="og:title" content="{{ content.title }}" />
+      {% if content.description %}
+        <meta property="og:image" content="{% static content.thumbnail %}" />
+      {% else %}
+        <meta property="og:image" content="{% static 'logo.svg' %}" />
+      {% endif %}
+      {% if content.description %}
+        <meta property="og:description" content="{{ content.description }}" />
+      {% else %}
+        <meta property="og:description" content="{{ content.body }}" />
+      {% endif %}
+    {% else %}
+      {% if tag.name == "damien snyder" %}
+        <meta property="og:title" content="{{ tag.name }}" />
+      {% else %}
+        <meta property="og:title" content="{{ tag.name }} | damiensnyder.com" />
+      {% endif %}
+      <meta property="og:image" content="{% static 'logo.svg' %}" />
+    {% endif %}
+
     <title>{% block tab_name %}{{ tag.name }}{% endblock %}</title>
   </head>
   <body>
