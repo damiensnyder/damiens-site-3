@@ -264,7 +264,6 @@ def change_theme(request):
             user.theme = form.cleaned_data.get('theme')
             user.save()
             return redirect(f"/profile/")
-    print("you suyck!")
     return redirect(f"/profile/")
 
 

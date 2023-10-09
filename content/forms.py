@@ -14,6 +14,7 @@ class ChangeThemeForm(forms.Form):
             ("dark_mode", "dark mode"),
             ("forest", "forest"),
             ("hacker", "hacker"),
+            ("vice", "vice"),
             ("suffering", "suffering")
         ],
         label="Theme:",
