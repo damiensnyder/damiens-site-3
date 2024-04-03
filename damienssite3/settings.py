@@ -35,6 +35,7 @@ ALLOWED_HOSTS = secrets['ALLOWED_HOSTS']
 INSTALLED_APPS = [
     'content.apps.ContentConfig',
     'accounts.apps.AccountsConfig',
+    'uploads.apps.UploadsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,3 +128,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'target/static')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

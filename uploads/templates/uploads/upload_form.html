@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <link rel="icon" href="{% static 'favicon.png' %}" />
+    <link rel="stylesheet" href="/static/styles/auto.css" />
+    <link rel="stylesheet" href="{% static 'base.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h1>upload</h1>
+    <main>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+      </form>
+      <ul>
+        {% for document in documents %}
+          <li>
+            <a href="{{ document.file.url }}">{{ document.file.name }}</a> - {{document.date}}
+          </li>
+        {% endfor %}
+      </ul>
+    </main>
+  </body>
+</html>
