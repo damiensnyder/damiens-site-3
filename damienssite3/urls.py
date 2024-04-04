@@ -21,9 +21,10 @@ from django.conf import settings
 from django.contrib.auth.decorators import permission_required
 from uploads.views import UploadView
 
-urlpatterns = [
+urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) +\
+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +\
+[
     path('admin/', admin.site.urls),
     path('upload/', permission_required("uploads.can_add_upload", login_url="/login/")(UploadView.as_view())),
     path('', include('content.urls'))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
-  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
