@@ -29,7 +29,7 @@ def soundcloud_embed(ctx, embed_code):
 def audio_embed(ctx, **sources):
     return E('audio',
         controls=True,
-        *[E('source', src=f"/static/{url if ('/' in url) else 'songs/' + url}", type=f"audio/{type}")
+        *[E('source', src=url, type=f"audio/{type}")
           for type, url in sources.items()]
     )
 
