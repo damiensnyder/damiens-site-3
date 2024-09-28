@@ -1,0 +1,9 @@
+{% load static %}
+
+<div class="mini-item">
+  <a href="{{ url }}">
+    <img class="thumbnail" src="{% static thumbnail %}" />
+  </a>
+  <a href="{{ url }}">{{ name }}</a>
+  <span>{{ description }}</span>
+</div>

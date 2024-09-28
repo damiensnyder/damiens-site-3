@@ -21,12 +21,6 @@ def front_page(request):
         'name': "more posts",
         'post': posts[0]
     }
-    # featured_games = Content.objects.order_by('-timestamp')\
-    #     .filter(primary_tag=Tag.objects.all().get(url="code"),
-    #             tags=Tag.objects.all().get(url="featured"))[:3]
-    # featured_songs = Content.objects.order_by('-timestamp')\
-    #     .filter(primary_tag=Tag.objects.all().get(url="code"),
-    #             tags=Tag.objects.all().get(url="featured"))[:3]
     last_note = Shortform.objects.order_by('-timestamp')\
         .filter(primary_tag=Tag.objects.all().get(url="notes"))[0]
     last_note.description = last_note.body
@@ -37,8 +31,6 @@ def front_page(request):
     }
     return render(request, 'content/front-page.html', {
         'featured_post': featured_post,
-        # 'featured_games': featured_games,
-        # 'featured_songs': featured_songs,
         'featured_note': featured_note,
         'tag': {
             'name': "damien snyder" if random() < 0.95 else "damien spider"

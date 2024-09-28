@@ -7,6 +7,7 @@
 {% block main %}
   <style>
     .row {
+      margin: 0.5rem 0;
       display: flex;
       flex-flow: column;
       justify-content: baseline;
@@ -18,6 +19,10 @@
       flex-flow: row;
       justify-content: space-between;
       align-items: center;
+    }
+
+    .row-header h3 {
+      margin: 0;
     }
 
     .hire-me {
@@ -48,16 +53,19 @@
 
     .three-thumbnails {
       display: flex;
-      flex-flow: column;
-      justify-content: baseline;
+      flex-flow: row;
+      justify-content: space-evenly;
       align-items: stretch;
     }
 
     .mini-item {
+      flex: 1;
       display: flex;
       flex-flow: column;
       justify-content: baseline;
       align-items: center;
+      text-align: center;
+      font-size: 0.85rem;
     }
   </style>
 
@@ -76,25 +84,26 @@
       {% include 'content/menu-item.html' with post=featured_post.post %}
     </div>
     <div class="row">
-      <div class="row-header"></div>
+      <div class="row-header">
         <h3>arcade</h3>
         <a class="tag-info" href="{% url 'tag-or-content' 'games' %}">more games →</a>
       </div>
       <div class="three-thumbnails">
-        <div class="mini-item">
-
-        </div>
+        {% include 'content/mini-item.html' with name='Mayhem Manager' url='https://arcade.damiensnyder.com/mayhem-manager' thumbnail='/logo.svg' description='manage a team of gladiators' %}
+        {% include 'content/mini-item.html' with name='Daily Q-less' url='https://arcade.damiensnyder.com/daily-qless' thumbnail='/thumbs/daily-qless.png' description='a new Q-less puzzle every day' %}
+        {% include 'content/mini-item.html' with name='Auction Tic-Tac-Toe' url='https://arcade.damiensnyder.com/auction-tic-tac-toe' thumbnail='/logo.svg' description='tic-tac-toe but you bid on each square' %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="row-header">
+        <h3>music</h3>
+        <a class="tag-info" href="{% url 'tag-or-content' 'songs' %}">more songs →</a>
+      </div>
+      <div class="three-thumbnails">
+        {% include 'content/mini-item.html' with name='Turbo Hubcap Racing Superstars' url='/songs/turbo-hubcap' thumbnail='/thumbs/turbo-hubcap.png' description='4:41 ♬ by me and MaximumGuitar ' %}
+        {% include 'content/mini-item.html' with name='the things i\'ve seen' url='/songs/the-things-ive-seen' thumbnail='/thumbs/the-things-ive-seen.png' description='4:45 ♬' %}
+        {% include 'content/mini-item.html' with name='tell me what you know' url='/songs/tell-me-what-you-know' thumbnail='/logo.svg' description='3:29 ♬' %}
       </div>
     </div>
   </main>
-
-  <!-- {% include 'content/quick-links.html' with logged_in=logged_in %}
-  {% for tag in tags %}
-    <div class="tag-outer">
-      {% include 'content/menu-item.html' with post=tag.featured_post %}
-      <a class="tag-info" href="{% url 'tag-or-content' tag.url %}">
-        more {{ tag.name }} →
-      </a>
-    </div>
-  {% endfor %} -->
 {% endblock %}
