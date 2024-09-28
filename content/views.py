@@ -24,10 +24,11 @@ def front_page(request):
     last_note = Shortform.objects.order_by('-timestamp')\
         .filter(primary_tag=Tag.objects.all().get(url="notes"))[0]
     last_note.description = last_note.body
+    last_note.thumbnail = "thumbs/notes.jpg"
     featured_note = {
         'url': "shortform",
         'name': "shortform",
-        'featured_post': last_note
+        'post': last_note
     }
     return render(request, 'content/front-page.html', {
         'featured_post': featured_post,
