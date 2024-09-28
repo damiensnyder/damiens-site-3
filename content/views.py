@@ -16,27 +16,30 @@ from django.db.models import Q
 def front_page(request):
     posts = Content.objects.order_by('-timestamp')
     posts = remove_hidden(posts, request)
-    tags_list = [{
+    featured_post = {
         'url': "content",
-        'name': "recent content",
-        'featured_post': posts[0]
-    }]
-    add_most_recent_item(posts, tags_list, "blog", "blog posts")
-    add_most_recent_item(posts, tags_list, "songs", "songs")
-    add_most_recent_item(posts, tags_list, "videos", "videos")
-    add_most_recent_item(posts, tags_list, "code", "code")
-    notes = Shortform.objects.order_by('-timestamp')\
-        .filter(primary_tag=Tag.objects.all().get(url="notes"))
-    if notes.exists():
-        last_note = notes[0]
-        last_note.description = last_note.body
-        tags_list.append({
-            'url': "shortform",
-            'name': "shortform",
-            'featured_post': last_note
-        })
+        'name': "more posts",
+        'post': posts[0]
+    }
+    # featured_games = Content.objects.order_by('-timestamp')\
+    #     .filter(primary_tag=Tag.objects.all().get(url="code"),
+    #             tags=Tag.objects.all().get(url="featured"))[:3]
+    # featured_songs = Content.objects.order_by('-timestamp')\
+    #     .filter(primary_tag=Tag.objects.all().get(url="code"),
+    #             tags=Tag.objects.all().get(url="featured"))[:3]
+    last_note = Shortform.objects.order_by('-timestamp')\
+        .filter(primary_tag=Tag.objects.all().get(url="notes"))[0]
+    last_note.description = last_note.body
+    featured_note = {
+        'url': "shortform",
+        'name': "shortform",
+        'featured_post': last_note
+    }
     return render(request, 'content/front-page.html', {
-        'tags': tags_list,
+        'featured_post': featured_post,
+        # 'featured_games': featured_games,
+        # 'featured_songs': featured_songs,
+        'featured_note': featured_note,
         'tag': {
             'name': "damien snyder" if random() < 0.95 else "damien spider"
         },

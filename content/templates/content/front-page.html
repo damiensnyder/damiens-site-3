@@ -1,10 +1,33 @@
 {% extends 'content/base.html' %}
+{% load static %}
 
 {% block tab_name %}damien snyder{% endblock %}
 {% block nav_bar %}{% endblock %}
 
 {% block main %}
   <style>
+    .row {
+      display: flex;
+      flex-flow: column;
+      justify-content: baseline;
+      align-items: stretch;
+    }
+
+    .row-header {
+      display: flex;
+      flex-flow: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hire-me {
+      display: flex;
+      flex-flow: row;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    
     .tag-outer {
       display: flex;
       flex-flow: row;
@@ -14,28 +37,58 @@
     }
 
     .tag-info {
-      position: absolute;
-      right: 0;
-      top: 0.75rem;
       font-size: 0.75rem;
       font-weight: 400;
       text-align: right;
       color: var(--text-tertiary);
       background-color: var(--bg-primary);
-      padding: 0 0 4px 4px;
-      border-radius: 4px;
       font-style: oblique;
       white-space: nowrap;
     }
 
-    @media (max-width: 400px) {
-      .tag-info {
-        top: 0.4rem;
-      }
+    .three-thumbnails {
+      display: flex;
+      flex-flow: column;
+      justify-content: baseline;
+      align-items: stretch;
+    }
+
+    .mini-item {
+      display: flex;
+      flex-flow: column;
+      justify-content: baseline;
+      align-items: center;
     }
   </style>
 
-  {% include 'content/quick-links.html' with logged_in=logged_in %}
+  <main>
+    <hr>
+    <div class="hire-me">
+      <img class="thumbnail" src="{% static 'thumbs/resume.png' %}" alt="résumé" />
+      <h3>hire me</h3>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="row-header">
+        <h3>latest</h3>
+        <a class="tag-info" href="{% url 'all-content-menu' %}">more posts →</a>
+      </div>
+      {% include 'content/menu-item.html' with post=featured_post.post %}
+    </div>
+    <div class="row">
+      <div class="row-header"></div>
+        <h3>arcade</h3>
+        <a class="tag-info" href="{% url 'tag-or-content' 'games' %}">more games →</a>
+      </div>
+      <div class="three-thumbnails">
+        <div class="mini-item">
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- {% include 'content/quick-links.html' with logged_in=logged_in %}
   {% for tag in tags %}
     <div class="tag-outer">
       {% include 'content/menu-item.html' with post=tag.featured_post %}
@@ -43,5 +96,5 @@
         more {{ tag.name }} →
       </a>
     </div>
-  {% endfor %}
+  {% endfor %} -->
 {% endblock %}
