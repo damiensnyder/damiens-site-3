@@ -1,10 +1,41 @@
 {% extends 'content/base.html' %}
+{% load static %}
 
 {% block tab_name %}damien snyder{% endblock %}
 {% block nav_bar %}{% endblock %}
 
 {% block main %}
   <style>
+    .row {
+      margin: 0.3rem 0;
+      display: flex;
+      flex-flow: column;
+      justify-content: baseline;
+      align-items: stretch;
+    }
+
+    .row-header {
+      display: flex;
+      flex-flow: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .row-header h3 {
+      margin: 0;
+    }
+
+    .hire-me {
+      margin-bottom: 0.5rem;
+      padding: 0.5rem;
+      font-size: 0.85rem;
+      text-align: center;
+      font-style: oblique;
+      border-radius: 0.4rem;
+      color: var(--text-secondary);
+      background-color: var(--bg-secondary);
+    }
+    
     .tag-outer {
       display: flex;
       flex-flow: row;
@@ -14,34 +45,122 @@
     }
 
     .tag-info {
-      position: absolute;
-      right: 0;
-      top: 0.75rem;
       font-size: 0.75rem;
       font-weight: 400;
       text-align: right;
       color: var(--text-tertiary);
       background-color: var(--bg-primary);
-      padding: 0 0 4px 4px;
-      border-radius: 4px;
       font-style: oblique;
       white-space: nowrap;
     }
 
+    .three-items {
+      display: flex;
+      flex-flow: row;
+      justify-content: space-evenly;
+      align-items: stretch;
+    }
+
+    .mini-item {
+      flex: 1;
+      display: flex;
+      flex-flow: column;
+      justify-content: baseline;
+      align-items: center;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+
+    .mini-item .thumbnail {
+      width: 5rem;
+      min-width: 5rem;
+      height: 5rem;
+      margin: 0.4rem 0 0.2rem 0;
+    }
+
     @media (max-width: 400px) {
-      .tag-info {
-        top: 0.4rem;
+      .mini-item .thumbnail {
+        visibility: visible;
+        position: relative;
       }
+    }
+
+    .grid-link {
+      flex: 1;
+      padding: 0.75rem 0;
+      text-align: center;
+      color: var(--accent-secondary);
     }
   </style>
 
-  {% include 'content/quick-links.html' with logged_in=logged_in %}
-  {% for tag in tags %}
-    <div class="tag-outer">
-      {% include 'content/menu-item.html' with post=tag.featured_post %}
-      <a class="tag-info" href="{% url 'tag-or-content' tag.url %}">
-        more {{ tag.name }} →
-      </a>
+  <div class="hire-me">
+    I'm looking for software engineering / data science / ML work in NYC.
+    Find my résumé <a href="{% static 'resume.pdf' %}">here</a>
+    or a longer CV <a href="/hire-me">here</a>.
+  </div>
+  <div class="row">
+    <div class="row-header">
+      <h3>latest</h3>
+      <a class="tag-info" href="{% url 'all-content-menu' %}">more posts →</a>
     </div>
-  {% endfor %}
+    {% include 'content/menu-item.html' with post=featured_post.post %}
+  </div>
+  <hr>
+  <div class="row">
+    <div class="row-header">
+      <h3>arcade</h3>
+      <a class="tag-info" href="{% url 'tag-or-content' 'games' %}">more games →</a>
+    </div>
+    <div class="three-items">
+      {% include 'content/mini-item.html' with name='Mayhem Manager' url='https://arcade.damiensnyder.com' thumbnail='/logo.svg' description='manage a team of gladiators' %}
+      {% include 'content/mini-item.html' with name='Daily Q-less' url='https://arcade.damiensnyder.com/daily-qless' thumbnail='/thumbs/daily-qless.png' description='a new word puzzle every day' %}
+      {% include 'content/mini-item.html' with name='Auction Tic-Tac-Toe' url='https://arcade.damiensnyder.com' thumbnail='/logo.svg' description='tic-tac-toe but you bid on each square' %}
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="row-header">
+      <h3>music</h3>
+      <a class="tag-info" href="{% url 'tag-or-content' 'songs' %}">more songs →</a>
+    </div>
+    <div class="three-items">
+      {% include 'content/mini-item.html' with name='Turbo Hubcap Racing Superstars' url='/songs/turbo-hubcap' thumbnail='/thumbs/turbo-hubcap.png' description='4:41 ♬ by me and MaximumGuitar ' %}
+      {% include 'content/mini-item.html' with name='the things i\'ve seen' url='/songs/the-things-ive-seen' thumbnail='/thumbs/the-things-ive-seen.png' description='4:45 ♬' %}
+      {% include 'content/mini-item.html' with name='tell me what you know' url='/songs/tell-me-what-you-know' thumbnail='/logo.svg' description='3:29 ♬' %}
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="row-header">
+      <h3>notes</h3>
+      <a class="tag-info" href="{% url 'tag-or-content' 'notes' %}">more notes →</a>
+    </div>
+    {% include 'content/menu-item.html' with post=featured_note.post %}
+  </div>
+  <hr>
+  <div class="row">
+    <div class="row-header">
+      <h3>other pages</h3>
+      {% if logged_in %}
+        <a class="tag-info" href="{% url 'profile' %}">your profile →</a>
+      {% else %}
+        <a class="tag-info" href="{% url 'login' %}">log in →</a>
+      {% endif %}
+    </div>
+    <div class="three-items">
+      <a href="{% url 'tag-or-content' 'blog' %}" class="grid-link">blog</a>
+      <a href="{% url 'tag-or-content' 'videos' %}" class="grid-link">videos</a>
+      <a href="{% url 'tag-or-content' 'code' %}" class="grid-link">code</a>
+    </div>
+    <div class="three-items">
+      <a href="{% url 'tag-or-content' 'riffs' %}" class="grid-link">riffs</a>
+      <a href="{% url 'tag-or-content' 'pictures' %}" class="grid-link">pictures</a>
+      <a href="{% url 'tag-or-content' 'shortform' %}" class="grid-link">shortform</a>
+    </div>
+    <div class="three-items">
+      <a href="{% url 'content' 'blog' 'music-recs' %}" class="grid-link">music recs</a>
+      <a href="mailto:fanmail@damiensnyder.com" class="grid-link">contact</a>
+      <a href="{% url 'content' 'meta' 'about' %}" class="grid-link">about</a>
+    </div>
+  </div>
 {% endblock %}
