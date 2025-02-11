@@ -161,7 +161,7 @@ def paginate(posts, page_num):
     }
 
 
-def signup(request):
+def signup(request, dest_tag=None, dest_post=None):
     if request.user.is_authenticated:
         return redirect('/profile')
     elif request.method == 'POST':
@@ -172,6 +172,8 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
+            if dest_tag is not None and dest_post is not None:
+                return redirect(f'/{dest_tag}/{dest_post}')
             return redirect('/')
     else:
         form = CreateUser()
@@ -182,7 +184,7 @@ def signup(request):
     })
 
 
-def login_view(request):
+def login_view(request, dest_tag=None, dest_post=None):
     if request.user.is_authenticated:
         return redirect('/profile')
     elif request.method == 'POST':
@@ -193,6 +195,8 @@ def login_view(request):
             user = authenticate(username=username, password=raw_password)
             if user is not None:
                 login(request, user)
+                if dest_tag is not None and dest_post is not None:
+                    return redirect(f'/{dest_tag}/{dest_post}')
                 return redirect('/profile')
     form = AuthenticationForm()
     return render(request, 'content/login.html', {

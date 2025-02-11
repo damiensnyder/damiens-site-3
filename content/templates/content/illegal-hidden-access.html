@@ -16,5 +16,5 @@
 
   <p>nice try, bucko, but you're not allowed to look at this page. now scram, before i call your parents on ya</p>
 
-  <p><a href="/login">log in</a> / <a href="/signup">sign up</a></p>
+  <p><a href="{% url 'login' dest_tag=content.primary_tag.url dest_post=content.url %}">log in</a> / <a href="{% url 'signup' dest_tag=content.primary_tag.url dest_post=content.url %}">sign up</a></p>
   {% endblock %}
