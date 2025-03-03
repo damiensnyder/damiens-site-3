@@ -1,0 +1,81 @@
+{% extends "content/base.html" %}
+
+{% block tab_name %}Flag Voting{% endblock %}
+{% block nav_bar %}
+  <a href="{% url 'front-page' %}">home</a> /
+  <a href="{% url 'tag-or-content' 'code' %}">code</a>
+{% endblock %}
+{% block page_heading %}
+  <h1>Flag Voting</h1>
+{% endblock %}
+
+{% block main %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'flags.css' %}">
+<div class="center">
+    <p>Select your favorite flags (up to 3) and vote! You can see the leaderboard <a href="{% url 'flags:leaderboard' %}">here</a>.</p>
+</div>
+<form action="/flags/" method="post">
+    {% csrf_token %}
+    <div class="flag-grid">
+        {% for flag in flags %}
+            <div class="flag">
+                <a href="https://www.crwflags.com/fotw/flags/{{ flag.source }}" target="_blank">
+                    <img src="{{ flag.img_url }}" 
+                            alt="{{ flag.name }}"
+                            width="{{ flag.width }}"
+                            height="{{ flag.height }}">
+                </a>
+                
+                <div>
+                    <label>
+                        <input type="hidden" name="all_flags" value="{{ flag.id }}" />
+                        <input type="checkbox" 
+                                name="selected_flags"
+                                value="{{ flag.id }}"
+                                {% if flag.id in selected_flags %}checked{% endif %}
+                                onchange="validateSelection(this)">
+                        <span class="flag-name">{{ flag.name }}</span>
+                    </label>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div class="center">
+        <button type="submit">
+            Vote
+        </button>
+    </div>
+</form>
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+        <div class="{% if message.tags == 'success' %}success{% else %}error{% endif %}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<script>
+    function validateSelection(checkbox) {
+        const checkboxes = document.querySelectorAll('input[name="selected_flags"]:checked');
+        const message = document.getElementById('selection-message');
+        
+        if (checkboxes.length > 3) {
+            checkbox.checked = false;
+            message.textContent = "You can only select up to 3 flags";
+        } else {
+            message.textContent = "";
+        }
+    }
+    
+    // Run the validation on page load to show the current count
+    document.addEventListener('DOMContentLoaded', () => {
+        const anyCheckbox = document.querySelector('input[name="selected_flags"]');
+        if (anyCheckbox) validateSelection(anyCheckbox);
+    });
+</script>
+{% endblock %}

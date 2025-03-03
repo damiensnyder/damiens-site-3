@@ -1,0 +1,85 @@
+main {
+  width: 85%;
+  max-width: 1200px;
+}
+
+table {
+  position: relative;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-tertiary);
+}
+
+table,
+thead,
+tr {
+  border: 1px solid var(--text-tertiary);
+}
+
+button {
+  margin: 1rem;
+}
+
+label {
+  display: flex;
+  padding: 0 0.5rem;
+  white-space: nowrap;
+  overflow-x: hidden;
+  cursor: pointer;
+}
+
+img {
+  border: 1px solid var(--text-tertiary);
+}
+
+.table-outer {
+  max-height: 80vh;
+  overflow: auto;
+}
+
+.flag {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+}
+
+.flag a {
+  align-self: center;
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-in-table {
+  text-align: center;
+}
+
+.flag-grid {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(3, 33.3%);
+  grid-gap: 1rem;
+}
+
+@media (max-width: 1200px) {
+  .flag-grid {
+    grid-template-columns: repeat(2, 50%);
+    grid-gap: 0.5rem;
+  }
+}
+
+@media (max-width: 800px) {
+  .flag-grid {
+    grid-template-columns: repeat(1, 100%);
+    grid-gap: 0.5rem;
+  }
+}

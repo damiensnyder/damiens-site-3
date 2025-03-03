@@ -26,5 +26,6 @@ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) +\
 [
     path('admin/', admin.site.urls),
     path('upload/', permission_required("uploads.can_add_upload", login_url="/login/")(UploadView.as_view())),
+    path('flags/', include('flags.urls')),
     path('', include('content.urls'))
 ]
