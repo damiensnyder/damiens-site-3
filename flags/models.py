@@ -25,7 +25,7 @@ class Vote(models.Model):
     id = models.AutoField(primary_key=True)
     matchup_id = models.UUIDField()
     flag = models.ForeignKey(Flag, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     score = models.IntegerField()
 
     def save(self, *args, **kwargs):

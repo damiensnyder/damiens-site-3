@@ -35,7 +35,7 @@ def vote(request):
         for flag in selected_flags:
             vote = Vote(
                 matchup_id=matchup_id,
-                user=request.user,
+                user=request.user if request.user.is_authenticated else None,
                 flag=flag,
                 score=len(unselected_flags)
             )
@@ -46,7 +46,7 @@ def vote(request):
         for flag in unselected_flags:
             vote = Vote(
                 matchup_id=matchup_id,
-                user=request.user,
+                user=request.user if request.user.is_authenticated else None,
                 flag=flag,
                 score=-len(selected_flags)
             )
