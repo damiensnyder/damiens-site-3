@@ -12,6 +12,9 @@
 {% block main %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'flags.css' %}">
+<div class="center">
+    <p>Click <a href="{% url 'flags:vote' %}">here</a> to go to the voting page.</p>
+</div>
 <div class="table-outer">
   <table>
     <thead>
