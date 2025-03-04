@@ -25,11 +25,6 @@ def vote(request):
         selected_flags = Flag.objects.filter(pk__in=selected_flags)
         unselected_flags = Flag.objects.filter(pk__in=unselected_flags)
 
-        # Reject if more than 3 flags were selected
-        if (len(selected_flags) > 3) or (len(selected_flags) + len(unselected_flags) != 6):
-            messages.error(request, "Please select no more than three flags")
-            return redirect("flags:vote")
-
         # Create a new vote
         matchup_id = uuid.uuid4()
         for flag in selected_flags:
