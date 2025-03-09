@@ -32,22 +32,22 @@ def vote(request):
                 matchup_id=matchup_id,
                 user=request.user if request.user.is_authenticated else None,
                 flag=flag,
-                score=len(unselected_flags)
+                score=len(unselected_flags) + 5
             )
             vote.save()
             flag.num_votes += 1
-            flag.total_score += len(unselected_flags)
+            flag.total_score += len(unselected_flags) + 5
             flag.save()
         for flag in unselected_flags:
             vote = Vote(
                 matchup_id=matchup_id,
                 user=request.user if request.user.is_authenticated else None,
                 flag=flag,
-                score=-len(selected_flags)
+                score=-len(selected_flags) - 5
             )
             vote.save()
             flag.num_votes += 1
-            flag.total_score -= len(selected_flags)
+            flag.total_score -= len(selected_flags) - 5
             flag.save()
 
         # Redirect to the same page to prevent form resubmission
