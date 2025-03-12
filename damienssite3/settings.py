@@ -32,6 +32,9 @@ DEBUG = "DEBUG" in secrets and secrets["DEBUG"]
 
 # Application definition
 INSTALLED_APPS = [
+    'rest_framework',
+    'corsheaders',
+    'rest_framework_simplejwt',
     'content.apps.ContentConfig',
     'accounts.apps.AccountsConfig',
     'uploads.apps.UploadsConfig',
@@ -42,8 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'damienssite3.urls'
@@ -146,6 +148,15 @@ SIMPLE_JWT = {
 if DEBUG:
     SESSION_COOKIE_DOMAIN = '.ownsite.local'
     CSRF_COOKIE_DOMAIN = '.ownsite.local'
+    CORS_ALLOWED_ORIGINS = [
+        "http://arcade.ownsite.local:3000",
+        "http://www.ownsite.local:8000"
+    ]
 else:
     SESSION_COOKIE_DOMAIN = '.damiensnyder.com'
     CSRF_COOKIE_DOMAIN = '.damiensnyder.com'
+    CORS_ALLOWED_ORIGINS = [
+        "https://arcade.damiensnyder.com",
+        "https://www.damiensnyder.com"
+    ]
+CORS_ALLOW_CREDENTIALS = True

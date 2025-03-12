@@ -16,17 +16,25 @@ from content.views import get_theme
 def get_auth_token(request):
     if request.user.is_authenticated:
         token = str(AccessToken.for_user(request.user))
-        response = JsonResponse({'authenticated': True, 'username': request.user.username})
+        response = JsonResponse({
+            'authenticated': True,
+            'username': request.user.username
+        })
+        response["Access-Control-Allow-Credentials"] = "true"
+        response["Access-Control-Allow-Origin"] = "http://arcade.ownsite.local:3000"
         response.set_cookie(
             'auth_token', 
             token, 
-            httponly=True, 
+            httponly=True,
             secure=not settings.DEBUG,
             samesite='Lax',
             domain='.ownsite.local' if settings.DEBUG else '.damiensnyder.com'
         )
         return response
-    return JsonResponse({'authenticated': False})
+    response = JsonResponse({'authenticated': False})
+    response["Access-Control-Allow-Credentials"] = "true"
+    response["Access-Control-Allow-Origin"] = "http://arcade.ownsite.local:3000"
+    return response
 
 
 @permission_required('accounts.change_user', login_url='login')
