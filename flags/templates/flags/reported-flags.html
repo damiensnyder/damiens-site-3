@@ -1,13 +1,13 @@
 {% extends "content/base.html" %}
 
-{% block tab_name %}Flag Leaderboard{% endblock %}
+{% block tab_name %}Reported flags{% endblock %}
 {% block nav_bar %}
   <a href="{% url 'front-page' %}">home</a> /
   <a href="{% url 'tag-or-content' 'code' %}">code</a> /
   <a href="{% url 'flags:vote' %}">flags</a>
 {% endblock %}
 {% block page_heading %}
-  <h1>Leaderboard</h1>
+  <h1>Reported flags</h1>
 {% endblock %}
 
 {% block main %}
@@ -17,15 +17,13 @@
   <table>
     <thead>
       <tr>
-        <th>Rank</th>
         <th>Place</th>
         <th>Flag</th>
         <th>Score</th>
       </tr>
     </thead>
-    {% for flag in flags %}
+    {% for flag in reported_flags %}
       <tr>
-        <td class="center-in-table">{{ forloop.counter }}</td>
         <td>{{ flag.name }}</td>
         <td class="center-in-table">
           <a href="{% url 'flags:flag_info' flag.id %}" target="_blank">

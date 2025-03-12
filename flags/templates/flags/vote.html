@@ -20,7 +20,7 @@
     <div class="flag-grid">
         {% for flag in flags %}
             <div class="flag">
-                <a href="https://www.crwflags.com/fotw/flags/{{ flag.source }}" target="_blank">
+                <a href="{% url 'flags:flag_info' flag.id %}" target="_blank">
                     <img src="{{ flag.img_url }}" 
                             alt="{{ flag.name }}"
                             width="{{ flag.width }}"

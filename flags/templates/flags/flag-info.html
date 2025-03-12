@@ -1,0 +1,127 @@
+{% extends "content/base.html" %}
+
+{% block tab_name %}{{ flag.name }}{% endblock %}
+{% block nav_bar %}
+  <a href="{% url 'front-page' %}">home</a> /
+  <a href="{% url 'tag-or-content' 'code' %}">code</a> /
+  <a href="{% url 'flags:vote' %}">flags</a>
+{% endblock %}
+{% block page_heading %}
+  <h1>{{ flag.name }}</h1>
+{% endblock %}
+
+{% block main %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'flags.css' %}">
+
+<script>
+  let timesDeleteClicked = 0;
+
+  function pinFlag() {
+    fetch("{% url 'flags:pin_flag' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify({
+        flag_id: Number.parseInt("{{ flag.id }}")  // just so i don't get error messages
+      })
+    }).then((res) => {
+      if (res.ok) {
+        document.querySelector('#pin-or-unpin').textContent = 'Unpin flag';
+        document.querySelector('#pin-or-unpin').onclick = unpinFlag;
+      } else {
+        alert('Failed to pin flag: ' + res.statusText);
+      }
+    });
+  }
+
+  function unpinFlag() {
+    fetch("{% url 'flags:unpin_flag' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify({
+        flag_id: Number.parseInt("{{ flag.id }}")
+      })
+    }).then((res) => {
+      if (res.ok) {
+        document.querySelector('#pin-or-unpin').textContent = 'Pin flag';
+        document.querySelector('#pin-or-unpin').onclick = pinFlag;
+      } else {
+        alert('Failed to unpin flag: ' + res.statusText);
+      }
+    });
+  }
+
+  function reportFlag() {
+    fetch("{% url 'flags:report_flag' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify({
+        flag_id: Number.parseInt("{{ flag.id }}")
+      })
+    }).then((res) => {
+      if (res.ok) {
+        document.querySelector('#report').textContent = 'Flag reported';
+        document.querySelector('#report').disabled = true;
+      } else {
+        alert('Failed to report flag: ' + res.statusText);
+      }
+    });
+  }
+
+  function deleteFlag() {
+    timesDeleteClicked++;
+    if (timesDeleteClicked < 2) {
+      alert("Click delete again to confirm deletion.");
+      return;
+    }
+    fetch("{% url 'flags:delete_flag' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: JSON.stringify({
+        flag_id: Number.parseInt("{{ flag.id }}")
+      })
+    }).then((res) => {
+      if (res.ok) {
+        window.location.href = '/flags/';
+      } else {
+        alert('Failed to delete flag: ' + res.statusText);
+      }
+    });
+  }
+</script>
+
+<div class="flag">
+  <img src="{{ flag.img_url }}" 
+    alt="{{ flag.name }}"
+    width="{{ flag.width }}"
+    height="{{ flag.height }}">
+</div>
+<p>Source: <a href="https://www.crwflags.com/fotw/flags/{{ flag.source }}">CRW Flags</a></p>
+<div class="horiz">
+  {% if pinned %}
+    <button id="pin-or-unpin" onclick="unpinFlag()">Unpin flag</button>
+  {% elif user.is_authenticated %}
+    <button id="pin-or-unpin" onclick="pinFlag()">Pin flag</button>
+  {% endif %}
+  <button id="report" onclick="reportFlag()">Report flag</button>
+  {% if user.is_staff %}
+    <button id="delete" onclick="deleteFlag()">Delete flag</button>
+  {% endif %}
+</div>
+<p>
+  Please report images of non-flags or of flags that don't represent places.
+  Seals or coats of arms on their own (not part of a flag) are considered non-flags.
+</p>
+{% endblock %}

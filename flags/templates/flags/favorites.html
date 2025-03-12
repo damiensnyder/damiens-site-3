@@ -1,0 +1,96 @@
+{% extends "content/base.html" %}
+
+{% block tab_name %}Your favorite flags{% endblock %}
+{% block nav_bar %}
+  <a href="{% url 'front-page' %}">home</a> /
+  <a href="{% url 'tag-or-content' 'code' %}">code</a> /
+  <a href="{% url 'flags:vote' %}">flags</a>
+{% endblock %}
+{% block page_heading %}
+  <h1>Leaderboard</h1>
+{% endblock %}
+
+{% block main %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'flags.css' %}">
+
+<h2>Pinned flags</h2>
+
+{% if pinned_flags %}
+  <div class="table-outer">
+    <table>
+      <thead>
+        <tr>
+          <th>Place</th>
+          <th>Flag</th>
+        </tr>
+      </thead>
+      {% for flag in pinned_flags %}
+        <tr>
+          <td>{{ flag.name }}</td>
+          <td class="center-in-table">
+            <a href="{% url 'flags:flag_info' {{ flag.id }} %}" target="_blank">
+              <img src="{{ flag.img_url }}"
+                  alt="{{ flag.name }}"
+                  width="{{ flag.width }}"
+                  height="{{ flag.height }}">
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% else %}
+  <p>You haven't pinned any flags yet. Click a flag to go to its info page where you can pin it.</p>
+{% endif %}
+
+<h2>Flags you've voted for</h2>
+
+<div class="table-outer">
+  <table>
+    <thead>
+      <tr>
+        <th>Place</th>
+        <th>Flag</th>
+      </tr>
+    </thead>
+    {% for flag in liked_flags %}
+      <tr>
+        <td>{{ flag.name }}</td>
+        <td class="center-in-table">
+          <a href="{% url 'flag-info' {{ flag.img_url }} %}" target="_blank">
+            <img src="{{ flag.img_url }}"
+                alt="{{ flag.name }}"
+                width="{{ flag.width }}"
+                height="{{ flag.height }}">
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
+
+{% block footer %}
+  <div class="page-numbers">
+    {% if num_pages > 1 %}
+      {% include 'content/page-num.html' with link_num=1 %}
+      {% if page_num > 3 %}
+        <span class="page-num-ellipsis">...</span>
+      {% endif %}
+      {% if page_num > 2 %}
+        {% include 'content/page-num.html' with link_num=page_num|add:-1 %}
+      {% endif %}
+      {% if page_num > 1 and page_num < num_pages %}
+        {% include 'content/page-num.html' with link_num=page_num %}
+      {% endif %}
+      {% if page_num < num_pages|add:-1 %}
+        {% include 'content/page-num.html' with link_num=page_num|add:1 %}
+      {% endif %}
+      {% if page_num < num_pages|add:-2 %}
+        <span class="page-num-ellipsis">...</span>
+      {% endif %}
+      {% include 'content/page-num.html' with link_num=num_pages %}
+    {% endif %}
+  </div>
+{% endblock %}

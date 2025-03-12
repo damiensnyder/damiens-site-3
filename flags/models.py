@@ -24,6 +24,7 @@ class Flag(models.Model):
 class Vote(models.Model):
     id = models.AutoField(primary_key=True)
     matchup_id = models.UUIDField()
+    timestamp = models.DateTimeField(auto_now_add=True)
     flag = models.ForeignKey(Flag, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     score = models.IntegerField()
@@ -32,4 +33,28 @@ class Vote(models.Model):
         models.Model.save(self)
 
     def __str__(self) -> str:
-        return f"{self.matchup_id}: {self.flag.name} - {self.score} ({self.user})"
+        return f"{self.timestamp.strftime('%Y.%m.%d')}: {self.flag.name} - {self.score} ({self.user})"
+    
+
+class Pin(models.Model):
+    id = models.AutoField(primary_key=True)
+    flag = models.ForeignKey(Flag, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        models.Model.save(self)
+
+    def __str__(self) -> str:
+        return f"{self.flag.name} pinned by {self.user}"
+
+
+class Report(models.Model):
+    id = models.AutoField(primary_key=True)
+    flag = models.ForeignKey(Flag, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        models.Model.save(self)
+
+    def __str__(self) -> str:
+        return f"{self.flag.name} reported by {self.user}"

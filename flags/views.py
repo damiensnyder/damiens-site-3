@@ -1,11 +1,13 @@
 import uuid
+import json
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 from django.views.decorators.http import require_http_methods
 from django.db.models import F
 import random
 from content.views import get_theme
-from .models import Flag, Vote
+from .models import Flag, Pin, Report, Vote
 
 
 @require_http_methods(["GET", "POST"])
@@ -99,3 +101,72 @@ def leaderboard(request):
     }
     
     return render(request, 'flags/leaderboard.html', context)
+
+
+@login_required(login_url='login')
+def favorites(request):
+    pass
+
+
+def flag_info(request, flag_id):
+    """
+    View for displaying information about a specific flag.
+    """
+    try:
+        flag = Flag.objects.get(pk=flag_id)
+    except Flag.DoesNotExist:
+        return redirect('flags:leaderboard')
+    context = {
+        'flag': flag,
+        'theme': get_theme(request),
+        'user': request.user
+    }
+    
+    return render(request, 'flags/flag-info.html', context)
+
+
+@permission_required('flags.delete_flag')
+def reported_flags(request):
+    reported_flags = Report.objects.all()
+    context = {
+        'reported_flags': reported_flags,
+        'theme': get_theme(request)
+    }
+    return render(request, 'flags/reported-flags.html', context)
+
+
+@login_required(login_url='login')
+@require_http_methods(["POST"])
+def pin_flag(request):
+    flag_id = json.loads(request.body)['flag_id']
+    Pin.objects.create(
+        flag=Flag.objects.get(pk=flag_id),
+        user=request.user
+    )
+    return JsonResponse({'status': 200})
+
+
+@login_required(login_url='login')
+@require_http_methods(["POST"])
+def unpin_flag(request):
+    flag_id = json.loads(request.body)['flag_id']
+    Pin.objects.get(flag=Flag.objects.get(pk=flag_id), user=request.user).delete()
+    return JsonResponse({'status': 200})
+
+
+@require_http_methods(["POST"])
+def report_flag(request):
+    flag_id = json.loads(request.body)['flag_id']
+    Report.objects.create(
+        flag=Flag.objects.get(pk=flag_id),
+        user=request.user
+    )
+    return JsonResponse({'status': 200})
+
+
+@permission_required('flags.delete_flag')
+@require_http_methods(["POST"])
+def delete_flag(request):
+    flag_id = json.loads(request.body)['flag_id']
+    Flag.objects.get(pk=flag_id).delete()
+    return JsonResponse({'status': 200})
