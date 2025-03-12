@@ -7,16 +7,22 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'post-body.css' %}">
 
-<p>hi {{ user.username }}</p>
+<p>
+    you are logged in as {{ user.username }}.
+    you can change your password <a href="{% url 'accounts:change_password' %}">here</a>.
+</p>
 
 <p>
-    now that you have a profile i can give you roles. these let you
-    view more posts. there are roles for knowing me personally, viewing drafts,
-    viewing deep cuts, viewing even deeper cuts, and viewing especially personal
-    posts. if you want to view deep cuts or drafts i make no guarantees you will
-    find anything worthwhile. and if you want to view personal posts i make no
-    guarantees that you will not find them too personal. anyway just ask and ye
-    may receive.
+    your profile unlocks many possibilities for you. for example, you can now
+    gain roles that let you view more posts (message me if you want such a
+    role). the roles include: "deep cuts", "deeper cuts", "drafts", and
+    "personal". if you find the deep cuts too deep, the drafts too unpolished,
+    or the personal posts too personal, that is your own fault.
+</p>
+
+<p>
+    you can also set your preferred site theme below. (even more profile
+    features might arrive in the future!)
 </p>
 
 <h2>Select theme</h2>
