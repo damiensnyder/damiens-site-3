@@ -13,7 +13,13 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'flags.css' %}">
 <div class="center">
-    <p>Select your favorite flags and vote! You can see the leaderboard <a href="{% url 'flags:leaderboard' %}">here</a>.</p>
+    <p>
+        Select your favorite flags and vote!
+        &nbsp;&bull;&nbsp; <a href="{% url 'flags:leaderboard' %}">Leaderboard</a>
+        {% if user.is_authenticated %}
+            &nbsp;&bull;&nbsp; <a href="{% url 'flags:favorites' %}">Your favorites</a>
+        {% endif %}
+    </p>
 </div>
 <form action="/flags/" method="post">
     {% csrf_token %}

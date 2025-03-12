@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.vote, name='vote'),
     path('leaderboard/', views.leaderboard, name='leaderboard'),
     path('favorites/', views.favorites, name='favorites'),
+    path('favorites/<int:page_num>/', views.favorites, name='favorites'),
     path('reported/', views.reported_flags, name='reported_flags'),
     path('info/<int:flag_id>/', views.flag_info, name='flag_info'),
     path('pin/', views.pin_flag, name='pin_flag'),

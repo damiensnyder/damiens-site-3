@@ -38,8 +38,8 @@ class Vote(models.Model):
 
 class Pin(models.Model):
     id = models.AutoField(primary_key=True)
-    flag = models.ForeignKey(Flag, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    flag = models.ForeignKey(Flag, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         models.Model.save(self)
@@ -50,8 +50,8 @@ class Pin(models.Model):
 
 class Report(models.Model):
     id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     flag = models.ForeignKey(Flag, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         models.Model.save(self)

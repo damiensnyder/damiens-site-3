@@ -104,8 +104,37 @@ def leaderboard(request):
 
 
 @login_required(login_url='login')
-def favorites(request):
-    pass
+def favorites(request, page_num=1):
+    """
+    View for displaying the flags that the user has pinned or voted in favor of.
+    """
+    # Get the flags that the user has pinned
+    pinned_flags = Flag.objects.filter(pin__user=request.user).distinct()
+    liked_flags = Flag.objects.filter(vote__user=request.user, vote__score__gt=0).distinct()
+
+    # Constrain flags to 300x180
+    for flag in pinned_flags.union(liked_flags):
+        if flag.height > 180:
+            flag.width = int(flag.width * 180 / flag.height)
+            flag.height = 180
+        if flag.width > 300:
+            flag.height = int(flag.height * 300 / flag.width)
+            flag.width = 300
+
+    # Paginate liked_flags by 100s
+    num_pages = (len(pinned_flags) + len(liked_flags) + 99) // 100
+    liked_flags = liked_flags[(page_num - 1) * 100:page_num * 100]
+    
+    context = {
+        'pinned_flags': pinned_flags,
+        'liked_flags': liked_flags,
+        'page_num': page_num,
+        'num_pages': num_pages,
+        'user': request.user,
+        'theme': get_theme(request)
+    }
+    
+    return render(request, 'flags/favorites.html', context)
 
 
 def flag_info(request, flag_id):
@@ -127,7 +156,8 @@ def flag_info(request, flag_id):
 
 @permission_required('flags.delete_flag')
 def reported_flags(request):
-    reported_flags = Report.objects.all()
+    # select all flags that have an associated Report object
+    reported_flags = Flag.objects.filter(report__isnull=False).distinct()
     context = {
         'reported_flags': reported_flags,
         'theme': get_theme(request)
