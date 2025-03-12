@@ -4,8 +4,29 @@ from django.contrib import messages
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.hashers import make_password
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+from rest_framework_simplejwt.tokens import AccessToken
 from accounts.models import User
 from content.views import get_theme
+
+
+@csrf_exempt
+def get_auth_token(request):
+    if request.user.is_authenticated:
+        token = str(AccessToken.for_user(request.user))
+        response = JsonResponse({'authenticated': True, 'username': request.user.username})
+        response.set_cookie(
+            'auth_token', 
+            token, 
+            httponly=True, 
+            secure=True,  # Set to True in production
+            samesite='Lax',
+            domain='.ownsite.local' if settings.DEBUG else '.damiensnyder.com'
+        )
+        return response
+    return JsonResponse({'authenticated': False})
 
 
 @permission_required('accounts.change_user', login_url='login')

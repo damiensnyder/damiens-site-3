@@ -23,11 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 secrets = json.load(open(os.path.join(BASE_DIR, 'secrets.json')))
 SECRET_KEY = secrets['SECRET_KEY']
+ALLOWED_HOSTS = secrets['ALLOWED_HOSTS']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = secrets['ALLOWED_HOSTS']
 
 
 # Application definition
@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,12 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'target/static')
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+# Allow cross-site cookies
+if DEBUG:
+    SESSION_COOKIE_DOMAIN = '.ownsite.local'
+    CSRF_COOKIE_DOMAIN = '.ownsite.local'
+else:
+    SESSION_COOKIE_DOMAIN = '.damiensnyder.com'
+    CSRF_COOKIE_DOMAIN = '.damiensnyder.com'
