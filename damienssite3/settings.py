@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+from datetime import timedelta
 import os
 import json
 
@@ -26,12 +27,10 @@ SECRET_KEY = secrets['SECRET_KEY']
 ALLOWED_HOSTS = secrets['ALLOWED_HOSTS']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
+DEBUG = "DEBUG" in secrets and secrets["DEBUG"]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'content.apps.ContentConfig',
     'accounts.apps.AccountsConfig',
@@ -133,6 +132,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'target/static')
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
+# JWT signing
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': secrets["SIGNING_KEY"],  # Use a strong secret in production
+}
 
 
 # Allow cross-site cookies

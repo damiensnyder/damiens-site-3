@@ -21,7 +21,7 @@ def get_auth_token(request):
             'auth_token', 
             token, 
             httponly=True, 
-            secure=True,  # Set to True in production
+            secure=not settings.DEBUG,
             samesite='Lax',
             domain='.ownsite.local' if settings.DEBUG else '.damiensnyder.com'
         )
