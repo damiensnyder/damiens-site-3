@@ -15,25 +15,32 @@ from content.views import get_theme
 @csrf_exempt
 def get_auth_token(request):
     if request.user.is_authenticated:
-        token = str(AccessToken.for_user(request.user))
+        token = AccessToken.for_user(request.user)
+        token['username'] = request.user.username
+        token['token_type'] = 'access'
         response = JsonResponse({
             'authenticated': True,
             'username': request.user.username
         })
-        response["Access-Control-Allow-Credentials"] = "true"
-        response["Access-Control-Allow-Origin"] = "http://arcade.ownsite.local:3000"
+        
         response.set_cookie(
             'auth_token', 
-            token, 
+            str(token), 
             httponly=True,
             secure=not settings.DEBUG,
             samesite='Lax',
             domain='.ownsite.local' if settings.DEBUG else '.damiensnyder.com'
         )
-        return response
-    response = JsonResponse({'authenticated': False})
+    else:
+        response = JsonResponse({'authenticated': False})
+    
+    # Set CORS headers
     response["Access-Control-Allow-Credentials"] = "true"
-    response["Access-Control-Allow-Origin"] = "http://arcade.ownsite.local:3000"
+    response["Access-Control-Allow-Origin"] = (
+        "http://arcade.ownsite.local:3000"
+        if settings.DEBUG
+        else "https://arcade.damiensnyder.com"
+    )
     return response
 
 
