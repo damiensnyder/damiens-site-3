@@ -11,3 +11,4 @@ secrets.json
 *.pdf
 *.code-workspace
 old/
+importflags.py
