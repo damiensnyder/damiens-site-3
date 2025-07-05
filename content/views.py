@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from random import random
 from content.models import Tag, Content, Shortform, Message
-from content.forms import ChangeThemeForm, MessageForm
+from content.forms import ChangeSettingsForm, MessageForm
 import datetime
 from accounts.models import User
 from accounts.forms import CreateUser
@@ -220,7 +220,10 @@ def profile(request):
     else:
         return render(request, 'content/profile.html', {
             'user': request.user,
-            'form': ChangeThemeForm(),
+            'form': ChangeSettingsForm(initial={
+                'email': request.user.email,
+                'theme': request.user.theme
+            }),
             'theme': get_theme(request)
         })
     
@@ -253,15 +256,16 @@ def send_message(request, tag_url, post_url):
         return redirect(f"/{tag_url}/{post_url}/")
 
 
-def change_theme(request):
+def change_settings(request):
     if request.method == "POST":
-        form = ChangeThemeForm(data=request.POST)
+        form = ChangeSettingsForm(data=request.POST)
         if form.is_valid():
             if request.user.is_authenticated:
                 user = request.user
             else:
                 return redirect(f"/login/")
             user.theme = form.cleaned_data.get('theme')
+            user.email = form.cleaned_data.get('email')
             user.save()
             return redirect(f"/profile/")
     return redirect(f"/profile/")

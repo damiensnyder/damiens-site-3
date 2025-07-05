@@ -10,7 +10,7 @@ urlpatterns = [
     path('login/?dest_tag=<dest_tag>&dest_post=<dest_post>', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('profile/', views.profile, name='profile'),
-    path('profile/change_theme/', views.change_theme, name='change_theme'),
+    path('profile/change_settings/', views.change_settings, name='change_settings'),
     path('content/', views.all_content_menu, name='all-content-menu'),
     path('content/<int:page_num>/', views.all_content_menu, name='content-paginated'),
     path('shortform/', views.all_shortform_menu, name='all-shortform-menu'),

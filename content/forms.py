@@ -6,7 +6,12 @@ class MessageForm(forms.Form):
     body = forms.CharField(label="Message:", max_length=10000, required=True)
 
 
-class ChangeThemeForm(forms.Form):
+class ChangeSettingsForm(forms.Form):
+    email = forms.EmailField(
+        label="Email:",
+        max_length=254,
+        required=False
+    )
     theme = forms.ChoiceField(
         choices=[
             ("auto", "auto"),
@@ -17,6 +22,6 @@ class ChangeThemeForm(forms.Form):
             ("vice", "vice"),
             ("suffering", "suffering")
         ],
-        label="Theme:",
+        label="Site theme:",
         required=True
     )

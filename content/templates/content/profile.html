@@ -4,45 +4,63 @@
 
 {% block main %}
 
+<style>
+  form {
+    margin-top: 1rem;
+    max-width: 36rem;
+    display: flex;
+    flex-flow: column;
+    align-self: flex-start;
+  }
+
+  input,
+  button {
+    margin: 0.25rem;
+    padding: 0.2rem 0.25rem;
+    flex-grow: 1;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-family: var(--font-sans);
+    border: 1px solid var(--text-secondary);
+    color: inherit;
+    background-color: var(--bg-secondary);
+  }
+</style>
+
 {% load static %}
 <link rel="stylesheet" href="{% static 'post-body.css' %}">
 
 <p>
-    you are logged in as {{ user.username }}.
-    you can change your password <a href="{% url 'accounts:change_password' %}">here</a>.
+    you are logged in as "{{ user.username }}". nice username... i guess.
+  </p>
+  
+  <p>
+    <a href="{% url 'accounts:change_password' %}">change password</a> |
+    <a href="{% url 'logout' %}">log out</a>
 </p>
 
 <p>
-    your profile unlocks many possibilities for you. for example, you can now
-    gain roles that let you view more posts (message me if you want such a
-    role). the roles include: "deep cuts", "deeper cuts", "drafts", and
-    "personal". if you find the deep cuts too deep, the drafts too unpolished,
-    or the personal posts too personal, that is your own fault.
+    below, you can choose your preferred site theme. you can also add your email, if you want,
+    which will sign you up to be notified when i make a new post. if i don't know you
+    personally, this is how i will verify you if you ask for a password reset.
 </p>
 
-<p>
-    you can also set your preferred site theme below. (even more profile
-    features might arrive in the future!)
-</p>
+<h2>Settings</h2>
 
-<h2>Select theme</h2>
-
-<form action="{% url 'change_theme' %}" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <div class="field">
-        <label>{{ field.label_tag }}</label>
-        {{ field }}
-        {% if field.help_text %}
-        {% endif %}
-      </div>
-      {% for error in field.errors %}
-        <p class="error">{{ error }}</p>
-      {% endfor %}
-      <div class="requirements">{{ field.help_text }}</div>
+<form action="{% url 'change_settings' %}" method="post">
+  {% csrf_token %}
+  {% for field in form %}
+    <div class="field">
+      <label>{{ field.label_tag }}</label>
+      {{ field }}
+      {% if field.help_text %}
+      {% endif %}
+    </div>
+    {% for error in field.errors %}
+      <p class="error">{{ error }}</p>
     {% endfor %}
-    <button type="submit">Select</button>
-  </form>
-
-<p><a href="{% url 'logout' %}">log out</a></p>
+    <div class="requirements">{{ field.help_text }}</div>
+  {% endfor %}
+  <button type="submit">Select</button>
+</form>
 {% endblock %}
