@@ -1,0 +1,68 @@
+/* Pastel theme - soft dreamy pastel colors */
+
+:root {
+  --bg-primary: #fef6fb;
+  --bg-secondary: #ffe8f5;
+  --bg-tertiary: #ffd5ec;
+  --text-primary: #5a4a6a;
+  --text-secondary: #d8c8e8;
+  --text-tertiary: #b8a8c8;
+  --accent-primary: #c89bd8;
+  --accent-secondary: #f4a7b9;
+
+  --font-serif: "Trebuchet MS", "Gill Sans", Calibri, sans-serif;
+  --font-sans: "Trebuchet MS", "Gill Sans", Calibri, sans-serif;
+  --font-mono: Monaco, Menlo, monospace;
+}
+
+/* Soft pastel gradient background */
+body {
+  background:
+    radial-gradient(circle at 10% 20%, rgba(248, 200, 220, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 90% 80%, rgba(200, 155, 216, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 232, 245, 0.4) 0%, transparent 70%),
+    linear-gradient(135deg, #fef6fb 0%, #ffe8f5 25%, #f8e8ff 50%, #e8f8ff 75%, #fef6fb 100%);
+}
+
+/* Soft pastel elements */
+h1, h2, h3 {
+  color: #c89bd8;
+  text-shadow: 1px 1px 2px rgba(200, 155, 216, 0.2);
+}
+
+a {
+  color: #c89bd8;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #f4a7b9;
+}
+
+/* Pastel containers */
+code, pre {
+  background: rgba(255, 232, 245, 0.6) !important;
+  border: 1px solid rgba(200, 155, 216, 0.3) !important;
+}
+
+input, button, select {
+  background: rgba(255, 232, 245, 0.7) !important;
+  border: 1px solid rgba(200, 155, 216, 0.4) !important;
+}
+
+button:hover {
+  background: rgba(244, 167, 185, 0.5) !important;
+}
+
+details {
+  background: rgba(255, 213, 236, 0.5) !important;
+  border: 1px solid rgba(200, 155, 216, 0.3) !important;
+}
+
+table {
+  border-color: rgba(200, 155, 216, 0.3) !important;
+}
+
+th {
+  background: rgba(255, 232, 245, 0.6) !important;
+}

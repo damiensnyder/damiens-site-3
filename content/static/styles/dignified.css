@@ -49,3 +49,22 @@ a {
 a:hover {
   border-bottom: 2px solid var(--accent-primary);
 }
+
+/* Refined code blocks */
+code {
+  font-size: 0.85em;
+  padding: 0.15em 0.4em;
+  background-color: var(--bg-secondary);
+  border-radius: 3px;
+}
+
+pre {
+  padding: 0.8rem;
+  line-height: 1.4;
+  font-size: 0.85rem;
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+}

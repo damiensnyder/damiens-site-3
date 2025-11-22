@@ -1,0 +1,164 @@
+/* Grimoire theme - Arcane wizard's tome */
+
+:root {
+  --bg-primary: #0f0a0a;
+  --bg-secondary: #1a1210;
+  --bg-tertiary: #251a15;
+  --text-primary: #e8dcc8;
+  --text-secondary: #6a5a4a;
+  --text-tertiary: #9a8a7a;
+  --accent-primary: #d4af37;
+  --accent-secondary: #8b4513;
+
+  --font-serif: "Palatino Linotype", "Book Antiqua", Palatino, Garamond, serif;
+  --font-sans: "Palatino Linotype", "Book Antiqua", Palatino, Garamond, serif;
+  --font-mono: Monaco, Menlo, monospace;
+}
+
+/* Ancient parchment texture */
+@keyframes flicker {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; }
+}
+
+body {
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.02) 3px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.02) 3px),
+    radial-gradient(circle at 50% 50%, #1a1210 0%, #0f0a0a 100%);
+  position: relative;
+}
+
+/* Candlelight flicker effect */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 40%);
+  animation: flicker 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Arcane borders */
+main {
+  border: 2px solid #d4af37;
+  border-image: repeating-linear-gradient(
+    45deg,
+    #d4af37,
+    #d4af37 10px,
+    #8b4513 10px,
+    #8b4513 20px
+  ) 1;
+  padding: 2rem;
+  background: rgba(15, 10, 10, 0.8);
+  box-shadow:
+    0 0 20px rgba(212, 175, 55, 0.2),
+    inset 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Illuminated manuscript style headings */
+h1 {
+  font-size: 2.5rem !important;
+  color: #d4af37;
+  text-align: center;
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+  text-shadow:
+    0 0 10px rgba(212, 175, 55, 0.5),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+  border-top: 3px double #d4af37;
+  border-bottom: 3px double #d4af37;
+  padding: 1rem 0;
+  margin: 2rem 0 !important;
+}
+
+h2, h3 {
+  color: #d4af37;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Mystical links */
+a {
+  color: #d4af37;
+  text-decoration: none;
+  border-bottom: 1px solid #d4af37;
+  text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: #ffcc55;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+  border-bottom: 2px solid #ffcc55;
+}
+
+/* Ancient code scrolls */
+code, pre {
+  background: rgba(37, 26, 21, 0.8) !important;
+  border: 1px solid #6a5a4a !important;
+  color: #d4af37;
+  text-shadow: 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Runic input fields */
+input, button, select {
+  background: rgba(26, 18, 16, 0.9) !important;
+  border: 2px solid #8b4513 !important;
+  color: #e8dcc8 !important;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+button {
+  border: 2px outset #d4af37 !important;
+  text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+button:hover {
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Mystical containers */
+details {
+  background: rgba(37, 26, 21, 0.6) !important;
+  border: 2px solid #8b4513 !important;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+}
+
+summary {
+  color: #d4af37;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+/* Ancient tables */
+table {
+  border: 2px double #d4af37 !important;
+  background: rgba(26, 18, 16, 0.6);
+}
+
+th {
+  background: rgba(37, 26, 21, 0.8) !important;
+  color: #d4af37;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+}
+
+/* Subtle page numbers or mystical symbols */
+p:first-of-type::first-letter {
+  font-size: 2em;
+  float: left;
+  line-height: 0.9;
+  margin: 0.1em 0.1em 0 0;
+  color: #d4af37;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
