@@ -1,4 +1,4 @@
-/* Ocean theme - deep blues and teals */
+/* Ocean theme - deep blues with animated waves */
 
 :root {
   --bg-primary: #001f3f;
@@ -12,14 +12,54 @@
 
   --font-serif: Georgia, "Hoefler Text", serif;
   --font-sans: Verdana, Geneva, sans-serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-mono: Monaco, Menlo, monospace;
 }
 
-/* Wave pattern */
+/* Animated wavy ocean background */
+@keyframes wave {
+  0% {
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 body {
+  background: #001f3f;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(0, 91, 127, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(0, 61, 92, 0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 40% 80%, rgba(57, 204, 204, 0.15) 0%, transparent 50%);
+  animation: wave 60s linear infinite;
+  z-index: -1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100px;
   background:
-    linear-gradient(135deg, transparent 25%, rgba(0,61,92,0.5) 25%, rgba(0,61,92,0.5) 50%, transparent 50%, transparent 75%, rgba(0,61,92,0.5) 75%),
-    linear-gradient(45deg, transparent 25%, rgba(0,91,127,0.3) 25%, rgba(0,91,127,0.3) 50%, transparent 50%, transparent 75%, rgba(0,91,127,0.3) 75%);
-  background-color: #001f3f;
-  background-size: 40px 40px;
+    repeating-linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(57, 204, 204, 0.1) 5%,
+      transparent 10%
+    );
+  animation: wave 40s linear infinite reverse;
+  z-index: -1;
 }

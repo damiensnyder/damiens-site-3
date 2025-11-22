@@ -10,9 +10,9 @@
   --accent-primary: #ff00ff;
   --accent-secondary: #ffff00;
 
-  --font-serif: "Courier New", Courier, monospace;
+  --font-serif: Monaco, Menlo, monospace;
   --font-sans: Arial, Helvetica, sans-serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-mono: Monaco, Menlo, monospace;
 }
 
 /* Wavy aesthetic */

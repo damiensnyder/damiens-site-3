@@ -12,7 +12,7 @@
 
   --font-serif: Georgia, "Palatino Linotype", serif;
   --font-sans: "Trebuchet MS", Helvetica, sans-serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-mono: Monaco, Menlo, monospace;
 }
 
 /* Gradient sky */

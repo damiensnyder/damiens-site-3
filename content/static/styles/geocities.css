@@ -12,7 +12,7 @@
 
   --font-serif: "Comic Sans MS", "Papyrus", cursive;
   --font-sans: "Comic Sans MS", "Papyrus", cursive;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-mono: Monaco, Menlo, monospace;
 }
 
 /* Chaotic layout */

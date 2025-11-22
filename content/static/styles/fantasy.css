@@ -12,7 +12,7 @@
 
   --font-serif: Garamond, "Palatino Linotype", "Book Antiqua", Palatino, serif;
   --font-sans: Garamond, "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-mono: Monaco, Menlo, monospace;
 }
 
 /* Parchment-like texture */

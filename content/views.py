@@ -296,10 +296,12 @@ def theme_preview(request):
         ('vice', 'Vice'),
         ('suffering', 'Suffering'),
         ('unstyled', 'Unstyled HTML'),
-        ('dignified', 'Dignified (70s-80s)'),
+        ('dignified', 'Dignified'),
         ('geocities', 'Geocities'),
+        ('geocities_extreme', 'Geocities EXTREME'),
         ('cyberpunk', 'Cyberpunk'),
         ('fantasy', 'Fantasy'),
+        ('whimsy', 'Whimsy'),
         ('seapunk', 'Seapunk'),
         ('modern_light', 'Modern Light'),
         ('modern_dark', 'Modern Dark'),
@@ -309,13 +311,10 @@ def theme_preview(request):
         ('terminal', 'Terminal'),
         ('sunset', 'Sunset'),
         ('ocean', 'Ocean'),
-        ('lavender', 'Lavender'),
         ('chocolate', 'Chocolate'),
         ('neon', 'Neon'),
-        ('pastel', 'Pastel'),
         ('high_contrast', 'High Contrast'),
         ('solarized', 'Solarized'),
-        ('nord', 'Nord'),
     ]
 
     return render(request, 'content/theme-preview.html', {

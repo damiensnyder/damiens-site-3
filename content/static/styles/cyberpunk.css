@@ -10,9 +10,9 @@
   --accent-primary: #00ffff;
   --accent-secondary: #ff00ff;
 
-  --font-serif: "Courier New", Courier, monospace;
+  --font-serif: Monaco, Menlo, monospace;
   --font-sans: "Arial Black", Arial, sans-serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-mono: Monaco, Menlo, monospace;
 }
 
 /* Neon glow effects */

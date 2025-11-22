@@ -1,32 +1,51 @@
-/* Dignified theme - 70s-80s book/newspaper aesthetic */
+/* Dignified theme - Distinguished book/newspaper aesthetic */
 
 :root {
-  --bg-primary: #f5f1e8;
-  --bg-secondary: #e8e1d3;
-  --bg-tertiary: #ddd6c8;
-  --text-primary: #2b2520;
-  --text-secondary: #8b7f72;
-  --text-tertiary: #655d52;
-  --accent-primary: #5a3a1a;
-  --accent-secondary: #8b4513;
+  --bg-primary: #f8f6f0;
+  --bg-secondary: #ebe7dd;
+  --bg-tertiary: #e0dcd0;
+  --text-primary: #1a1614;
+  --text-secondary: #a09888;
+  --text-tertiary: #6d6555;
+  --accent-primary: #8b4513;
+  --accent-secondary: #654321;
 
-  --font-serif: "Times New Roman", Times, Baskerville, Georgia, serif;
-  --font-sans: "Times New Roman", Times, Baskerville, Georgia, serif;
-  --font-mono: "Courier New", Courier, monospace;
+  --font-serif: Garamond, Baskerville, "Palatino Linotype", "Hoefler Text", Georgia, serif;
+  --font-sans: Garamond, Baskerville, "Palatino Linotype", Georgia, serif;
+  --font-mono: Monaco, Menlo, monospace;
 }
 
-/* Newspaper-style layout adjustments */
+/* Distinguished layout */
 main {
   max-width: 800px;
+  padding: 2rem 0;
 }
 
 h1, h2, h3 {
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  font-variant: small-caps;
+}
+
+h1 {
+  font-size: 2.2rem;
+  border-bottom: 2px solid var(--text-secondary);
+  padding-bottom: 0.5rem;
 }
 
 p {
-  line-height: 1.6;
+  line-height: 1.7;
   text-align: justify;
   hyphens: auto;
+}
+
+/* Elegant link styling */
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-primary);
+}
+
+a:hover {
+  border-bottom: 2px solid var(--accent-primary);
 }
