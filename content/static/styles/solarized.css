@@ -1,0 +1,21 @@
+/* Solarized theme - inspired by the famous Solarized color scheme */
+
+:root {
+  --bg-primary: #002b36;
+  --bg-secondary: #073642;
+  --bg-tertiary: #11444e;
+  --text-primary: #839496;
+  --text-secondary: #586e75;
+  --text-tertiary: #657b83;
+  --accent-primary: #268bd2;
+  --accent-secondary: #dc322f;
+
+  --font-serif: "Droid Serif", Georgia, serif;
+  --font-sans: "Droid Sans", Helvetica, Arial, sans-serif;
+  --font-mono: "Droid Sans Mono", "Courier New", monospace;
+}
+
+/* Solarized aesthetic */
+h1, h2, h3 {
+  color: #b58900;
+}

@@ -11,6 +11,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('profile/', views.profile, name='profile'),
     path('profile/change_settings/', views.change_settings, name='change_settings'),
+    path('theme-preview/', views.theme_preview, name='theme-preview'),
     path('content/', views.all_content_menu, name='all-content-menu'),
     path('content/<int:page_num>/', views.all_content_menu, name='content-paginated'),
     path('shortform/', views.all_shortform_menu, name='all-shortform-menu'),

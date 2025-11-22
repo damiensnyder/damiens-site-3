@@ -1,0 +1,27 @@
+/* High Contrast theme - maximum readability */
+
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #1a1a1a;
+  --bg-tertiary: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #666666;
+  --text-tertiary: #aaaaaa;
+  --accent-primary: #ffff00;
+  --accent-secondary: #00ffff;
+
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+/* Maximum contrast */
+a {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+h1, h2, h3 {
+  font-weight: 900;
+  color: #ffffff;
+}

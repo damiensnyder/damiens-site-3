@@ -1,0 +1,16 @@
+/* Vice theme - Miami Vice neon pink and cyan */
+
+:root {
+  --bg-primary: #120458;
+  --bg-secondary: #1a0670;
+  --bg-tertiary: #2a0a80;
+  --text-primary: #f0e0ff;
+  --text-secondary: #6a4a8a;
+  --text-tertiary: #9a7aba;
+  --accent-primary: #ff006e;
+  --accent-secondary: #00f5ff;
+
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: "Arial Black", Arial, sans-serif;
+  --font-mono: Menlo, Monaco, "Courier New", monospace;
+}

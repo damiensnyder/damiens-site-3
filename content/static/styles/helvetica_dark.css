@@ -1,0 +1,25 @@
+/* Helvetica Dark theme - minimalist black and white inverted */
+
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #111111;
+  --text-primary: #ffffff;
+  --text-secondary: #333333;
+  --text-tertiary: #777777;
+  --accent-primary: #ffffff;
+  --accent-secondary: #999999;
+
+  --font-serif: Helvetica, Arial, sans-serif;
+  --font-sans: Helvetica, Arial, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+/* Ultra minimal */
+a {
+  text-decoration: underline;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+}

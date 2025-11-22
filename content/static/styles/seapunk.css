@@ -1,0 +1,33 @@
+/* Seapunk theme - retro vaporwave ocean aesthetic */
+
+:root {
+  --bg-primary: #001a33;
+  --bg-secondary: #002a44;
+  --bg-tertiary: #003a55;
+  --text-primary: #00ffff;
+  --text-secondary: #0088aa;
+  --text-tertiary: #00ccdd;
+  --accent-primary: #ff00ff;
+  --accent-secondary: #ffff00;
+
+  --font-serif: "Courier New", Courier, monospace;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+/* Wavy aesthetic */
+body {
+  background: linear-gradient(180deg, #001a33 0%, #003355 50%, #001a33 100%);
+}
+
+h1 {
+  background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+main {
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+}

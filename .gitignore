@@ -3,6 +3,7 @@
 */static/*/*
 */static/fonts/
 !*/static/*.css
+!*/static/styles/*.css
 *.DS_Store
 *.sqlite3
 target/*

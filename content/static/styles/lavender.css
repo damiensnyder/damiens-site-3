@@ -1,0 +1,21 @@
+/* Lavender theme - soft purples and pinks */
+
+:root {
+  --bg-primary: #f8f4ff;
+  --bg-secondary: #f0e8ff;
+  --bg-tertiary: #e8dcff;
+  --text-primary: #4a3055;
+  --text-secondary: #b8a8c8;
+  --text-tertiary: #8a7898;
+  --accent-primary: #9b59b6;
+  --accent-secondary: #e91e63;
+
+  --font-serif: "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: "Trebuchet MS", "Lucida Grande", sans-serif;
+  --font-mono: Monaco, "Courier New", monospace;
+}
+
+/* Soft feel */
+h1, h2, h3 {
+  color: #9b59b6;
+}

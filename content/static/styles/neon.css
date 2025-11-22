@@ -1,0 +1,30 @@
+/* Neon theme - bright neon colors on dark */
+
+:root {
+  --bg-primary: #0d0221;
+  --bg-secondary: #1d1231;
+  --bg-tertiary: #2d2241;
+  --text-primary: #f0f0f0;
+  --text-secondary: #6a5a7a;
+  --text-tertiary: #9a8aaa;
+  --accent-primary: #ff00ff;
+  --accent-secondary: #00ff00;
+
+  --font-serif: Impact, "Arial Black", sans-serif;
+  --font-sans: Impact, "Arial Black", sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+/* Glow everything */
+h1 {
+  text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+  color: #ff00ff !important;
+}
+
+a {
+  text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+}
+
+body {
+  box-shadow: inset 0 0 100px rgba(255,0,255,0.1);
+}

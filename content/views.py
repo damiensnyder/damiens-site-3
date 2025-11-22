@@ -279,3 +279,49 @@ def get_theme(request):
     if request.user.is_authenticated:
         return request.user.theme
     return "auto"
+
+
+def theme_preview(request):
+    """Theme preview page for testing all available themes"""
+    # Get theme from query parameter or default to auto
+    preview_theme = request.GET.get('theme', 'auto')
+
+    # All available themes
+    themes = [
+        ('auto', 'Auto'),
+        ('light_mode', 'Light Mode'),
+        ('dark_mode', 'Dark Mode'),
+        ('forest', 'Forest'),
+        ('hacker', 'Hacker'),
+        ('vice', 'Vice'),
+        ('suffering', 'Suffering'),
+        ('unstyled', 'Unstyled HTML'),
+        ('dignified', 'Dignified (70s-80s)'),
+        ('geocities', 'Geocities'),
+        ('cyberpunk', 'Cyberpunk'),
+        ('fantasy', 'Fantasy'),
+        ('seapunk', 'Seapunk'),
+        ('modern_light', 'Modern Light'),
+        ('modern_dark', 'Modern Dark'),
+        ('helvetica_light', 'Helvetica Light'),
+        ('helvetica_dark', 'Helvetica Dark'),
+        ('low_contrast', 'Low Contrast'),
+        ('terminal', 'Terminal'),
+        ('sunset', 'Sunset'),
+        ('ocean', 'Ocean'),
+        ('lavender', 'Lavender'),
+        ('chocolate', 'Chocolate'),
+        ('neon', 'Neon'),
+        ('pastel', 'Pastel'),
+        ('high_contrast', 'High Contrast'),
+        ('solarized', 'Solarized'),
+        ('nord', 'Nord'),
+    ]
+
+    return render(request, 'content/theme-preview.html', {
+        'theme': preview_theme,
+        'themes': themes,
+        'current_theme': preview_theme,
+        'tag': {'name': 'Theme Preview'},
+        'logged_in': request.user.is_authenticated,
+    })

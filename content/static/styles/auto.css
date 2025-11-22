@@ -1,0 +1,35 @@
+/* Auto theme - switches based on system preference */
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-primary: #fff;
+    --bg-secondary: #f5f5f5;
+    --bg-tertiary: #eee;
+    --text-primary: #222;
+    --text-secondary: #999;
+    --text-tertiary: #666;
+    --accent-primary: #0066cc;
+    --accent-secondary: #cc3333;
+
+    --font-serif: Spectral, "Source Serif Pro", Georgia, serif;
+    --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: Menlo, Monaco, "Courier New", monospace;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2a2a2a;
+    --bg-tertiary: #333;
+    --text-primary: #e0e0e0;
+    --text-secondary: #666;
+    --text-tertiary: #999;
+    --accent-primary: #4d9fff;
+    --accent-secondary: #ff6b6b;
+
+    --font-serif: Spectral, "Source Serif Pro", Georgia, serif;
+    --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: Menlo, Monaco, "Courier New", monospace;
+  }
+}

@@ -1,0 +1,188 @@
+{% extends 'content/base.html' %}
+
+{% block tab_name %}Theme Preview{% endblock %}
+
+{% block main %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'post-body.css' %}">
+
+<style>
+  .theme-selector {
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+  }
+
+  .theme-selector select {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--text-secondary);
+    border-radius: 6px;
+  }
+
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .theme-card {
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--text-secondary);
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.2s;
+  }
+
+  .theme-card:hover {
+    background-color: var(--bg-tertiary);
+    border-color: var(--accent-primary);
+    text-decoration: none;
+  }
+
+  .theme-card.active {
+    border-color: var(--accent-primary);
+    background-color: var(--bg-tertiary);
+    font-weight: 700;
+  }
+
+  .sample-content {
+    margin: 2rem 0;
+  }
+
+  .sample-content h2 {
+    margin-top: 2rem;
+  }
+
+  .sample-content code {
+    padding: 0.2rem 0.4rem;
+  }
+
+  .sample-content pre {
+    overflow-x: auto;
+  }
+</style>
+
+<div class="theme-selector">
+  <h2>Select Theme</h2>
+  <p>Choose a theme from the dropdown or click a card below to preview it:</p>
+  <select id="themeSelect" onchange="location.href='?theme=' + this.value">
+    {% for theme_value, theme_name in themes %}
+    <option value="{{ theme_value }}" {% if theme_value == current_theme %}selected{% endif %}>
+      {{ theme_name }}
+    </option>
+    {% endfor %}
+  </select>
+  <p><strong>Current theme:</strong> {{ current_theme }}</p>
+</div>
+
+<div class="theme-grid">
+  {% for theme_value, theme_name in themes %}
+  <a href="?theme={{ theme_value }}" class="theme-card {% if theme_value == current_theme %}active{% endif %}">
+    {{ theme_name }}
+  </a>
+  {% endfor %}
+</div>
+
+<div class="sample-content">
+  <h2>Sample Content</h2>
+  <p>
+    This is a paragraph with some <a href="#">link text</a> to show how links look in this theme.
+    Here's some more text to demonstrate the font and spacing. The quick brown fox jumps over the lazy dog.
+  </p>
+
+  <h2>Code Sample</h2>
+  <p>Here's an inline code snippet: <code>const x = 42;</code></p>
+  <pre>function greet(name) {
+  console.log("Hello, " + name + "!");
+  return true;
+}
+
+greet("world");</pre>
+
+  <h2>Lists and Tables</h2>
+  <ul>
+    <li>First item in an unordered list</li>
+    <li>Second item with <a href="#">a link</a></li>
+    <li>Third item</li>
+  </ul>
+
+  <ol>
+    <li>First item in an ordered list</li>
+    <li>Second item</li>
+    <li>Third item</li>
+  </ol>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Header 1</th>
+        <th>Header 2</th>
+        <th>Header 3</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Row 1, Cell 1</td>
+        <td>Row 1, Cell 2</td>
+        <td>Row 1, Cell 3</td>
+      </tr>
+      <tr>
+        <td>Row 2, Cell 1</td>
+        <td>Row 2, Cell 2</td>
+        <td>Row 2, Cell 3</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Blockquote</h2>
+  <blockquote>
+    This is a blockquote. It should have distinct styling to set it apart from regular paragraphs.
+    Multiple lines in a blockquote should maintain consistent formatting.
+  </blockquote>
+
+  <h2>Form Elements</h2>
+  <form>
+    <label for="sample-input">Sample Input:</label>
+    <input type="text" id="sample-input" placeholder="Type something...">
+
+    <label for="sample-select">Sample Select:</label>
+    <select id="sample-select">
+      <option>Option 1</option>
+      <option>Option 2</option>
+      <option>Option 3</option>
+    </select>
+
+    <button type="button">Sample Button</button>
+  </form>
+
+  <h2>Different Text Styles</h2>
+  <p class="timestamp">Timestamp text style (tertiary)</p>
+  <p class="caption">Caption text style (tertiary)</p>
+  <p><strong>Bold text</strong> and <em>italic text</em></p>
+
+  <h3>Heading Level 3</h3>
+  <p>This is a paragraph under a level 3 heading.</p>
+
+  <hr>
+
+  <p>
+    <a href="{% url 'front-page' %}">Return to home</a>
+    {% if logged_in %}
+    | <a href="{% url 'profile' %}">Go to profile to save your preferred theme</a>
+    {% endif %}
+  </p>
+</div>
+
+{% endblock %}

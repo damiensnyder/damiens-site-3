@@ -1,0 +1,16 @@
+/* Low Contrast theme - deliberately low contrast grays */
+
+:root {
+  --bg-primary: #888;
+  --bg-secondary: #999;
+  --bg-tertiary: #aaa;
+  --text-primary: #777;
+  --text-secondary: #999;
+  --text-tertiary: #888;
+  --accent-primary: #666;
+  --accent-secondary: #555;
+
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}

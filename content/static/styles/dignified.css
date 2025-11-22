@@ -1,0 +1,32 @@
+/* Dignified theme - 70s-80s book/newspaper aesthetic */
+
+:root {
+  --bg-primary: #f5f1e8;
+  --bg-secondary: #e8e1d3;
+  --bg-tertiary: #ddd6c8;
+  --text-primary: #2b2520;
+  --text-secondary: #8b7f72;
+  --text-tertiary: #655d52;
+  --accent-primary: #5a3a1a;
+  --accent-secondary: #8b4513;
+
+  --font-serif: "Times New Roman", Times, Baskerville, Georgia, serif;
+  --font-sans: "Times New Roman", Times, Baskerville, Georgia, serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+/* Newspaper-style layout adjustments */
+main {
+  max-width: 800px;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+p {
+  line-height: 1.6;
+  text-align: justify;
+  hyphens: auto;
+}

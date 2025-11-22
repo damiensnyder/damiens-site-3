@@ -1,0 +1,21 @@
+/* Chocolate theme - rich browns and creams */
+
+:root {
+  --bg-primary: #3e2723;
+  --bg-secondary: #4e3829;
+  --bg-tertiary: #5d4037;
+  --text-primary: #efebe9;
+  --text-secondary: #8d6e63;
+  --text-tertiary: #a1887f;
+  --accent-primary: #d4a574;
+  --accent-secondary: #ff9800;
+
+  --font-serif: "Bookman Old Style", Georgia, "Times New Roman", serif;
+  --font-sans: Verdana, Geneva, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+/* Warm and cozy */
+body {
+  background: linear-gradient(180deg, #3e2723 0%, #4e3829 100%);
+}

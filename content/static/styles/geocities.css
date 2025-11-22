@@ -1,0 +1,34 @@
+/* Geocities theme - whimsical 2003 web aesthetic */
+
+:root {
+  --bg-primary: #ffff99;
+  --bg-secondary: #ff99ff;
+  --bg-tertiary: #99ffff;
+  --text-primary: #000080;
+  --text-secondary: #ff00ff;
+  --text-tertiary: #008080;
+  --accent-primary: #ff0000;
+  --accent-secondary: #00ff00;
+
+  --font-serif: "Comic Sans MS", "Papyrus", cursive;
+  --font-sans: "Comic Sans MS", "Papyrus", cursive;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+/* Chaotic layout */
+body {
+  background-image: linear-gradient(45deg, #ffff99 25%, transparent 25%, transparent 75%, #ffff99 75%, #ffff99),
+                    linear-gradient(45deg, #ffff99 25%, transparent 25%, transparent 75%, #ffff99 75%, #ffff99);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+}
+
+main {
+  background-color: var(--bg-primary);
+  border: 3px dashed #ff00ff;
+  box-shadow: 5px 5px 0px #000080;
+}
+
+h1 {
+  text-shadow: 2px 2px #ff00ff, 4px 4px #00ffff;
+}
