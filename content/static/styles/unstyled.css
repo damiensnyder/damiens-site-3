@@ -1,0 +1,40 @@
+/* Unstyled theme - emulates default HTML with minimal styling */
+
+:root {
+  --bg-primary: #fff;
+  --bg-secondary: #f0f0f0;
+  --bg-tertiary: #e8e8e8;
+  --text-primary: #000;
+  --text-secondary: #000;
+  --text-tertiary: #000;
+  --accent-primary: #0000ee;
+  --accent-secondary: #0000ee;
+
+  --font-serif: "Times New Roman", Times, serif;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+/* Override some layout to look more like default HTML */
+body {
+  max-width: none;
+}
+
+main {
+  width: auto;
+  max-width: none;
+  padding: 8px;
+}
+
+a:visited {
+  color: #551a8b;
+}
+
+header a {
+  color: var(--accent-primary) !important;
+}
+
+input, button, select {
+  font-family: system-ui, -apple-system, sans-serif !important;
+  color: var(--text-primary) !important;
+}

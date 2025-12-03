@@ -1,0 +1,18 @@
+:root {
+  --bg-primary: #002b36;
+  --bg-secondary: #073642;
+  --bg-tertiary: #11444e;
+  --text-primary: #839496;
+  --text-secondary: #586e75;
+  --text-tertiary: #657b83;
+  --accent-primary: #268bd2;
+  --accent-secondary: #dc322f;
+
+  --font-serif: "Source Serif Pro", Georgia, serif;
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: Menlo, Monaco, "Courier New", monospace;
+}
+
+h1, h2, h3 {
+  color: #b58900;
+}

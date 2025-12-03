@@ -1,0 +1,14 @@
+:root {
+  --bg-primary: #211;
+  --bg-secondary: #322;
+  --bg-tertiary: #532;
+  --text-primary: #edd;
+  --text-secondary: #866;
+  --text-tertiary: #a87;
+  --accent-primary: #b86;
+  --accent-secondary: #c75;
+
+  --font-serif: Georgia, "Hoefler Text", Baskerville, serif;
+  --font-sans: Verdana, Geneva, sans-serif;
+  --font-mono: Monaco, Menlo, monospace;
+}

@@ -1,0 +1,16 @@
+/* Light mode theme */
+
+:root {
+  --bg-primary: #fff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #eee;
+  --text-primary: #222;
+  --text-secondary: #999;
+  --text-tertiary: #666;
+  --accent-primary: #0066cc;
+  --accent-secondary: #cc3333;
+
+  --font-serif: Spectral, "Source Serif Pro", Georgia, serif;
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: Menlo, Monaco, "Courier New", monospace;
+}

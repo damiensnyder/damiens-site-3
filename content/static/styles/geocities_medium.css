@@ -1,0 +1,120 @@
+/* Geocities Medium - 2003 chaos but more controlled */
+
+:root {
+  --bg-primary: #000033;
+  --bg-secondary: #cc00cc;
+  --bg-tertiary: #0099ff;
+  --text-primary: #00ff00;
+  --text-secondary: #ff00ff;
+  --text-tertiary: #ffff00;
+  --accent-primary: #ff0000;
+  --accent-secondary: #00ffff;
+
+  --font-serif: "Comic Sans MS", "Papyrus", cursive;
+  --font-sans: "Comic Sans MS", "Papyrus", cursive;
+  --font-mono: Monaco, Menlo, monospace;
+}
+
+/* Controlled chaos animations */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes rainbow-rotate {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Animated background */
+body {
+  background:
+    repeating-linear-gradient(45deg, #000033 0px, #000033 10px, #000066 10px, #000066 20px),
+    repeating-linear-gradient(-45deg, transparent 0px, transparent 10px, rgba(255,0,255,0.1) 10px, rgba(255,0,255,0.1) 20px);
+  animation: rainbow-rotate 15s linear infinite;
+}
+
+/* Spinning stars at top */
+body::before {
+  content: "⭐ 🌟 ✨ 💫 ⭐ 🌟 ✨ 💫 ⭐ 🌟";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-size: 2rem;
+  animation: marquee 12s linear infinite;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Animated elements that don't pulse the body */
+h1 {
+  animation: bounce 2s ease-in-out infinite;
+  text-shadow:
+    2px 2px 0 #ff0000,
+    4px 4px 0 #00ff00,
+    6px 6px 0 #0000ff;
+  font-size: 2rem !important;
+}
+
+h2 {
+  animation: blink 2s infinite;
+}
+
+h3 {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+a {
+  animation: pulse 2s ease-in-out infinite;
+  text-decoration: none;
+  font-weight: 900;
+  text-shadow: 2px 2px 4px #000;
+}
+
+a:hover {
+  animation: spin-slow 3s linear infinite, pulse 1s ease-in-out infinite;
+}
+
+/* Stationary main container with crazy border */
+main {
+  background: rgba(0, 0, 51, 0.9);
+  border: 5px ridge #ff00ff;
+  box-shadow:
+    0 0 10px #ff0000,
+    0 0 20px #00ff00,
+    0 0 30px #0000ff;
+  padding: 2rem;
+}
+
+/* Chaotic table */
+table {
+  border: 3px double #ff00ff !important;
+  animation: rainbow-rotate 8s linear infinite;
+}
+
+/* Pulsing buttons */
+button, input, select {
+  border: 3px outset #ffff00 !important;
+  animation: pulse 3s ease-in-out infinite;
+}

@@ -279,3 +279,51 @@ def get_theme(request):
     if request.user.is_authenticated:
         return request.user.theme
     return "auto"
+
+
+def theme_preview(request):
+    """Theme preview page for testing all available themes"""
+    # Get theme from query parameter or default to auto
+    preview_theme = request.GET.get('theme', 'auto')
+
+    # All available themes
+    themes = [
+        ('auto', 'Auto'),
+        ('light_mode', 'Light Mode'),
+        ('dark_mode', 'Dark Mode'),
+        ('forest', 'Forest'),
+        ('hacker', 'Hacker'),
+        ('vice', 'Vice'),
+        ('suffering', 'Suffering'),
+        ('unstyled', 'Unstyled HTML'),
+        ('dignified', 'Dignified'),
+        ('geocities', 'Geocities'),
+        ('geocities_medium', 'Geocities Medium'),
+        ('geocities_extreme', 'Geocities EXTREME'),
+        ('cyberpunk', 'Cyberpunk'),
+        ('fantasy', 'Fantasy'),
+        ('whimsy', 'Whimsy'),
+        ('grimoire', 'Grimoire'),
+        ('seapunk', 'Seapunk'),
+        ('modern_light', 'Modern Light'),
+        ('modern_dark', 'Modern Dark'),
+        ('helvetica_light', 'Helvetica Light'),
+        ('helvetica_dark', 'Helvetica Dark'),
+        ('low_contrast', 'Low Contrast'),
+        ('terminal', 'Terminal'),
+        ('sunset', 'Sunset'),
+        ('ocean', 'Ocean'),
+        ('pastel', 'Pastel'),
+        ('chocolate', 'Chocolate'),
+        ('neon', 'Neon'),
+        ('high_contrast', 'High Contrast'),
+        ('solarized', 'Solarized'),
+    ]
+
+    return render(request, 'content/theme-preview.html', {
+        'theme': preview_theme,
+        'themes': themes,
+        'current_theme': preview_theme,
+        'tag': {'name': 'Theme Preview'},
+        'logged_in': request.user.is_authenticated,
+    })

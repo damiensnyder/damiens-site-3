@@ -1,0 +1,75 @@
+/* Neon theme - bright neon colors with balanced blur */
+
+:root {
+  --bg-primary: #0d0221;
+  --bg-secondary: #1d1231;
+  --bg-tertiary: #2d2241;
+  --text-primary: #f0f0f0;
+  --text-secondary: #6a5a7a;
+  --text-tertiary: #9a8aaa;
+  --accent-primary: #ff00ff;
+  --accent-secondary: #00ff00;
+
+  --font-serif: Arial, Helvetica, sans-serif;
+  --font-sans: Arial, Helvetiva, sans-serif;
+  --font-mono: Monaco, Menlo, monospace;
+}
+
+/* Prevent blur cutoff */
+body, main {
+  overflow: visible;
+}
+
+main {
+  padding: 3rem 0;
+  overflow-x: visible !important;
+}
+
+li, td, th, label, span {
+  text-shadow: 0 0 4px currentColor;
+}
+
+p {
+  text-shadow: 0 0 2px #fff;
+}
+
+h1 {
+  text-shadow:
+    0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff,
+    0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff,
+    0 0 70px #ff00ff;
+  color: #ff00ff !important;
+  filter: blur(0.8px);
+  font-family: "Arial Black", "Helvetica Black", sans-serif;
+  font-weight: 900;
+}
+
+h2, h3 {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  filter: blur(0.5px);
+  font-family: "Arial Black", "Helvetica Black", sans-serif;
+  font-weight: 900;
+}
+
+/* Intense glow on links */
+a {
+  text-shadow: 0 0 8px currentColor, 0 0 16px currentColor, 0 0 24px currentColor;
+  filter: blur(0.4px);
+}
+
+/* Fuzzy code blocks */
+code, pre {
+  text-shadow: 0 0 6px currentColor;
+  filter: blur(0.3px);
+}
+
+body {
+  box-shadow: inset 0 0 100px rgba(255,0,255,0.2);
+}
+
+/* Fuzzy glow on interactive elements */
+button, input, select {
+  text-shadow: 0 0 5px currentColor;
+  box-shadow: 0 0 10px rgba(255,0,255,0.3);
+  filter: blur(0.3px);
+}

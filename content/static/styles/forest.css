@@ -1,0 +1,16 @@
+/* Forest theme - earthy greens and browns */
+
+:root {
+  --bg-primary: #1a2a1a;
+  --bg-secondary: #2a3a2a;
+  --bg-tertiary: #344d34;
+  --text-primary: #d4e4d4;
+  --text-secondary: #5a7a5a;
+  --text-tertiary: #8a9a8a;
+  --accent-primary: #7fc87f;
+  --accent-secondary: #c8a87f;
+
+  --font-serif: Spectral, "Source Serif Pro", Georgia, serif;
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: Menlo, Monaco, "Courier New", monospace;
+}

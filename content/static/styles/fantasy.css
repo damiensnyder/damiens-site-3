@@ -1,0 +1,26 @@
+/* Fantasy theme - magical medieval aesthetic */
+
+:root {
+  --bg-primary: #2a1a3a;
+  --bg-secondary: #3a2a4a;
+  --bg-tertiary: #4a3a5a;
+  --text-primary: #f0e5d8;
+  --text-secondary: #8a7a6a;
+  --text-tertiary: #baa590;
+  --accent-primary: #d4af37;
+  --accent-secondary: #c9a0dc;
+
+  --font-serif: Garamond, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  --font-sans: Garamond, "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  --font-mono: Monaco, Menlo, monospace;
+}
+
+h1, h2, h3 {
+  color: var(--accent-primary);
+  font-variant: small-caps;
+  letter-spacing: 0.1em;
+}
+
+a {
+  color: var(--accent-primary);
+}

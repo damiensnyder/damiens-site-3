@@ -1,0 +1,16 @@
+/* Hacker theme - Matrix style green on black */
+
+:root {
+  --bg-primary: #000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #111;
+  --text-primary: #0f0;
+  --text-secondary: #050;
+  --text-tertiary: #0a0;
+  --accent-primary: #0ff;
+  --accent-secondary: #f0f;
+
+  --font-serif: "Courier New", Courier, monospace;
+  --font-sans: "Courier New", Courier, monospace;
+  --font-mono: "Courier New", Courier, monospace;
+}

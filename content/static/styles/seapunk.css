@@ -1,0 +1,58 @@
+:root {
+  --bg-primary: #001a33;
+  --bg-secondary: #002a44;
+  --bg-tertiary: #003a55;
+  --text-primary: #2ff;
+  --text-secondary: #0088aa;
+  --text-tertiary: #4900ff;
+  --accent-primary: #ff00c1;
+  --accent-secondary: #fffb96;
+
+  --font-serif: Helvetica, Arial, sans-serif;
+  --font-sans: Helvetica, Arial, sans-serif;
+  --font-mono: Monaco, Menlo, monospace;
+}
+
+body {
+  background: 
+    repeating-linear-gradient(0deg, transparent, transparent 49px, #ccc1 49px, #ccc1 50px),
+    repeating-linear-gradient(90deg, transparent, transparent 49px, #ccc1 49px, #ccc1 50px),
+    linear-gradient(180deg, #023 0%, #213 20%, #303 50%, #213 80%, #023 100%);
+  min-height: 100vh;
+}
+
+h1 {
+  background: linear-gradient(90deg, #00ffff, #ff00ff, #00ffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h1, h2, h3 {
+  letter-spacing: 0.4rem;
+}
+
+.row-header h3 {
+  color: var(--accent-secondary)
+}
+
+.grid-link {
+  color: var(--text-secondary) !important;
+}
+
+header,
+.menu-item-outer a,
+.mini-item a {
+  letter-spacing: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+main {
+  border: 2px solid #00ffff;
+  padding: 1rem;
+  box-shadow: 0 0 20px rgba(0,255,255,0.3);
+}
+
+.tag-info {
+  background-color: transparent !important;
+}
