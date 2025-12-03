@@ -5,10 +5,10 @@
   --bg-secondary: #f0f0f0;
   --bg-tertiary: #e8e8e8;
   --text-primary: #000;
-  --text-secondary: #808080;
-  --text-tertiary: #606060;
+  --text-secondary: #000;
+  --text-tertiary: #000;
   --accent-primary: #0000ee;
-  --accent-secondary: #ff0000;
+  --accent-secondary: #0000ee;
 
   --font-serif: "Times New Roman", Times, serif;
   --font-sans: Arial, Helvetica, sans-serif;
@@ -28,4 +28,13 @@ main {
 
 a:visited {
   color: #551a8b;
+}
+
+header a {
+  color: var(--accent-primary) !important;
+}
+
+input, button, select {
+  font-family: system-ui, -apple-system, sans-serif !important;
+  color: var(--text-primary) !important;
 }

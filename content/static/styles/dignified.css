@@ -1,24 +1,18 @@
 /* Dignified theme - Distinguished book/newspaper aesthetic */
 
 :root {
-  --bg-primary: #f8f6f0;
+  --bg-primary: #fcfbf9;
   --bg-secondary: #ebe7dd;
   --bg-tertiary: #e0dcd0;
   --text-primary: #1a1614;
   --text-secondary: #a09888;
   --text-tertiary: #6d6555;
-  --accent-primary: #8b4513;
-  --accent-secondary: #654321;
+  --accent-primary: #744;
+  --accent-secondary: #74583c;
 
-  --font-serif: Garamond, Baskerville, "Palatino Linotype", "Hoefler Text", Georgia, serif;
-  --font-sans: Garamond, Baskerville, "Palatino Linotype", Georgia, serif;
+  --font-serif: Garamond, Baskerville, "Hoefler Text", "Palatino Linotype", Georgia, serif;
+  --font-sans: Garamond, Baskerville, "Hoefler Text", "Palatino Linotype", Georgia, serif;
   --font-mono: Monaco, Menlo, monospace;
-}
-
-/* Distinguished layout */
-main {
-  max-width: 800px;
-  padding: 2rem 0;
 }
 
 h1, h2, h3 {
@@ -39,32 +33,20 @@ p {
   hyphens: auto;
 }
 
-/* Elegant link styling */
+ol, ul {
+  line-height: 1.5;
+}
+
 a {
-  color: var(--accent-primary);
-  text-decoration: none;
-  border-bottom: 1px solid var(--accent-primary);
+  font-family: Baskerville;;
+  font-weight: 500;
 }
 
-a:hover {
-  border-bottom: 2px solid var(--accent-primary);
-}
-
-/* Refined code blocks */
-code {
-  font-size: 0.85em;
-  padding: 0.15em 0.4em;
-  background-color: var(--bg-secondary);
-  border-radius: 3px;
-}
-
-pre {
-  padding: 0.8rem;
-  line-height: 1.4;
-  font-size: 0.85rem;
-}
-
-pre code {
-  padding: 0;
-  background: transparent;
+p:first-of-type::first-letter {
+  font-size: 2em;
+  float: left;
+  line-height: 0.9;
+  margin: 0.1em 0.1em 0 0;
+  text-transform: capitalize;
+  text-shadow: 0 0 8px rgba(212, 77, 55, 0.4);
 }

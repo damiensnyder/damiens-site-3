@@ -1,5 +1,3 @@
-/* Grimoire theme - Arcane wizard's tome */
-
 :root {
   --bg-primary: #0f0a0a;
   --bg-secondary: #1a1210;
@@ -15,7 +13,6 @@
   --font-mono: Monaco, Menlo, monospace;
 }
 
-/* Ancient parchment texture */
 @keyframes flicker {
   0%, 100% { opacity: 0.9; }
   50% { opacity: 1; }
@@ -23,13 +20,12 @@
 
 body {
   background:
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(212, 175, 55, 0.02) 3px),
-    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 175, 55, 0.02) 3px),
-    radial-gradient(circle at 50% 50%, #1a1210 0%, #0f0a0a 100%);
+    repeating-linear-gradient(0deg, transparent, transparent 2px, #cccccc02 3px),
+    repeating-linear-gradient(90deg, transparent, transparent 2px, #cccccc02 3px),
+    radial-gradient(circle at 50% 50%, #111 0%, #111 100%);
   position: relative;
 }
 
-/* Candlelight flicker effect */
 body::before {
   content: "";
   position: fixed;
@@ -43,7 +39,6 @@ body::before {
   z-index: -1;
 }
 
-/* Arcane borders */
 main {
   border: 2px solid #d4af37;
   border-image: repeating-linear-gradient(
@@ -60,7 +55,6 @@ main {
     inset 0 0 40px rgba(0, 0, 0, 0.5);
 }
 
-/* Illuminated manuscript style headings */
 h1 {
   font-size: 2.5rem !important;
   color: #d4af37;
@@ -83,11 +77,9 @@ h2, h3 {
   text-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
 }
 
-/* Mystical links */
 a {
   color: #d4af37;
   text-decoration: none;
-  border-bottom: 1px solid #d4af37;
   text-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
   transition: all 0.3s ease;
 }
@@ -98,7 +90,6 @@ a:hover {
   border-bottom: 2px solid #ffcc55;
 }
 
-/* Ancient code scrolls */
 code, pre {
   background: rgba(37, 26, 21, 0.8) !important;
   border: 1px solid #6a5a4a !important;
@@ -106,10 +97,9 @@ code, pre {
   text-shadow: 0 0 3px rgba(212, 175, 55, 0.2);
 }
 
-/* Runic input fields */
 input, button, select {
   background: rgba(26, 18, 16, 0.9) !important;
-  border: 2px solid #8b4513 !important;
+  border: 2px solid var(--accent-primary) !important;
   color: #e8dcc8 !important;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -140,7 +130,6 @@ summary {
   letter-spacing: 0.05em;
 }
 
-/* Ancient tables */
 table {
   border: 2px double #d4af37 !important;
   background: rgba(26, 18, 16, 0.6);
@@ -153,12 +142,12 @@ th {
   letter-spacing: 0.05em;
 }
 
-/* Subtle page numbers or mystical symbols */
 p:first-of-type::first-letter {
   font-size: 2em;
   float: left;
   line-height: 0.9;
   margin: 0.1em 0.1em 0 0;
   color: #d4af37;
+  text-transform: capitalize;
   text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
 }

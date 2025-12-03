@@ -10,8 +10,8 @@
   --accent-primary: #ff00ff;
   --accent-secondary: #00ff00;
 
-  --font-serif: "Arial Black", Haettenschweiler, sans-serif;
-  --font-sans: "Arial Black", Haettenschweiler, sans-serif;
+  --font-serif: Arial, Helvetica, sans-serif;
+  --font-sans: Arial, Helvetiva, sans-serif;
   --font-mono: Monaco, Menlo, monospace;
 }
 
@@ -22,14 +22,17 @@ body, main {
 
 main {
   padding: 3rem 0;
+  overflow-x: visible !important;
 }
 
-/* Light glow on body text */
-p, li, td, th, label, span {
+li, td, th, label, span {
   text-shadow: 0 0 4px currentColor;
 }
 
-/* Stronger glow on headings */
+p {
+  text-shadow: 0 0 2px #fff;
+}
+
 h1 {
   text-shadow:
     0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff,
@@ -37,11 +40,15 @@ h1 {
     0 0 70px #ff00ff;
   color: #ff00ff !important;
   filter: blur(0.8px);
+  font-family: "Arial Black", "Helvetica Black", sans-serif;
+  font-weight: 900;
 }
 
 h2, h3 {
   text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
   filter: blur(0.5px);
+  font-family: "Arial Black", "Helvetica Black", sans-serif;
+  font-weight: 900;
 }
 
 /* Intense glow on links */

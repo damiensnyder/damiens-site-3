@@ -15,7 +15,6 @@
   --font-mono: Monaco, Menlo, monospace;
 }
 
-/* Neon glow effects */
 a {
   text-shadow: 0 0 5px currentColor;
 }

@@ -1,25 +1,14 @@
-/* Chocolate theme - rich dark browns and creams */
-
 :root {
-  --bg-primary: #2c1810;
-  --bg-secondary: #3d2417;
-  --bg-tertiary: #4d2f1e;
-  --text-primary: #f5ebe0;
-  --text-secondary: #8d6e63;
-  --text-tertiary: #a0826d;
-  --accent-primary: #cd853f;
-  --accent-secondary: #d2691e;
+  --bg-primary: #211;
+  --bg-secondary: #322;
+  --bg-tertiary: #532;
+  --text-primary: #edd;
+  --text-secondary: #866;
+  --text-tertiary: #a87;
+  --accent-primary: #b86;
+  --accent-secondary: #c75;
 
   --font-serif: Georgia, "Hoefler Text", Baskerville, serif;
   --font-sans: Verdana, Geneva, sans-serif;
   --font-mono: Monaco, Menlo, monospace;
-}
-
-/* Rich and cozy */
-body {
-  background: linear-gradient(180deg, #2c1810 0%, #3d2417 50%, #2c1810 100%);
-}
-
-h1, h2, h3 {
-  color: #cd853f;
 }

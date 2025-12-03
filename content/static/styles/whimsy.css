@@ -10,7 +10,7 @@
   --accent-primary: #ff69b4;
   --accent-secondary: #9370db;
 
-  --font-serif: "Brush Script MT", "Lucida Handwriting", cursive;
+  --font-serif: "Lucida Handwriting", cursive;
   --font-sans: "Comic Sans MS", "Marker Felt", "Bradley Hand", cursive;
   --font-mono: Monaco, Menlo, monospace;
 }
@@ -63,12 +63,12 @@ body::before {
 body::after {
   content: "★ ✦ ✨ ★ ✦ ✨ ★ ✦ ✨ ★ ✦ ✨ ★ ✦ ✨";
   position: fixed;
-  bottom: 10%;
+  bottom: 5%;
   left: 0;
   right: 0;
   text-align: center;
   font-size: 1.5rem;
-  animation: sparkle 3s infinite 1.5s;
+  animation: sparkle 3s infinite;
   pointer-events: none;
   z-index: -1;
 }
@@ -98,5 +98,11 @@ main {
   border: 3px dashed var(--accent-secondary);
   border-radius: 20px;
   padding: 1rem;
+  background-color: var(--bg-primary);
   box-shadow: 0 0 20px rgba(147, 112, 219, 0.2);
+  z-index: 0;
+}
+
+footer {
+  min-height: 12vh;
 }
