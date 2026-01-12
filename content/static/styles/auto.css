@@ -1,35 +1,123 @@
-/* Auto theme - switches based on system preference */
+/* SITE-WIDE STYLES */
+
+:root {
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, Helvetica,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: Menlo, monospace;
+  --font-serif: Spectral, "Source Serif Pro", serif;
+
+  --bg-primary: #111;
+  --bg-secondary: #333;
+  --bg-tertiary: #222;
+  --text-primary: #ccc;
+  --text-secondary: #aaa;
+  --text-tertiary: #888;
+  --accent-primary: #f70;
+  --accent-secondary: #a51;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
-    --bg-primary: #fff;
-    --bg-secondary: #f5f5f5;
-    --bg-tertiary: #eee;
-    --text-primary: #222;
-    --text-secondary: #999;
+    --bg-primary: #f7f7f7;
+    --bg-secondary: #bbb;
+    --bg-tertiary: #ddd;
+    --text-primary: #000;
+    --text-secondary: #333;
     --text-tertiary: #666;
-    --accent-primary: #0066cc;
-    --accent-secondary: #cc3333;
-
-    --font-serif: Spectral, "Source Serif Pro", Georgia, serif;
-    --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    --font-mono: Menlo, Monaco, "Courier New", monospace;
+    --accent-primary: #48c; /* #c52 for orange */
+    --accent-secondary: #159; /* #951 for orange */
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #2a2a2a;
-    --bg-tertiary: #333;
-    --text-primary: #e0e0e0;
-    --text-secondary: #666;
-    --text-tertiary: #999;
-    --accent-primary: #4d9fff;
-    --accent-secondary: #ff6b6b;
+/* FONT FACES */
 
-    --font-serif: Spectral, "Source Serif Pro", Georgia, serif;
-    --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    --font-mono: Menlo, Monaco, "Courier New", monospace;
-  }
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-ExtraLight.woff2") format("woff2");
+  font-weight: 100 200;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-Light.woff2") format("woff2");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-Regular.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-Medium.woff2") format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-Bold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-ExtraBold.woff2") format("woff2");
+  font-weight: 800 1000;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-ExtraLightItalic.woff2") format("woff2");
+  font-weight: 100 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-RegularItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-ExtraBoldItalic.woff2") format("woff2");
+  font-weight: 800 1000;
+  font-style: italic;
 }

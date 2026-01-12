@@ -1,16 +1,110 @@
-/* Forest theme - earthy greens and browns */
+/* SITE-WIDE STYLES */
 
 :root {
-  --bg-primary: #1a2a1a;
-  --bg-secondary: #2a3a2a;
-  --bg-tertiary: #344d34;
-  --text-primary: #d4e4d4;
-  --text-secondary: #5a7a5a;
-  --text-tertiary: #8a9a8a;
-  --accent-primary: #7fc87f;
-  --accent-secondary: #c8a87f;
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, Helvetica,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: Menlo, monospace;
+  --font-serif: Spectral, "Source Serif Pro", serif;
 
-  --font-serif: Spectral, "Source Serif Pro", Georgia, serif;
-  --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: Menlo, Monaco, "Courier New", monospace;
+  --bg-primary: #c0d7c0;
+  --bg-secondary: #797;
+  --bg-tertiary: #9c9;
+  --text-primary: #020;
+  --text-secondary: #252;
+  --text-tertiary: #464;
+  --accent-primary: #267;
+  --accent-secondary: #057;
+}
+
+/* FONT FACES */
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-ExtraLight.woff2") format("woff2");
+  font-weight: 100 200;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-Light.woff2") format("woff2");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-Regular.woff2") format("woff2");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-Medium.woff2") format("woff2");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-Bold.woff2") format("woff2");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-ExtraBold.woff2") format("woff2");
+  font-weight: 800 1000;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-ExtraLightItalic.woff2") format("woff2");
+  font-weight: 100 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-LightItalic.woff2") format("woff2");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-RegularItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-MediumItalic.woff2") format("woff2");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-SemiBoldItalic.woff2") format("woff2");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Spectral";
+  src: url("/static/fonts/Spectral-ExtraBoldItalic.woff2") format("woff2");
+  font-weight: 800 1000;
+  font-style: italic;
 }

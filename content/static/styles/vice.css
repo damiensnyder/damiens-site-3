@@ -1,16 +1,38 @@
-/* Vice theme - Miami Vice neon pink and cyan */
+/* SITE-WIDE STYLES */
 
 :root {
-  --bg-primary: #120458;
-  --bg-secondary: #1a0670;
-  --bg-tertiary: #2a0a80;
-  --text-primary: #f0e0ff;
-  --text-secondary: #6a4a8a;
-  --text-tertiary: #9a7aba;
-  --accent-primary: #ff006e;
-  --accent-secondary: #00f5ff;
+  --font-sans: Arial, "Helvetica Neue", Helvetica, -apple-system,
+    BlinkMacSystemFont, sans-serif;
+  --font-mono: Menlo, monospace;
+  --font-serif: Spectral, "Source Serif Pro", serif;
 
-  --font-serif: Georgia, "Times New Roman", serif;
-  --font-sans: "Arial Black", Arial, sans-serif;
-  --font-mono: Menlo, Monaco, "Courier New", monospace;
+  --bg-primary: #012;
+  --bg-secondary: #004;
+  --bg-tertiary: #006;
+  --text-primary: #acc;
+  --text-secondary: #1cc;
+  --text-tertiary: #aaa;
+  --accent-primary: #f8e;
+  --accent-secondary: #a37;
+
+  font-family: var(--font-sans);
+}
+
+/* FONT FACES */
+
+@font-face {
+  font-family: "Broadway";
+  src: url("/static/fonts/Broadway.woff2") format("woff2");
+}
+
+h1,
+h2,
+h3,
+.quick-links {
+  font-family: Broadway;
+}
+
+.post-title,
+.post-metadata {
+  font-family: var(--font-sans);
 }

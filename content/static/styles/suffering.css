@@ -1,16 +1,16 @@
-/* Suffering theme - deliberately uncomfortable */
+/* SITE-WIDE STYLES */
 
 :root {
-  --bg-primary: #ff0;
-  --bg-secondary: #dd0;
-  --bg-tertiary: #ee0;
-  --text-primary: #800080;
-  --text-secondary: #c0c;
-  --text-tertiary: #a0a;
-  --accent-primary: #f00;
-  --accent-secondary: #0f0;
-
-  --font-serif: "Comic Sans MS", "Comic Sans", cursive;
-  --font-sans: "Comic Sans MS", "Comic Sans", cursive;
-  --font-mono: "Comic Sans MS", "Comic Sans", cursive;
-}
+    --font-sans: serif;
+    --font-mono: sans-serif;
+    --font-serif: "Comic Sans MS", Chalkboard, Chalkduster, Righteous, handwriting;
+  
+    --bg-primary: #ff2;
+    --bg-secondary: #a84;
+    --bg-tertiary: #752;
+    --text-primary: #d00;
+    --text-secondary: #a50;
+    --text-tertiary: #800;
+    --accent-primary: #c0c;
+    --accent-secondary: #f0f;
+  }
