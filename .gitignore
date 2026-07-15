@@ -13,3 +13,4 @@ secrets.json
 *.code-workspace
 old/
 importflags.py
+logs/
