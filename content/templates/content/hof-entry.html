@@ -1,0 +1,73 @@
+{% extends 'content/base.html' %}
+
+{% block tab_name %}
+  {% if entry.title %}{{ entry.title }} | hof{% else %}hall of fame{% endif %}
+{% endblock %}
+
+{% block nav_bar %}
+  <a href="{% url 'front-page' %}">home</a> /
+  <a href="{% url 'hof-list' %}">hall of fame</a>
+{% endblock %}
+
+{% block page_heading %}
+  {% if entry.title %}
+    <h1>{{ entry.title }}</h1>
+  {% else %}
+    <h1 style="margin-bottom: -0.3rem;">hall of fame</h1>
+  {% endif %}
+{% endblock %}
+
+{% block main %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'codehilite.css' %}">
+  <link rel="stylesheet" href="{% static 'post-body.css' %}">
+  <link rel="stylesheet" href="{% static 'hof.css' %}">
+
+  {% with embed=entry.embed_info %}
+
+  <span class="timestamp">{{ entry.timestamp|date:"Y.m.d" }}</span>
+
+  {% if embed %}
+    {% if embed.type == "youtube" %}
+      <div class="videowrapper">
+        <iframe src="https://www.youtube-nocookie.com/embed/{{ embed.video_id }}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+    {% elif embed.type == "image_link" %}
+      <img src="{{ entry.link }}" alt="{{ entry.title }}" class="hof-image">
+    {% elif embed.type == "link" %}
+      <div class="hof-link-card">
+        <a href="{{ entry.link }}" target="_blank" rel="noopener noreferrer">{{ entry.link }}</a>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {% if entry.image %}
+    <img src="{{ entry.image.url }}" alt="{{ entry.title }}" class="hof-image">
+  {% endif %}
+
+  {% if entry.justification %}
+    <p class="hof-justification">{{ entry.justification }}</p>
+  {% endif %}
+
+  {% autoescape off %}{{ entry.markup }}{% endautoescape %}
+
+  <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+    {% if logged_in %}
+      <form action="/hof/{{ entry.url }}/favorite/" method="post" class="hof-favorite-form">
+        {% csrf_token %}
+        <button type="submit" class="hof-favorite-btn {% if is_favorite %}hof-favorited{% endif %}">
+          {% if is_favorite %}♥ favorited{% else %}♡ favorite{% endif %}
+        </button>
+      </form>
+    {% endif %}
+    <a href="{% url 'hof-lucky' %}" class="hof-lucky-btn">i'm feeling lucky →</a>
+    {% if is_staff %}
+      <a href="{% url 'hof-save' %}" style="font-size: 0.85rem;">+ add entry</a>
+    {% endif %}
+  </div>
+
+  {% endwith %}
+{% endblock %}

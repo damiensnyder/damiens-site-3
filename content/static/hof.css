@@ -1,0 +1,101 @@
+.hof-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0 0.25rem 0;
+  font-size: 0.85rem;
+}
+
+.hof-lucky-btn {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-style: italic;
+  border: 1px solid var(--text-tertiary);
+}
+
+.hof-lucky-btn:hover {
+  text-decoration: none;
+  background-color: var(--bg-tertiary);
+}
+
+.hof-entry-title {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+}
+
+.hof-entry-title > a {
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.hof-entry-title > a:hover {
+  text-decoration: none;
+}
+
+.hof-link-card {
+  display: block;
+  padding: 0.4rem 0.7rem;
+  margin: 0.4rem 0;
+  background-color: var(--bg-secondary);
+  border-radius: 6px;
+  border-left: 3px solid var(--accent-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hof-link-card a {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+}
+
+.hof-link-card a:hover {
+  color: var(--accent-primary);
+}
+
+.hof-justification {
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.9rem;
+  margin: 0.3rem 0;
+}
+
+.hof-favorite-form {
+  display: inline;
+}
+
+.hof-favorite-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: var(--text-tertiary);
+  margin: 0.3rem 0 0 0;
+  font-family: inherit;
+  line-height: 1;
+}
+
+.hof-favorite-btn:hover {
+  color: var(--accent-secondary);
+}
+
+.hof-favorited {
+  color: var(--accent-secondary) !important;
+}
+
+.hof-image {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: scale-down;
+  border-radius: 6px;
+  margin: 0.4rem 0;
+}
+
+.hof-tweet-wrapper {
+  margin: 0.5rem 0;
+}

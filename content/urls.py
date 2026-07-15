@@ -4,6 +4,13 @@ from . import views
 
 urlpatterns = [
     path('', views.front_page, name='front-page'),
+    path('hof/', views.hof_list, name='hof-list'),
+    path('hof/lucky/', views.hof_lucky, name='hof-lucky'),
+    path('hof/save/', views.hof_save, name='hof-save'),
+    path('hof/fetch-link/', views.hof_fetch_site_link, name='hof-fetch-link'),
+    path('hof/<int:page_num>/', views.hof_list, name='hof-paginated'),
+    path('hof/<entry_url>/favorite/', views.hof_favorite, name='hof-favorite'),
+    path('hof/<entry_url>/', views.hof_entry, name='hof-entry'),
     path('signup/', views.signup, name='signup'),
     path('signup/?dest_tag=<dest_tag>&dest_post=<dest_post>', views.signup, name='signup'),
     path('login/', views.login_view, name='login'),

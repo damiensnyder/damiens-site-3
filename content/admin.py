@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tag, Content, Shortform, Message
+from .models import Tag, Content, Shortform, Message, HofEntry, HofFavorite
 
 
 class ExcludeSpamFilter(admin.SimpleListFilter):
@@ -46,7 +46,20 @@ class MessageAdmin(admin.ModelAdmin):
     search_fields = ('body__icontains',)
 
 
+class HofEntryAdmin(admin.ModelAdmin):
+    list_display = ('url', 'title', 'timestamp', 'link')
+    search_fields = ('url__icontains', 'title__icontains', 'justification__icontains', 'body__icontains')
+    exclude = ('markup',)
+
+
+class HofFavoriteAdmin(admin.ModelAdmin):
+    list_display = ('user', 'entry')
+    list_filter = ('user',)
+
+
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Content, ContentAdmin)
 admin.site.register(Shortform, ShortformAdmin)
 admin.site.register(Message, MessageAdmin)
+admin.site.register(HofEntry, HofEntryAdmin)
+admin.site.register(HofFavorite, HofFavoriteAdmin)

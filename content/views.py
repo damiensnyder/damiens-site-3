@@ -1,16 +1,19 @@
 from django.http.response import Http404
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
-from random import random
-from content.models import Tag, Content, Shortform, Message
-from content.forms import ChangeSettingsForm, MessageForm
+from random import random, randint
+from urllib.parse import urlparse
+from content.models import Tag, Content, Shortform, Message, HofEntry, HofFavorite
+from content.forms import ChangeSettingsForm, MessageForm, HofEntryForm
 import datetime
 from accounts.models import User
 from accounts.forms import CreateUser
 from django.db.models import Q
+from damienssite3.telemetry import log_submission
 
 
 def front_page(request):
@@ -239,6 +242,13 @@ def send_message(request, tag_url, post_url):
                 was_content = False
             except Shortform.DoesNotExist:
                 raise Http404(f"No post found with URL {post_url}")
+
+        # Drop feedback from logged-out users on the spam-targeted post.
+        if post_url == "accounts-announcement" and not request.user.is_authenticated:
+            log_submission(request, "feedback_dropped", post=post_url,
+                           reason="anon_on_announcement")
+            return redirect(f"/{tag_url}/{post_url}/")
+
         form = MessageForm(data=request.POST)
         if form.is_valid():
             user = None
@@ -252,6 +262,10 @@ def send_message(request, tag_url, post_url):
                 user=user
             )
             message.save()
+            log_submission(request, "feedback", post=post_url,
+                           authed=request.user.is_authenticated)
+        else:
+            log_submission(request, "feedback_invalid", post=post_url)
         # return content(request, tag_url, post_url)  [gets URL wrong]
         return redirect(f"/{tag_url}/{post_url}/")
 
@@ -279,6 +293,128 @@ def get_theme(request):
     if request.user.is_authenticated:
         return request.user.theme
     return "auto"
+
+
+def hof_list(request, page_num=1):
+    entries = HofEntry.objects.all().order_by('-timestamp')
+    num_entries = entries.count()
+    num_pages = max(1, (num_entries + 19) // 20)
+    page_num = max(1, min(page_num, num_pages))
+    paginated = entries[20 * (page_num - 1):20 * page_num]
+    favorites = set()
+    if request.user.is_authenticated:
+        favorites = set(HofFavorite.objects.filter(user=request.user).values_list('entry_id', flat=True))
+    return render(request, 'content/hof-list.html', {
+        'entries': paginated,
+        'page_num': page_num,
+        'num_pages': num_pages,
+        'favorites': favorites,
+        'logged_in': request.user.is_authenticated,
+        'is_staff': request.user.is_staff,
+        'theme': get_theme(request),
+        'tag': {'name': 'internet hall of fame'},
+    })
+
+
+def hof_lucky(request):
+    count = HofEntry.objects.count()
+    if count == 0:
+        return redirect('/hof/')
+    entry = HofEntry.objects.all()[randint(0, count - 1)]
+    return redirect(f'/hof/{entry.url}/?lucky=1')
+
+
+def hof_entry(request, entry_url):
+    try:
+        entry = HofEntry.objects.get(url=entry_url)
+    except HofEntry.DoesNotExist:
+        raise Http404(f'No HOF entry with url "{entry_url}"')
+    is_favorite = False
+    if request.user.is_authenticated:
+        is_favorite = HofFavorite.objects.filter(user=request.user, entry=entry).exists()
+    return render(request, 'content/hof-entry.html', {
+        'entry': entry,
+        'is_favorite': is_favorite,
+        'logged_in': request.user.is_authenticated,
+        'is_staff': request.user.is_staff,
+        'from_lucky': request.GET.get('lucky') == '1',
+        'theme': get_theme(request),
+        'tag': {'name': entry.title or 'hall of fame'},
+    })
+
+
+def hof_save(request):
+    if not request.user.is_staff:
+        raise Http404()
+    if request.method == 'POST':
+        form = HofEntryForm(request.POST, request.FILES)
+        if form.is_valid():
+            entry = form.save(commit=False)
+            if not entry.timestamp:
+                entry.timestamp = datetime.datetime.now()
+            entry.save()
+            return redirect(f'/hof/{entry.url}/')
+    else:
+        form = HofEntryForm()
+    return render(request, 'content/hof-save.html', {
+        'form': form,
+        'theme': get_theme(request),
+        'tag': {'name': 'add to hall of fame'},
+        'logged_in': True,
+        'is_staff': True,
+    })
+
+
+def hof_favorite(request, entry_url):
+    if not request.user.is_authenticated:
+        return redirect(f'/login/?next=/hof/{entry_url}/')
+    try:
+        entry = HofEntry.objects.get(url=entry_url)
+    except HofEntry.DoesNotExist:
+        raise Http404()
+    if request.method == 'POST':
+        fav, created = HofFavorite.objects.get_or_create(user=request.user, entry=entry)
+        if not created:
+            fav.delete()
+    return redirect(f'/hof/{entry_url}/')
+
+
+def hof_fetch_site_link(request):
+    url_param = request.GET.get('url', '').strip()
+    if not url_param:
+        return JsonResponse({'error': 'no url'}, status=400)
+    parsed = urlparse(url_param)
+    path = parsed.path.strip('/')
+    parts = [p for p in path.split('/') if p]
+
+    def first_two_paragraphs(body, url_path):
+        paragraphs = [p for p in body.split('\n\n') if p.strip()]
+        if len(paragraphs) > 2:
+            return '\n\n'.join(paragraphs[:2]) + f'\n\n[Read more...](/{url_path})'
+        return body
+
+    candidates = []
+    if len(parts) >= 2:
+        candidates.append(parts[-1])
+    if len(parts) >= 1:
+        candidates.append(parts[-1])
+
+    post_url = parts[-1] if parts else ''
+    if not post_url:
+        return JsonResponse({'error': 'not found'}, status=404)
+
+    try:
+        post = Content.objects.get(url=post_url)
+        body = first_two_paragraphs(post.body, path)
+        return JsonResponse({'title': post.title, 'body': body})
+    except Content.DoesNotExist:
+        pass
+    try:
+        post = Shortform.objects.get(url=post_url)
+        return JsonResponse({'title': post.title, 'body': post.body})
+    except Shortform.DoesNotExist:
+        pass
+    return JsonResponse({'error': 'not found'}, status=404)
 
 
 def theme_preview(request):

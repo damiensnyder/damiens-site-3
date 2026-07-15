@@ -1,0 +1,64 @@
+{% extends 'content/base.html' %}
+
+{% block tab_name %}internet hall of fame{% endblock %}
+
+{% block nav_bar %}
+  <a href="{% url 'front-page' %}">home</a> /
+  <a href="{% url 'hof-list' %}">hall of fame</a>
+{% endblock %}
+
+{% block page_heading %}
+  <h1 style="margin-bottom: -0.3rem;">internet hall of fame</h1>
+{% endblock %}
+
+{% block main %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'codehilite.css' %}">
+  <link rel="stylesheet" href="{% static 'post-body.css' %}">
+  <link rel="stylesheet" href="{% static 'hof.css' %}">
+
+  <div class="hof-controls">
+    <a href="{% url 'hof-lucky' %}" class="hof-lucky-btn">i'm feeling lucky</a>
+    {% if is_staff %}
+      <a href="{% url 'hof-save' %}">+ add entry</a>
+    {% endif %}
+  </div>
+
+  {% for entry in entries %}
+    {% include 'content/hof-item.html' with entry=entry favorites=favorites logged_in=logged_in %}
+  {% empty %}
+    <p class="subtle" style="margin-top: 2rem; text-align: center;">nothing here yet.</p>
+  {% endfor %}
+{% endblock %}
+
+{% block footer %}
+  <div class="page-numbers">
+    {% if num_pages > 1 %}
+      <span>
+        {% if 1 == page_num %}1{% else %}<a href="{% url 'hof-list' %}">1</a>{% endif %}
+      </span>
+      {% if page_num > 3 %}
+        <span class="page-num-ellipsis">...</span>
+      {% endif %}
+      {% if page_num > 2 %}
+        <span>
+          <a href="/hof/{{ page_num|add:-1 }}/">{{ page_num|add:-1 }}</a>
+        </span>
+      {% endif %}
+      {% if page_num > 1 and page_num < num_pages %}
+        <span>{{ page_num }}</span>
+      {% endif %}
+      {% if page_num < num_pages|add:-1 %}
+        <span>
+          <a href="/hof/{{ page_num|add:1 }}/">{{ page_num|add:1 }}</a>
+        </span>
+      {% endif %}
+      {% if page_num < num_pages|add:-2 %}
+        <span class="page-num-ellipsis">...</span>
+      {% endif %}
+      <span>
+        {% if num_pages == page_num %}{{ num_pages }}{% else %}<a href="/hof/{{ num_pages }}/">{{ num_pages }}</a>{% endif %}
+      </span>
+    {% endif %}
+  </div>
+{% endblock %}

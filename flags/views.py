@@ -7,6 +7,7 @@ from django.views.decorators.http import require_http_methods
 from django.db.models import F
 import random
 from content.views import get_theme
+from damienssite3.telemetry import log_submission
 from .models import Flag, Pin, Report, Vote
 
 
@@ -23,6 +24,13 @@ def vote(request):
         selected_flags = request.POST.getlist('selected_flags')
         all_options = request.POST.getlist('all_flags')
         selected_flags = [int(flag) for flag in selected_flags]
+        num_selected = len(selected_flags)
+
+        # Drop empty ballots from logged-out users — the current spam signature.
+        if not request.user.is_authenticated and num_selected == 0:
+            log_submission(request, "flag_vote_dropped", reason="anon_zero_flags")
+            return redirect("flags:vote")
+
         unselected_flags = [int(flag) for flag in all_options if int(flag) not in selected_flags]
         selected_flags = Flag.objects.filter(pk__in=selected_flags)
         unselected_flags = Flag.objects.filter(pk__in=unselected_flags)
@@ -53,6 +61,7 @@ def vote(request):
             flag.save()
 
         # Redirect to the same page to prevent form resubmission
+        log_submission(request, "flag_vote", selected=num_selected)
         return redirect("flags:vote")
     
     # Prepare context for template rendering

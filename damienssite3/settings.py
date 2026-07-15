@@ -160,3 +160,35 @@ else:
         "https://www.damiensnyder.com"
     ]
 CORS_ALLOW_CREDENTIALS = True
+
+
+# Logging — first-party submission telemetry to a rotating file (see
+# damienssite3/telemetry.py). Used to spot user-agents / IPs spamming forms.
+LOGS_DIR = os.path.join(BASE_DIR, 'logs')
+os.makedirs(LOGS_DIR, exist_ok=True)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'submissions': {
+            'format': '%(asctime)s %(message)s',
+        },
+    },
+    'handlers': {
+        'submissions_file': {
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGS_DIR, 'submissions.log'),
+            'maxBytes': 5 * 1024 * 1024,
+            'backupCount': 3,
+            'formatter': 'submissions',
+        },
+    },
+    'loggers': {
+        'submissions': {
+            'handlers': ['submissions_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
