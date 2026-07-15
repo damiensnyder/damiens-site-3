@@ -1,0 +1,51 @@
+{% with embed=entry.embed_info %}
+
+{% if entry.title %}
+<h2 class="hof-entry-title">
+  <a href="/hof/{{ entry.url }}/">{{ entry.title }}</a>
+</h2>
+{% else %}
+<h2 class="hof-entry-title">
+  <a href="/hof/{{ entry.url }}/">{{ entry.timestamp|date:"Y.m.d" }}</a>
+</h2>
+{% endif %}
+
+<span class="timestamp-shortform">{{ entry.timestamp|date:"Y.m.d" }}</span>
+
+{% if embed %}
+  {% if embed.type == "youtube" %}
+    <div class="videowrapper">
+      <iframe src="https://www.youtube-nocookie.com/embed/{{ embed.video_id }}"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+  {% elif embed.type == "image_link" %}
+    <img src="{{ entry.link }}" alt="{{ entry.title }}" class="hof-image">
+  {% elif embed.type == "link" %}
+    <div class="hof-link-card">
+      <a href="{{ entry.link }}" target="_blank" rel="noopener noreferrer">{{ entry.link }}</a>
+    </div>
+  {% endif %}
+{% endif %}
+
+{% if entry.image %}
+  <img src="{{ entry.image.url }}" alt="{{ entry.title }}" class="hof-image">
+{% endif %}
+
+{% if entry.justification %}
+  <p class="hof-justification">{{ entry.justification }}</p>
+{% endif %}
+
+{% autoescape off %}{{ entry.markup }}{% endautoescape %}
+
+{% if logged_in %}
+  <form action="/hof/{{ entry.url }}/favorite/" method="post" class="hof-favorite-form">
+    {% csrf_token %}
+    <button type="submit" class="hof-favorite-btn {% if entry.id in favorites %}hof-favorited{% endif %}">
+      {% if entry.id in favorites %}♥{% else %}♡{% endif %}
+    </button>
+  </form>
+{% endif %}
+
+{% endwith %}

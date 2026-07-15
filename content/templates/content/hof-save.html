@@ -1,0 +1,124 @@
+{% extends 'content/base.html' %}
+
+{% block tab_name %}add to hall of fame{% endblock %}
+
+{% block nav_bar %}
+  <a href="{% url 'front-page' %}">home</a> /
+  <a href="{% url 'hof-list' %}">hall of fame</a>
+{% endblock %}
+
+{% block main %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'post-body.css' %}">
+  <link rel="stylesheet" href="{% static 'hof.css' %}">
+
+  <form method="post" enctype="multipart/form-data" id="hof-save-form">
+    {% csrf_token %}
+
+    <label for="id_link">link <span class="subtle">(optional)</span></label>
+    <input type="text" name="link" id="id_link"
+           value="{{ form.link.value|default:'' }}"
+           placeholder="paste a URL...">
+    {% for error in form.link.errors %}
+      <p class="error">{{ error }}</p>
+    {% endfor %}
+
+    <label for="id_image">image <span class="subtle">(optional — upload or paste anywhere on the page)</span></label>
+    <input type="file" name="image" id="id_image" accept="image/*">
+    <img id="image-preview" alt="preview" style="display:none; max-width: 100%; max-height: 40vh; object-fit: scale-down; border-radius: 6px; margin: 0.25rem 0;">
+    {% for error in form.image.errors %}
+      <p class="error">{{ error }}</p>
+    {% endfor %}
+
+    <label for="id_title">title <span class="subtle">(optional)</span></label>
+    <input type="text" name="title" id="id_title"
+           value="{{ form.title.value|default:'' }}"
+           placeholder="name for this entry...">
+    {% for error in form.title.errors %}
+      <p class="error">{{ error }}</p>
+    {% endfor %}
+
+    <label for="id_justification">why did you save this? <span class="subtle">(optional)</span></label>
+    <textarea name="justification" id="id_justification" rows="3"
+              placeholder="context, commentary...">{{ form.justification.value|default:'' }}</textarea>
+    {% for error in form.justification.errors %}
+      <p class="error">{{ error }}</p>
+    {% endfor %}
+
+    <label for="id_body">markdown content <span class="subtle">(optional — auto-populated for site links)</span></label>
+    <textarea name="body" id="id_body" rows="10"
+              placeholder="markdown content...">{{ form.body.value|default:'' }}</textarea>
+    {% for error in form.body.errors %}
+      <p class="error">{{ error }}</p>
+    {% endfor %}
+
+    <label for="id_url">url slug <span class="subtle">(optional — auto-generated if blank)</span></label>
+    <input type="text" name="url" id="id_url"
+           value="{{ form.url.value|default:'' }}"
+           placeholder="auto-generated...">
+    {% for error in form.url.errors %}
+      <p class="error">{{ error }}</p>
+    {% endfor %}
+
+    <button type="submit" style="margin-top: 0.5rem; align-self: flex-start;">save</button>
+  </form>
+
+  <script>
+    // Auto-populate title + body when a site link is entered
+    document.getElementById('id_link').addEventListener('blur', function () {
+      const link = this.value.trim();
+      if (!link) return;
+      const isSiteLink = link.startsWith('/') ||
+        link.includes('damiensnyder.com');
+      if (!isSiteLink) return;
+
+      fetch('/hof/fetch-link/?url=' + encodeURIComponent(link))
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (!data) return;
+          const titleField = document.getElementById('id_title');
+          const bodyField = document.getElementById('id_body');
+          if (data.title && !titleField.value) {
+            titleField.value = data.title;
+          }
+          if (data.body && !bodyField.value) {
+            bodyField.value = data.body;
+          }
+        })
+        .catch(() => {});
+    });
+
+    // Paste image anywhere on the page
+    document.addEventListener('paste', function (e) {
+      const items = Array.from(e.clipboardData.items);
+      const imageItem = items.find(item => item.type.startsWith('image/'));
+      if (!imageItem) return;
+      e.preventDefault();
+      const file = imageItem.getAsFile();
+      setImageFile(file);
+    });
+
+    // Preview on file input change
+    document.getElementById('id_image').addEventListener('change', function () {
+      if (this.files[0]) setImageFile(this.files[0]);
+    });
+
+    function setImageFile(file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const preview = document.getElementById('image-preview');
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+
+      try {
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        document.getElementById('id_image').files = dt.files;
+      } catch (err) {
+        // DataTransfer not supported in all browsers; file input unchanged
+      }
+    }
+  </script>
+{% endblock %}

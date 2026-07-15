@@ -1,4 +1,18 @@
 from django import forms
+from .models import HofEntry
+
+
+class HofEntryForm(forms.ModelForm):
+    class Meta:
+        model = HofEntry
+        fields = ['link', 'image', 'title', 'justification', 'body', 'url']
+        widgets = {
+            'justification': forms.Textarea(attrs={'rows': 3}),
+            'body': forms.Textarea(attrs={'rows': 10}),
+        }
+
+    def clean_url(self):
+        return self.cleaned_data.get('url', '').strip()
 
 
 class MessageForm(forms.Form):
