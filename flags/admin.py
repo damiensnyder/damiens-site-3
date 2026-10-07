@@ -3,8 +3,8 @@ from .models import Flag, Vote, Pin, Report
 
 
 class FlagAdmin(admin.ModelAdmin):
-    list_display = ('name', 'img_url', 'width', 'height', 'source', 'total_score', 'num_votes')
-    list_filter = ('num_votes', 'total_score')
+    list_display = ('name', 'img_url', 'width', 'height', 'source', 'country_code', 'status', 'total_score', 'num_votes')
+    list_filter = ('status', 'num_votes', 'total_score')
     search_fields = ('name__icontains',)
 
 

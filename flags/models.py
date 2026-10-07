@@ -3,12 +3,24 @@ from accounts.models import User
 
 
 class Flag(models.Model):
+    STATUS_CHOICES = [
+        ('current', 'Current'),
+        ('former', 'Former'),
+        ('variant', 'Variant'),
+    ]
+
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
-    img_url = models.CharField(max_length=200, unique=True)
+    subtitle = models.CharField(max_length=200, null=True, blank=True)
+    img_url = models.CharField(max_length=200)
     width = models.IntegerField()
     height = models.IntegerField()
-    source = models.CharField(max_length=200)
+    source = models.CharField(max_length=200, unique=True)
+    country_code = models.CharField(max_length=8, default='')
+    country = models.CharField(max_length=200, null=True, blank=True)
+    period = models.CharField(max_length=100, null=True, blank=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='current')
+    other_flags = models.JSONField(default=list, blank=True)
     total_score = models.IntegerField(default=0)
     num_votes = models.IntegerField(default=0)
     leaderboard_score = models.FloatField(default=0)

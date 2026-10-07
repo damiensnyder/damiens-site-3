@@ -57,7 +57,7 @@ def vote(request):
             )
             vote.save()
             flag.num_votes += 1
-            flag.total_score -= len(selected_flags) - 5
+            flag.total_score -= len(selected_flags) + 5
             flag.save()
 
         # Redirect to the same page to prevent form resubmission
