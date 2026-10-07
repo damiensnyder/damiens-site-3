@@ -29,6 +29,7 @@
                 <a href="{% url 'flags:flag_info' flag.id %}" target="_blank">
                     <img src="{{ flag.img_url }}" 
                             alt="{{ flag.name }}"
+                            title="{{ flag.name }}"
                             width="{{ flag.width }}"
                             height="{{ flag.height }}">
                 </a>
@@ -40,7 +41,7 @@
                                 name="selected_flags"
                                 value="{{ flag.id }}"
                                 {% if flag.id in selected_flags %}checked{% endif %}>
-                        <span class="flag-name">{{ flag.name }}</span>
+                        <span class="flag-name" title="{{ flag.name }}">{{ flag.name }}</span>
                     </label>
                 </div>
             </div>
