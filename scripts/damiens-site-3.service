@@ -1,0 +1,33 @@
+[Unit]
+Description=damiens-site-3 (www.damiensnyder.com)
+After=network.target
+
+[Service]
+Type=notify
+NotifyAccess=main
+User=sites
+Group=sites
+WorkingDirectory=/home/damiens-site-3
+RuntimeDirectory=damiens-site-3
+ExecStart=/home/damiens-site-3/.venv/bin/gunicorn damienssite3.wsgi \
+    --bind unix:/run/damiens-site-3/gunicorn.sock --umask 007 \
+    --workers 2 --threads 2 --timeout 60 --max-requests 2000 --max-requests-jitter 200 --no-control-socket
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+Restart=always
+RestartSec=3
+
+# Sandboxing: the app can only write inside its own directory (and only to
+# files the 'sites' user owns there).
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/damiens-site-3
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+[Install]
+WantedBy=multi-user.target

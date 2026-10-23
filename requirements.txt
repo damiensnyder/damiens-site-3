@@ -1,0 +1,11 @@
+# Install/refresh with scripts/deploy.sh. To upgrade within these ranges:
+#   uv pip install --python .venv -U -r requirements.txt
+Django>=5.2,<5.3
+djangorestframework>=3.16
+djangorestframework-simplejwt>=5.5
+django-cors-headers>=4.4
+Markdown>=3.7
+markdown-katex>=202406.1035
+markdown-customblocks>=1.5
+Pillow>=11
+gunicorn>=23

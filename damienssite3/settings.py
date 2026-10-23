@@ -122,8 +122,6 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
-
 USE_TZ = True
 
 
@@ -159,6 +157,10 @@ else:
         "https://arcade.damiensnyder.com",
         "https://www.damiensnyder.com"
     ]
+    # nginx terminates TLS and proxies to gunicorn, setting this header
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 CORS_ALLOW_CREDENTIALS = True
 
 
