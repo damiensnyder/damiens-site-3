@@ -163,9 +163,8 @@ else:
     CSRF_COOKIE_SECURE = True
 CORS_ALLOW_CREDENTIALS = True
 
+SECURE_REFERRER_POLICY = 'strict-origin-when-cross-origin' # keeps youtube embed from breaking
 
-# Logging — first-party submission telemetry to a rotating file (see
-# damienssite3/telemetry.py). Used to spot user-agents / IPs spamming forms.
 LOGS_DIR = os.path.join(BASE_DIR, 'logs')
 os.makedirs(LOGS_DIR, exist_ok=True)
 
